@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const t=document.querySelector('.menu-toggle');const m=document.querySelector('.mobile-nav');if(t&&m){t.addEventListener('click',()=>m.classList.toggle('open'));}document.querySelectorAll('.nav a,.mobile-nav a').forEach(a=>{a.addEventListener('click',()=>m&&m.classList.remove('open'));});});
