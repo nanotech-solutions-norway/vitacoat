@@ -18,3 +18,4 @@ This repository contains:
 - All email references use the `@vitacoat.eu` domain.
 - The site is implemented as a static GitHub Pages build.
 - The design direction follows the Gamma source and project handoff guidance.
+- Deployment workflow corrected on 2026-04-20 to remove the recursive artifact copy step.
