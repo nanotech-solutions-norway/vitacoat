@@ -19,3 +19,9 @@ This repository contains:
 - The site is implemented as a static GitHub Pages build.
 - The design direction follows the Gamma source and project handoff guidance.
 - Deployment workflow corrected on 2026-04-20 to remove the recursive artifact copy step.
+
+## Asset hardening status
+
+- Several page images are still referenced from Gamma-hosted CDN URLs as interim visual placeholders.
+- Recommended final-state improvement: replace those references with approved local files inside the repository assets structure.
+- Final launch-grade QA should also include image compression review, filename normalization, and OG/share-image standardization.
