@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#eef2ff"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" x2="1">
+      <stop offset="0%" stop-color="#6b74f4"/>
+      <stop offset="100%" stop-color="#4950bc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" rx="48" fill="url(#bg)"/>
+  <rect x="92" y="92" width="610" height="816" rx="34" fill="#ffffff" opacity="0.96"/>
+  <text x="142" y="168" fill="#1a1a1a" font-family="Arial, sans-serif" font-size="52" font-weight="700">VitaCoat</text>
+  <text x="142" y="250" fill="#4950bc" font-family="Arial, sans-serif" font-size="66" font-weight="800">Persistent Hygienic Protection</text>
+  <text x="142" y="320" fill="#1a1a1a" font-family="Arial, sans-serif" font-size="42" font-weight="700">for High-Touch Hard Surfaces</text>
+  <text x="142" y="398" fill="#5d6169" font-family="Arial, sans-serif" font-size="28">Transparent antimicrobial coating for hard, non-porous</text>
+  <text x="142" y="436" fill="#5d6169" font-family="Arial, sans-serif" font-size="28">environments where hygiene continuity matters between</text>
+  <text x="142" y="474" fill="#5d6169" font-family="Arial, sans-serif" font-size="28">routine cleaning events.</text>
+  <rect x="142" y="552" width="290" height="72" rx="18" fill="url(#blue)"/>
+  <text x="183" y="598" fill="#ffffff" font-family="Arial, sans-serif" font-size="30" font-weight="700">Technical review ready</text>
+  <rect x="142" y="692" width="476" height="126" rx="24" fill="#ffffff" stroke="#dfe4fb" stroke-width="3"/>
+  <text x="178" y="744" fill="#171717" font-family="Arial, sans-serif" font-size="28" font-weight="700">Validated technical themes</text>
+  <text x="178" y="786" fill="#4950bc" font-family="Arial, sans-serif" font-size="24" font-weight="700">EN-backed proof • up to six months • hard, non-porous surfaces</text>
+  <text x="178" y="818" fill="#7a7f8a" font-family="Arial, sans-serif" font-size="20">Healthcare • food processing • public facilities • education/offices • electronics</text>
+  <g transform="translate(820 92)">
+    <rect width="690" height="816" rx="34" fill="#eef2ff"/>
+    <circle cx="520" cy="184" r="148" fill="#f7f7ef"/>
+    <circle cx="528" cy="182" r="76" fill="url(#blue)" opacity="0.92"/>
+    <circle cx="610" cy="328" r="58" fill="#cde86e" opacity="0.95"/>
+    <circle cx="420" cy="366" r="78" fill="#c8eff8" opacity="0.92"/>
+    <circle cx="434" cy="350" r="42" fill="#27a0ee" opacity="0.95"/>
+    <path d="M388 52c90 0 186 8 258 26l-30 120c-86-20-168-28-244-26-41 1-81 3-120 8l-38-114c56-8 114-13 174-14z" fill="#ffffff" opacity="0.95"/>
+    <text x="114" y="132" fill="#171717" font-family="Arial, sans-serif" font-size="48" font-weight="700">VitaCoat</text>
+    <text x="114" y="206" fill="#4950bc" font-family="Arial, sans-serif" font-size="62" font-weight="800">Persistent Hygienic Protection</text>
+    <text x="114" y="268" fill="#171717" font-family="Arial, sans-serif" font-size="38" font-weight="700">for High-Touch Hard Surfaces</text>
+  </g>
+</svg>
