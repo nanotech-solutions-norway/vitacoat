@@ -1,1 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000"><rect width="1600" height="1000" rx="48" fill="#eef2ff"/><rect x="110" y="100" width="470" height="84" rx="22" fill="#ffffff" opacity="0.95"/><text x="160" y="154" fill="#171717" font-family="Arial, sans-serif" font-size="46" font-weight="700">VitaCoat</text><text x="160" y="235" fill="#4950bc" font-family="Arial, sans-serif" font-size="62" font-weight="700">Technical Support</text><text x="160" y="310" fill="#171717" font-family="Arial, sans-serif" font-size="42" font-weight="700">Guided review and response workflow</text><rect x="860" y="160" width="560" height="690" rx="38" fill="#ffffff" opacity="0.94"/><text x="910" y="230" fill="#171717" font-family="Arial, sans-serif" font-size="30" font-weight="700">Support pathway</text><rect x="910" y="280" width="460" height="86" rx="18" fill="#edf3ff"/><text x="950" y="333" fill="#4950bc" font-family="Arial, sans-serif" font-size="25" font-weight="700">1. Inquiry intake and triage</text><rect x="910" y="390" width="460" height="86" rx="18" fill="#edf3ff"/><text x="950" y="443" fill="#4950bc" font-family="Arial, sans-serif" font-size="25" font-weight="700">2. Technical assignment</text><rect x="910" y="500" width="460" height="86" rx="18" fill="#edf3ff"/><text x="950" y="553" fill="#4950bc" font-family="Arial, sans-serif" font-size="25" font-weight="700">3. Engineering assessment</text><rect x="910" y="610" width="460" height="86" rx="18" fill="#edf3ff"/><text x="950" y="663" fill="#4950bc" font-family="Arial, sans-serif" font-size="25" font-weight="700">4. Proposal and document pack</text><rect x="170" y="470" width="430" height="88" rx="22" fill="#4950bc"/><text x="220" y="526" fill="#ffffff" font-family="Arial, sans-serif" font-size="30" font-weight="700">Specification-ready support</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="tsbg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#eef2ff"/>
+    </linearGradient>
+    <linearGradient id="mist" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.0"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.78"/>
+      <stop offset="100%" stop-color="#dce7f0" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" rx="48" fill="url(#tsbg)"/>
+  <rect x="110" y="96" width="600" height="808" rx="32" fill="#ffffff" opacity="0.98"/>
+  <text x="160" y="172" fill="#4950bc" font-family="Arial, sans-serif" font-size="28" font-weight="700">TECHNICAL SUPPORT</text>
+  <text x="160" y="264" fill="#171717" font-family="Arial, sans-serif" font-size="74" font-weight="800">Guided review</text>
+  <text x="160" y="344" fill="#171717" font-family="Arial, sans-serif" font-size="74" font-weight="800">and response</text>
+  <text x="160" y="424" fill="#171717" font-family="Arial, sans-serif" font-size="74" font-weight="800">workflow</text>
+  <text x="160" y="514" fill="#5d6169" font-family="Arial, sans-serif" font-size="28">Structured technical review for pilots, specification,</text>
+  <text x="160" y="552" fill="#5d6169" font-family="Arial, sans-serif" font-size="28">documents, procurement, and deployment questions.</text>
+  <rect x="160" y="668" width="356" height="76" rx="18" fill="#4950bc"/>
+  <text x="208" y="716" fill="#ffffff" font-family="Arial, sans-serif" font-size="30" font-weight="700">Specification-ready support</text>
+  <g transform="translate(840 112)">
+    <rect width="646" height="776" rx="34" fill="#f5f8fb"/>
+    <circle cx="350" cy="390" r="170" fill="#dde7ef" opacity="0.55"/>
+    <rect x="242" y="354" width="86" height="160" rx="24" fill="#3b3f46" transform="rotate(-18 242 354)"/>
+    <rect x="296" y="336" width="118" height="58" rx="18" fill="#e8edf3" transform="rotate(-18 296 336)"/>
+    <path d="M372 332c82-34 170-62 244-76" stroke="#bfc7cf" stroke-width="16" stroke-linecap="round"/>
+    <path d="M420 316c68-22 144-44 212-54" stroke="url(#mist)" stroke-width="82" stroke-linecap="round" opacity="0.9"/>
+    <circle cx="336" cy="436" r="22" fill="#ffffff" opacity="0.45"/>
+  </g>
+</svg>
