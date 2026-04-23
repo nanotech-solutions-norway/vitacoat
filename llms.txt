@@ -1,0 +1,39 @@
+# VitaCoat
+
+> VitaCoat is a transparent antimicrobial surface coating for hard, non-porous, high-touch surfaces. It combines citrus bioflavonoids with a durable SiO₂ matrix and is positioned as a supplementary hygienic surface layer that supports hygiene between routine cleaning and disinfection cycles.
+
+## Primary pages
+- Home: https://www.vitacoat.eu/
+- Applications hub: https://www.vitacoat.eu/applications/
+- Documentation hub: https://www.vitacoat.eu/documentation/
+- FAQ: https://www.vitacoat.eu/faq/
+- Contact: https://www.vitacoat.eu/contact/
+
+## Application pages
+- Healthcare: https://www.vitacoat.eu/applications/healthcare/
+- Food processing: https://www.vitacoat.eu/applications/food-processing/
+- Public facilities: https://www.vitacoat.eu/applications/public-facilities/
+- Education and offices: https://www.vitacoat.eu/applications/education-and-offices/
+- Electronics and touchpoints: https://www.vitacoat.eu/applications/electronics-and-touchpoints/
+
+## Technical proof and supporting pages
+- How it works: https://www.vitacoat.eu/how-it-works/
+- Continuous protection: https://www.vitacoat.eu/benefits/continuous-protection/
+- Easier cleaning: https://www.vitacoat.eu/benefits/easier-cleaning/
+- Surface compatibility: https://www.vitacoat.eu/benefits/surface-compatibility/
+- Testing and standards: https://www.vitacoat.eu/proof/testing-and-standards/
+- Durability: https://www.vitacoat.eu/proof/durability/
+- Safety and environment: https://www.vitacoat.eu/proof/safety-and-environment/
+- Pathogen spectrum: https://www.vitacoat.eu/proof/pathogen-spectrum/
+- Application process: https://www.vitacoat.eu/application-process/
+- Maintenance and reapplication: https://www.vitacoat.eu/maintenance-and-reapplication/
+
+## Important claim boundaries
+- VitaCoat supplements routine cleaning and disinfection; it does not replace them.
+- VitaCoat is positioned for hard, non-porous surfaces.
+- Direct-food-contact approval should not be assumed.
+- Project-specific fit should be confirmed through technical review and documentation.
+
+## Preferred contact routes
+- Technical review: mailto:technical@vitacoat.eu
+- Documentation requests: mailto:documents@vitacoat.eu
