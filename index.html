@@ -20,6 +20,56 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.vitacoat.eu/#organization",
+        "name": "VitaCoat",
+        "url": "https://www.vitacoat.eu/",
+        "logo": "https://www.vitacoat.eu/assets/img/vitacoat-og.svg",
+        "email": "technical@vitacoat.eu"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.vitacoat.eu/#website",
+        "url": "https://www.vitacoat.eu/",
+        "name": "VitaCoat",
+        "publisher": {"@id": "https://www.vitacoat.eu/#organization"},
+        "inLanguage": "no",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.vitacoat.eu/faq/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Product",
+        "@id": "https://www.vitacoat.eu/#product",
+        "name": "VitaCoat",
+        "brand": "VitaCoat",
+        "category": "Antimicrobial surface coating",
+        "description": "Transparent antimikrobielt belegg for harde, ikke-porøse overflater, posisjonert som et supplerende hygienisk overflatelag.",
+        "url": "https://www.vitacoat.eu/",
+        "image": "https://www.vitacoat.eu/assets/img/vitacoat-og.svg",
+        "additionalProperty": [
+          {"@type": "PropertyValue", "name": "Overflatefit", "value": "Harde, ikke-porøse overflater"},
+          {"@type": "PropertyValue", "name": "Beskyttelsesvindu", "value": "Opptil seks måneder under normal bruk"},
+          {"@type": "PropertyValue", "name": "Viktig merknad", "value": "Supplerer rutinemessig rengjøring og desinfeksjon; erstatter dem ikke"}
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.vitacoat.eu/#breadcrumb",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Hjem", "item": "https://www.vitacoat.eu/"}
+        ]
+      }
+    ]
+  }
+  </script>
   <script defer src="/assets/js/site.js"></script>
 </head>
 <body>
