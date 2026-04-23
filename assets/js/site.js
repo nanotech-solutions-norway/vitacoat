@@ -170,12 +170,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const step=(now)=>{
       const progress=Math.min((now-start)/duration,1);
       render(numeric*easeOutCubic(progress));
-      if(progress<1){
-        requestAnimationFrame(step);
-      }else{
-        el.textContent=raw;
-        el.dataset.animated='true';
-      }
+      if(progress<1){requestAnimationFrame(step);}else{el.textContent=raw;el.dataset.animated='true';}
     };
     requestAnimationFrame(step);
   };
@@ -214,7 +209,6 @@ document.addEventListener('DOMContentLoaded',()=>{
       observer.unobserve(el);
     });
   },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
-
   document.querySelectorAll('.animate-on-scroll').forEach(el=>observer.observe(el));
 
   const counterObserver=new IntersectionObserver(entries=>{
@@ -234,6 +228,38 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   },{threshold:0.25});
   document.querySelectorAll('.bar-group').forEach(el=>barObserver.observe(el));
+
+  const topButton=document.createElement('button');
+  topButton.type='button';
+  topButton.className='mobile-top-button';
+  topButton.setAttribute('aria-label','Back to the top of the page');
+  topButton.innerHTML='<span aria-hidden="true">↑</span><span>Back to top</span>';
+  document.body.appendChild(topButton);
+  topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:prefersReducedMotion?'auto':'smooth'}));
+
+  let lastY=window.scrollY;
+  let ticking=false;
+  const updateTopButton=()=>{
+    const currentY=window.scrollY;
+    const isMobile=window.innerWidth<=860;
+    const scrollingUp=currentY<lastY-6;
+    const farEnough=currentY>280;
+    if(isMobile&&farEnough&&scrollingUp){
+      topButton.classList.add('is-visible');
+    }else{
+      topButton.classList.remove('is-visible');
+    }
+    lastY=currentY;
+    ticking=false;
+  };
+  window.addEventListener('scroll',()=>{
+    if(!ticking){
+      window.requestAnimationFrame(updateTopButton);
+      ticking=true;
+    }
+  },{passive:true});
+  window.addEventListener('resize',updateTopButton);
+  updateTopButton();
 
   let icon=document.querySelector('link[rel="icon"]');
   if(!icon){
