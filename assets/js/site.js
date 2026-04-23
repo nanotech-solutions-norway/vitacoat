@@ -1,32 +1,32 @@
 document.addEventListener('DOMContentLoaded',()=>{
   const currentPath=window.location.pathname;
   const navConfig=[
-    {href:'/',label:'Home',active:(p)=>p==='/'},
-    {href:'/applications/',label:'Applications',active:(p)=>p.startsWith('/applications/')},
-    {href:'/documentation/',label:'Documentation',active:(p)=>p.startsWith('/documentation/')||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith('/application-process/')||p.startsWith('/maintenance-and-reapplication/')||p.startsWith('/faq/')},
-    {href:'/technical-support/',label:'Technical Support',active:(p)=>p.startsWith('/technical-support/')},
-    {href:'/contact/',label:'Contact',active:(p)=>p.startsWith('/contact/')}
+    {href:'/',label:'Hjem',active:(p)=>p==='/'},
+    {href:'/applications/',label:'Bruksområder',active:(p)=>p.startsWith('/applications/')},
+    {href:'/documentation/',label:'Dokumentasjon',active:(p)=>p.startsWith('/documentation/')||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith('/application-process/')||p.startsWith('/maintenance-and-reapplication/')||p.startsWith('/faq/')},
+    {href:'/technical-support/',label:'Teknisk støtte',active:(p)=>p.startsWith('/technical-support/')},
+    {href:'/contact/',label:'Kontakt',active:(p)=>p.startsWith('/contact/')}
   ];
 
   const submenus={
     '/applications/':[
-      {href:'/applications/healthcare/',label:'Healthcare'},
-      {href:'/applications/food-processing/',label:'Food Processing'},
-      {href:'/applications/public-facilities/',label:'Public Facilities'},
-      {href:'/applications/education-and-offices/',label:'Education & Offices'},
-      {href:'/applications/electronics-and-touchpoints/',label:'Electronics & Touchpoints'}
+      {href:'/applications/healthcare/',label:'Helse'},
+      {href:'/applications/food-processing/',label:'Næringsmiddelindustri'},
+      {href:'/applications/public-facilities/',label:'Offentlige miljøer'},
+      {href:'/applications/education-and-offices/',label:'Skole og kontor'},
+      {href:'/applications/electronics-and-touchpoints/',label:'Elektronikk og kontaktpunkter'}
     ],
     '/documentation/':[
-      {href:'/documentation/',label:'Documentation Hub'},
-      {href:'/benefits/continuous-protection/',label:'Continuous Protection'},
-      {href:'/benefits/easier-cleaning/',label:'Easier Cleaning'},
-      {href:'/benefits/surface-compatibility/',label:'Surface Compatibility'},
-      {href:'/proof/testing-and-standards/',label:'Testing & Standards'},
-      {href:'/proof/durability/',label:'Durability'},
-      {href:'/proof/safety-and-environment/',label:'Safety & Environment'},
-      {href:'/proof/pathogen-spectrum/',label:'Pathogen Spectrum'},
-      {href:'/application-process/',label:'Application Process'},
-      {href:'/maintenance-and-reapplication/',label:'Maintenance & Reapplication'},
+      {href:'/documentation/',label:'Dokumentasjonssenter'},
+      {href:'/benefits/continuous-protection/',label:'Vedvarende beskyttelse'},
+      {href:'/benefits/easier-cleaning/',label:'Enklere rengjøring'},
+      {href:'/benefits/surface-compatibility/',label:'Overflatekompatibilitet'},
+      {href:'/proof/testing-and-standards/',label:'Testing og standarder'},
+      {href:'/proof/durability/',label:'Holdbarhet'},
+      {href:'/proof/safety-and-environment/',label:'Sikkerhet og miljø'},
+      {href:'/proof/pathogen-spectrum/',label:'Patogenspekter'},
+      {href:'/application-process/',label:'Applikasjonsprosess'},
+      {href:'/maintenance-and-reapplication/',label:'Vedlikehold og reapplikasjon'},
       {href:'/faq/',label:'FAQ'}
     ]
   };
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         toggle.type='button';
         toggle.className='mobile-subnav-toggle';
         toggle.setAttribute('aria-expanded','false');
-        toggle.setAttribute('aria-label',`Toggle ${item.label} submenu`);
+        toggle.setAttribute('aria-label',`Vis undermeny for ${item.label}`);
         toggle.innerHTML='<span aria-hidden="true">›</span>';
         row.appendChild(toggle);
         const submenu=document.createElement('div');
@@ -123,8 +123,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   buildMobileNav();
 
   if(menuToggle){
-    menuToggle.innerHTML='<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Menu</span>';
-    menuToggle.setAttribute('aria-label','Open menu');
+    menuToggle.innerHTML='<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Meny</span>';
+    menuToggle.setAttribute('aria-label','Åpne meny');
   }
   if(menuToggle&&mobileNav){
     menuToggle.addEventListener('click',()=>mobileNav.classList.toggle('open'));
@@ -161,11 +161,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       const formatted=(decimals>0?value.toFixed(decimals):Math.round(value).toString()).replace(/\B(?=(\d{3})+(?!\d))/g,',');
       el.textContent=`${prefix}${formatted}${suffix}`;
     };
-    if(prefersReducedMotion){
-      el.textContent=raw;
-      el.dataset.animated='true';
-      return;
-    }
+    if(prefersReducedMotion){el.textContent=raw;el.dataset.animated='true';return;}
     render(0);
     const step=(now)=>{
       const progress=Math.min((now-start)/duration,1);
@@ -180,12 +176,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     group.querySelectorAll('.bar-fill').forEach(el=>{
       const target=el.dataset.targetWidth||el.style.width||'0%';
       el.dataset.targetWidth=target;
-      if(prefersReducedMotion){
-        el.style.width=target;
-      }else{
-        el.style.width='0%';
-        requestAnimationFrame(()=>{el.style.width=target;});
-      }
+      if(prefersReducedMotion){el.style.width=target;}else{el.style.width='0%';requestAnimationFrame(()=>{el.style.width=target;});}
       el.dataset.animated='true';
     });
     group.dataset.animated='true';
@@ -232,65 +223,33 @@ document.addEventListener('DOMContentLoaded',()=>{
   const topButton=document.createElement('button');
   topButton.type='button';
   topButton.className='mobile-top-button';
-  topButton.setAttribute('aria-label','Back to the top of the page');
-  topButton.innerHTML='<span aria-hidden="true">↑</span><span>Back to top</span>';
+  topButton.setAttribute('aria-label','Til toppen av siden');
+  topButton.innerHTML='<span aria-hidden="true">↑</span><span>Til toppen</span>';
   document.body.appendChild(topButton);
   topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:prefersReducedMotion?'auto':'smooth'}));
 
   let lastY=window.scrollY;
   let ticking=false;
   let hideTimeoutId=null;
-  const showTopButton=()=>{
-    if(hideTimeoutId){
-      clearTimeout(hideTimeoutId);
-      hideTimeoutId=null;
-    }
-    topButton.classList.add('is-visible');
-  };
-  const hideTopButtonNow=()=>{
-    if(hideTimeoutId){
-      clearTimeout(hideTimeoutId);
-      hideTimeoutId=null;
-    }
-    topButton.classList.remove('is-visible');
-  };
-  const scheduleHideTopButton=()=>{
-    if(hideTimeoutId) clearTimeout(hideTimeoutId);
-    hideTimeoutId=window.setTimeout(()=>{
-      topButton.classList.remove('is-visible');
-      hideTimeoutId=null;
-    },2000);
-  };
+  const showTopButton=()=>{if(hideTimeoutId){clearTimeout(hideTimeoutId);hideTimeoutId=null;}topButton.classList.add('is-visible');};
+  const hideTopButtonNow=()=>{if(hideTimeoutId){clearTimeout(hideTimeoutId);hideTimeoutId=null;}topButton.classList.remove('is-visible');};
+  const scheduleHideTopButton=()=>{if(hideTimeoutId) clearTimeout(hideTimeoutId);hideTimeoutId=window.setTimeout(()=>{topButton.classList.remove('is-visible');hideTimeoutId=null;},2000);};
   const updateTopButton=()=>{
     const currentY=window.scrollY;
     const isMobile=window.innerWidth<=860;
     const scrollingUp=currentY<lastY-6;
     const farEnough=currentY>280;
-    if(isMobile&&farEnough&&scrollingUp){
-      showTopButton();
-    }else if(!isMobile||!farEnough){
-      hideTopButtonNow();
-    }else{
-      scheduleHideTopButton();
-    }
+    if(isMobile&&farEnough&&scrollingUp){showTopButton();}
+    else if(!isMobile||!farEnough){hideTopButtonNow();}
+    else{scheduleHideTopButton();}
     lastY=currentY;
     ticking=false;
   };
-  window.addEventListener('scroll',()=>{
-    if(!ticking){
-      window.requestAnimationFrame(updateTopButton);
-      ticking=true;
-    }
-  },{passive:true});
+  window.addEventListener('scroll',()=>{if(!ticking){window.requestAnimationFrame(updateTopButton);ticking=true;}},{passive:true});
   window.addEventListener('resize',updateTopButton);
   updateTopButton();
 
   let icon=document.querySelector('link[rel="icon"]');
-  if(!icon){
-    icon=document.createElement('link');
-    icon.rel='icon';
-    icon.type='image/svg+xml';
-    document.head.appendChild(icon);
-  }
+  if(!icon){icon=document.createElement('link');icon.rel='icon';icon.type='image/svg+xml';document.head.appendChild(icon);} 
   icon.href='/assets/img/vitacoat-favicon.svg';
 });
