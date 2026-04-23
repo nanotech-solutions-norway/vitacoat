@@ -239,15 +239,39 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   let lastY=window.scrollY;
   let ticking=false;
+  let hideTimeoutId=null;
+  const showTopButton=()=>{
+    if(hideTimeoutId){
+      clearTimeout(hideTimeoutId);
+      hideTimeoutId=null;
+    }
+    topButton.classList.add('is-visible');
+  };
+  const hideTopButtonNow=()=>{
+    if(hideTimeoutId){
+      clearTimeout(hideTimeoutId);
+      hideTimeoutId=null;
+    }
+    topButton.classList.remove('is-visible');
+  };
+  const scheduleHideTopButton=()=>{
+    if(hideTimeoutId) clearTimeout(hideTimeoutId);
+    hideTimeoutId=window.setTimeout(()=>{
+      topButton.classList.remove('is-visible');
+      hideTimeoutId=null;
+    },2000);
+  };
   const updateTopButton=()=>{
     const currentY=window.scrollY;
     const isMobile=window.innerWidth<=860;
     const scrollingUp=currentY<lastY-6;
     const farEnough=currentY>280;
     if(isMobile&&farEnough&&scrollingUp){
-      topButton.classList.add('is-visible');
+      showTopButton();
+    }else if(!isMobile||!farEnough){
+      hideTopButtonNow();
     }else{
-      topButton.classList.remove('is-visible');
+      scheduleHideTopButton();
     }
     lastY=currentY;
     ticking=false;
