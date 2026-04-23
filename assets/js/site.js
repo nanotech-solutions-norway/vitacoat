@@ -75,17 +75,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     navConfig.forEach(item=>{
       const group=document.createElement('div');
       group.className='mobile-nav-group';
-
       const row=document.createElement('div');
       row.className='mobile-nav-row';
-
       const link=document.createElement('a');
       link.href=item.href;
       link.textContent=item.label;
       link.className='mobile-main-link';
       if(item.active(currentPath)) link.classList.add('active');
       row.appendChild(link);
-
       if(submenus[item.href]){
         const toggle=document.createElement('button');
         toggle.type='button';
@@ -94,7 +91,6 @@ document.addEventListener('DOMContentLoaded',()=>{
         toggle.setAttribute('aria-label',`Toggle ${item.label} submenu`);
         toggle.innerHTML='<span aria-hidden="true">›</span>';
         row.appendChild(toggle);
-
         const submenu=document.createElement('div');
         submenu.className='mobile-subnav';
         submenus[item.href].forEach(subitem=>{
@@ -107,12 +103,10 @@ document.addEventListener('DOMContentLoaded',()=>{
         });
         group.appendChild(row);
         group.appendChild(submenu);
-
         if(submenus[item.href].some(subitem=>subitem.href===currentPath)){
           group.classList.add('open');
           toggle.setAttribute('aria-expanded','true');
         }
-
         toggle.addEventListener('click',e=>{
           e.preventDefault();
           group.classList.toggle('open');
@@ -132,7 +126,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     menuToggle.innerHTML='<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Menu</span>';
     menuToggle.setAttribute('aria-label','Open menu');
   }
-
   if(menuToggle&&mobileNav){
     menuToggle.addEventListener('click',()=>mobileNav.classList.toggle('open'));
   }
@@ -148,57 +141,99 @@ document.addEventListener('DOMContentLoaded',()=>{
   const heroImg=document.querySelector('.hero-media img');
   if(heroImg&&heroImageMap[currentPath]) heroImg.src=heroImageMap[currentPath];
 
-  const animateCounters=()=>{
-    document.querySelectorAll('.stat-num').forEach(el=>{
-      if(el.dataset.animated==='true') return;
-      const raw=el.textContent.trim();
-      const match=raw.match(/([\d,.]+)/);
-      if(!match) return;
-      const numeric=parseFloat(match[1].replace(/,/g,''));
-      if(Number.isNaN(numeric)) return;
-      const prefix=raw.slice(0,match.index);
-      const suffix=raw.slice((match.index||0)+match[1].length);
-      const duration=1200;
-      const start=performance.now();
-      const decimals=Number.isInteger(numeric)?0:1;
-      const step=now=>{
-        const progress=Math.min((now-start)/duration,1);
-        const value=numeric*progress;
-        const formatted=(decimals?value.toFixed(decimals):Math.round(value).toString()).replace(/\B(?=(\d{3})+(?!\d))/g,',');
-        el.textContent=`${prefix}${formatted}${suffix}`;
-        if(progress<1){requestAnimationFrame(step);}else{el.textContent=raw;el.dataset.animated='true';}
-      };
-      el.textContent=`${prefix}0${suffix}`;
-      requestAnimationFrame(step);
-    });
+  const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const easeOutCubic=t=>1-Math.pow(1-t,3);
+
+  const animateCounter=(el)=>{
+    if(el.dataset.animated==='true') return;
+    const raw=el.dataset.finalValue||el.textContent.trim();
+    const match=raw.match(/([\d,.]+)/);
+    if(!match){el.dataset.animated='true';return;}
+    const numeric=parseFloat(match[1].replace(/,/g,''));
+    if(Number.isNaN(numeric)){el.dataset.animated='true';return;}
+    const prefix=raw.slice(0,match.index||0);
+    const suffix=raw.slice((match.index||0)+match[1].length);
+    const decimals=match[1].includes('.')?match[1].split('.')[1].length:0;
+    const duration=1400;
+    const start=performance.now();
+    el.dataset.finalValue=raw;
+    const render=(value)=>{
+      const formatted=(decimals>0?value.toFixed(decimals):Math.round(value).toString()).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+      el.textContent=`${prefix}${formatted}${suffix}`;
+    };
+    if(prefersReducedMotion){
+      el.textContent=raw;
+      el.dataset.animated='true';
+      return;
+    }
+    render(0);
+    const step=(now)=>{
+      const progress=Math.min((now-start)/duration,1);
+      render(numeric*easeOutCubic(progress));
+      if(progress<1){
+        requestAnimationFrame(step);
+      }else{
+        el.textContent=raw;
+        el.dataset.animated='true';
+      }
+    };
+    requestAnimationFrame(step);
   };
 
-  const animateBars=()=>{
-    document.querySelectorAll('.bar-fill').forEach(el=>{
-      if(el.dataset.animated==='true') return;
-      const target=el.style.width||window.getComputedStyle(el).width;
+  const animateBarGroup=(group)=>{
+    if(group.dataset.animated==='true') return;
+    group.querySelectorAll('.bar-fill').forEach(el=>{
+      const target=el.dataset.targetWidth||el.style.width||'0%';
       el.dataset.targetWidth=target;
-      el.style.width='0%';
-      requestAnimationFrame(()=>{el.style.width=el.dataset.targetWidth;});
+      if(prefersReducedMotion){
+        el.style.width=target;
+      }else{
+        el.style.width='0%';
+        requestAnimationFrame(()=>{el.style.width=target;});
+      }
       el.dataset.animated='true';
     });
+    group.dataset.animated='true';
   };
+
+  const revealTargets=[...document.querySelectorAll('.panel,.cta-band,.table-wrap,.callout,.timeline,.faq-item')];
+  const seen=new Set();
+  revealTargets.forEach(el=>{
+    if(el.closest('.panel')&&el.classList.contains('callout')) return;
+    if(el.closest('.panel')&&el.classList.contains('table-wrap')) return;
+    if(seen.has(el)) return;
+    seen.add(el);
+    el.classList.add('animate-on-scroll');
+  });
 
   const observer=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(!entry.isIntersecting) return;
       const el=entry.target;
       el.classList.add('is-visible');
-      if(el.classList.contains('bar-group')) animateBars();
-      if(el.querySelector('.stat-num')) animateCounters();
       observer.unobserve(el);
     });
-  },{threshold:.18});
+  },{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
 
-  document.querySelectorAll('.card,.panel,.cta-band,.table-wrap,.callout,.bar-group,.timeline').forEach(el=>{
-    el.classList.add('animate-on-scroll');
-    observer.observe(el);
-  });
+  document.querySelectorAll('.animate-on-scroll').forEach(el=>observer.observe(el));
+
+  const counterObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    });
+  },{threshold:0.35});
+  document.querySelectorAll('.stat-num').forEach(el=>counterObserver.observe(el));
+
+  const barObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      animateBarGroup(entry.target);
+      barObserver.unobserve(entry.target);
+    });
+  },{threshold:0.25});
+  document.querySelectorAll('.bar-group').forEach(el=>barObserver.observe(el));
 
   let icon=document.querySelector('link[rel="icon"]');
   if(!icon){
