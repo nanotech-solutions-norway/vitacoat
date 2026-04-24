@@ -1,5 +1,23 @@
 document.addEventListener('DOMContentLoaded',()=>{
   const currentPath=window.location.pathname;
+
+  const detectPreferredLanguage=()=>{
+    try{
+      const saved=window.localStorage.getItem('vitacoat-language');
+      if(saved==='no' || saved==='en') return saved;
+    }catch(e){}
+    const langs=(navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || '']).map(v=>(v||'').toLowerCase());
+    const timezone=(Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+    const norwegianMatch=langs.some(v=>v.startsWith('no') || v.startsWith('nb') || v.startsWith('nn')) || timezone.includes('oslo');
+    return norwegianMatch ? 'no' : 'en';
+  };
+
+  const preferredLanguage=detectPreferredLanguage();
+  document.documentElement.lang='no';
+  document.documentElement.dataset.sitePrimaryLanguage='no';
+  document.documentElement.dataset.preferredLanguage=preferredLanguage;
+  try{window.localStorage.setItem('vitacoat-language', preferredLanguage);}catch(e){}
+
   const navConfig=[
     {href:'/',label:'Hjem',active:(p)=>p==='/'},
     {href:'/applications/',label:'Bruksområder',active:(p)=>p.startsWith('/applications/')},
