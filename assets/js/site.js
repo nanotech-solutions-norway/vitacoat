@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     electronics:'/applications/electronics-and-touchpoints/'
   };
 
+  const currentNoPath=isEnglishRoute ? currentPath.replace(/^\/en/, '') || '/' : currentPath;
+  const currentEnPath=isEnglishRoute ? currentPath : (currentPath==='/' ? '/en/' : `/en${currentPath}`);
+
   const navConfig=isEnglishRoute ? [
     {href:route.home,label:'Home',active:(p)=>p===route.home},
     {href:route.applications,label:'Applications',active:(p)=>p.startsWith(route.applications)},
@@ -135,6 +138,32 @@ document.addEventListener('DOMContentLoaded',()=>{
   const mobileNav=document.querySelector('.mobile-nav');
   const mobileNavContainer=document.querySelector('.mobile-nav .container');
   const menuToggle=document.querySelector('.menu-toggle');
+  const headerInner=document.querySelector('.header-inner');
+
+  const createLanguageSwitcher=()=>{
+    const wrap=document.createElement('div');
+    wrap.className='language-switcher';
+
+    const noLink=document.createElement('a');
+    noLink.href=currentNoPath;
+    noLink.textContent='NO';
+    noLink.className='language-link';
+    if(!isEnglishRoute) noLink.classList.add('active-lang');
+    noLink.setAttribute('hreflang','no');
+    noLink.addEventListener('click',()=>{try{window.localStorage.setItem('vitacoat-language','no');window.localStorage.setItem('vitacoat-language-initialized','true');}catch(e){}});
+
+    const enLink=document.createElement('a');
+    enLink.href=currentEnPath;
+    enLink.textContent='EN';
+    enLink.className='language-link';
+    if(isEnglishRoute) enLink.classList.add('active-lang');
+    enLink.setAttribute('hreflang','en');
+    enLink.addEventListener('click',()=>{try{window.localStorage.setItem('vitacoat-language','en');window.localStorage.setItem('vitacoat-language-initialized','true');}catch(e){}});
+
+    wrap.appendChild(noLink);
+    wrap.appendChild(enLink);
+    return wrap;
+  };
 
   const buildDesktopNav=()=>{
     if(!desktopNav) return;
@@ -172,6 +201,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   const buildMobileNav=()=>{
     if(!mobileNavContainer) return;
     mobileNavContainer.innerHTML='';
+    const mobileLanguageSwitcher=createLanguageSwitcher();
+    mobileLanguageSwitcher.classList.add('mobile-language-switcher');
+    mobileNavContainer.appendChild(mobileLanguageSwitcher);
     navConfig.forEach(item=>{
       const group=document.createElement('div');
       group.className='mobile-nav-group';
@@ -221,6 +253,11 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   buildDesktopNav();
   buildMobileNav();
+
+  if(headerInner && !headerInner.querySelector('.language-switcher')){
+    const desktopLanguageSwitcher=createLanguageSwitcher();
+    headerInner.insertBefore(desktopLanguageSwitcher, menuToggle || null);
+  }
 
   if(menuToggle){
     menuToggle.innerHTML=isEnglishRoute ? '<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Menu</span>' : '<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Meny</span>';
