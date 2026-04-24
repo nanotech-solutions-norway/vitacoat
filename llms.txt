@@ -35,5 +35,5 @@
 - Project-specific fit should be confirmed through technical review and documentation.
 
 ## Preferred contact routes
-- Technical review: mailto:technical@vitacoat.eu
-- Documentation requests: mailto:documents@vitacoat.eu
+- Technical review: mailto:technical@vitacoat.no
+- Documentation requests: mailto:documents@vitacoat.no
