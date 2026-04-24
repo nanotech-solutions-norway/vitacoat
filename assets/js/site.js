@@ -13,12 +13,30 @@ document.addEventListener('DOMContentLoaded',()=>{
   };
 
   const preferredLanguage=detectPreferredLanguage();
-  document.documentElement.lang='no';
+  const isEnglishRoute=currentPath.startsWith('/en/');
+  document.documentElement.lang=isEnglishRoute ? 'en' : 'no';
   document.documentElement.dataset.sitePrimaryLanguage='no';
   document.documentElement.dataset.preferredLanguage=preferredLanguage;
-  try{window.localStorage.setItem('vitacoat-language', preferredLanguage);}catch(e){}
 
-  const navConfig=[
+  try{
+    const hasVisited=window.localStorage.getItem('vitacoat-language-initialized')==='true';
+    window.localStorage.setItem('vitacoat-language', preferredLanguage);
+    if(!hasVisited){
+      window.localStorage.setItem('vitacoat-language-initialized','true');
+      if(preferredLanguage==='en' && currentPath==='/'){
+        window.location.replace('/en/');
+        return;
+      }
+    }
+  }catch(e){}
+
+  const navConfig=isEnglishRoute ? [
+    {href:'/en/',label:'Home',active:(p)=>p==='/en/'},
+    {href:'/applications/',label:'Applications',active:(p)=>p.startsWith('/applications/')},
+    {href:'/documentation/',label:'Documentation',active:(p)=>p.startsWith('/documentation/')||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith('/application-process/')||p.startsWith('/maintenance-and-reapplication/')||p.startsWith('/faq/')},
+    {href:'/technical-support/',label:'Technical Support',active:(p)=>p.startsWith('/technical-support/')},
+    {href:'/contact/',label:'Contact',active:(p)=>p.startsWith('/contact/')}
+  ] : [
     {href:'/',label:'Hjem',active:(p)=>p==='/'},
     {href:'/applications/',label:'Bruksområder',active:(p)=>p.startsWith('/applications/')},
     {href:'/documentation/',label:'Dokumentasjon',active:(p)=>p.startsWith('/documentation/')||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith('/application-process/')||p.startsWith('/maintenance-and-reapplication/')||p.startsWith('/faq/')},
@@ -26,7 +44,28 @@ document.addEventListener('DOMContentLoaded',()=>{
     {href:'/contact/',label:'Kontakt',active:(p)=>p.startsWith('/contact/')}
   ];
 
-  const submenus={
+  const submenus=isEnglishRoute ? {
+    '/applications/':[
+      {href:'/applications/healthcare/',label:'Healthcare'},
+      {href:'/applications/food-processing/',label:'Food Processing'},
+      {href:'/applications/public-facilities/',label:'Public Facilities'},
+      {href:'/applications/education-and-offices/',label:'Education & Offices'},
+      {href:'/applications/electronics-and-touchpoints/',label:'Electronics & Touchpoints'}
+    ],
+    '/documentation/':[
+      {href:'/documentation/',label:'Documentation Center'},
+      {href:'/benefits/continuous-protection/',label:'Continuous Protection'},
+      {href:'/benefits/easier-cleaning/',label:'Easier Cleaning'},
+      {href:'/benefits/surface-compatibility/',label:'Surface Compatibility'},
+      {href:'/proof/testing-and-standards/',label:'Testing & Standards'},
+      {href:'/proof/durability/',label:'Durability'},
+      {href:'/proof/safety-and-environment/',label:'Safety & Environment'},
+      {href:'/proof/pathogen-spectrum/',label:'Pathogen Spectrum'},
+      {href:'/application-process/',label:'Application Process'},
+      {href:'/maintenance-and-reapplication/',label:'Maintenance & Reapplication'},
+      {href:'/faq/',label:'FAQ'}
+    ]
+  } : {
     '/applications/':[
       {href:'/applications/healthcare/',label:'Helse'},
       {href:'/applications/food-processing/',label:'Næringsmiddelindustri'},
@@ -106,7 +145,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         toggle.type='button';
         toggle.className='mobile-subnav-toggle';
         toggle.setAttribute('aria-expanded','false');
-        toggle.setAttribute('aria-label',`Vis undermeny for ${item.label}`);
+        toggle.setAttribute('aria-label', isEnglishRoute ? `Show submenu for ${item.label}` : `Vis undermeny for ${item.label}`);
         toggle.innerHTML='<span aria-hidden="true">›</span>';
         row.appendChild(toggle);
         const submenu=document.createElement('div');
@@ -141,8 +180,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   buildMobileNav();
 
   if(menuToggle){
-    menuToggle.innerHTML='<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Meny</span>';
-    menuToggle.setAttribute('aria-label','Åpne meny');
+    menuToggle.innerHTML=isEnglishRoute ? '<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Menu</span>' : '<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">Meny</span>';
+    menuToggle.setAttribute('aria-label', isEnglishRoute ? 'Open menu' : 'Åpne meny');
   }
   if(menuToggle&&mobileNav){
     menuToggle.addEventListener('click',()=>mobileNav.classList.toggle('open'));
@@ -241,8 +280,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   const topButton=document.createElement('button');
   topButton.type='button';
   topButton.className='mobile-top-button';
-  topButton.setAttribute('aria-label','Til toppen av siden');
-  topButton.innerHTML='<span aria-hidden="true">↑</span><span>Til toppen</span>';
+  topButton.setAttribute('aria-label', isEnglishRoute ? 'Back to the top of the page' : 'Til toppen av siden');
+  topButton.innerHTML=isEnglishRoute ? '<span aria-hidden="true">↑</span><span>Back to top</span>' : '<span aria-hidden="true">↑</span><span>Til toppen</span>';
   document.body.appendChild(topButton);
   topButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:prefersReducedMotion?'auto':'smooth'}));
 
