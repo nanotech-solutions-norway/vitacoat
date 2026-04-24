@@ -30,60 +30,103 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }catch(e){}
 
+  const route = isEnglishRoute ? {
+    home:'/en/',
+    applications:'/en/applications/',
+    documentation:'/en/documentation/',
+    technicalSupport:'/en/technical-support/',
+    contact:'/en/contact/',
+    howItWorks:'/en/how-it-works/',
+    benefitsContinuous:'/en/benefits/continuous-protection/',
+    benefitsCleaning:'/en/benefits/easier-cleaning/',
+    benefitsCompatibility:'/en/benefits/surface-compatibility/',
+    proofTesting:'/en/proof/testing-and-standards/',
+    proofDurability:'/en/proof/durability/',
+    proofSafety:'/en/proof/safety-and-environment/',
+    proofPathogens:'/en/proof/pathogen-spectrum/',
+    applicationProcess:'/en/application-process/',
+    maintenance:'/en/maintenance-and-reapplication/',
+    healthcare:'/en/applications/healthcare/',
+    food:'/en/applications/food-processing/',
+    publicFacilities:'/en/applications/public-facilities/',
+    education:'/en/applications/education-and-offices/',
+    electronics:'/en/applications/electronics-and-touchpoints/'
+  } : {
+    home:'/',
+    applications:'/applications/',
+    documentation:'/documentation/',
+    technicalSupport:'/technical-support/',
+    contact:'/contact/',
+    howItWorks:'/how-it-works/',
+    benefitsContinuous:'/benefits/continuous-protection/',
+    benefitsCleaning:'/benefits/easier-cleaning/',
+    benefitsCompatibility:'/benefits/surface-compatibility/',
+    proofTesting:'/proof/testing-and-standards/',
+    proofDurability:'/proof/durability/',
+    proofSafety:'/proof/safety-and-environment/',
+    proofPathogens:'/proof/pathogen-spectrum/',
+    applicationProcess:'/application-process/',
+    maintenance:'/maintenance-and-reapplication/',
+    healthcare:'/applications/healthcare/',
+    food:'/applications/food-processing/',
+    publicFacilities:'/applications/public-facilities/',
+    education:'/applications/education-and-offices/',
+    electronics:'/applications/electronics-and-touchpoints/'
+  };
+
   const navConfig=isEnglishRoute ? [
-    {href:'/en/',label:'Home',active:(p)=>p==='/en/'},
-    {href:'/applications/',label:'Applications',active:(p)=>p.startsWith('/applications/')},
-    {href:'/documentation/',label:'Documentation',active:(p)=>p.startsWith('/documentation/')||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith('/application-process/')||p.startsWith('/maintenance-and-reapplication/')||p.startsWith('/faq/')},
-    {href:'/technical-support/',label:'Technical Support',active:(p)=>p.startsWith('/technical-support/')},
-    {href:'/contact/',label:'Contact',active:(p)=>p.startsWith('/contact/')}
+    {href:route.home,label:'Home',active:(p)=>p===route.home},
+    {href:route.applications,label:'Applications',active:(p)=>p.startsWith(route.applications)},
+    {href:route.documentation,label:'Documentation',active:(p)=>p.startsWith(route.documentation)||p.startsWith('/en/benefits/')||p.startsWith('/en/proof/')||p.startsWith(route.applicationProcess)||p.startsWith(route.maintenance)||p.startsWith('/en/faq/')},
+    {href:route.technicalSupport,label:'Technical Support',active:(p)=>p.startsWith(route.technicalSupport)},
+    {href:route.contact,label:'Contact',active:(p)=>p.startsWith(route.contact)}
   ] : [
-    {href:'/',label:'Hjem',active:(p)=>p==='/'},
-    {href:'/applications/',label:'Bruksområder',active:(p)=>p.startsWith('/applications/')},
-    {href:'/documentation/',label:'Dokumentasjon',active:(p)=>p.startsWith('/documentation/')||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith('/application-process/')||p.startsWith('/maintenance-and-reapplication/')||p.startsWith('/faq/')},
-    {href:'/technical-support/',label:'Teknisk støtte',active:(p)=>p.startsWith('/technical-support/')},
-    {href:'/contact/',label:'Kontakt',active:(p)=>p.startsWith('/contact/')}
+    {href:route.home,label:'Hjem',active:(p)=>p===route.home},
+    {href:route.applications,label:'Bruksområder',active:(p)=>p.startsWith(route.applications)},
+    {href:route.documentation,label:'Dokumentasjon',active:(p)=>p.startsWith(route.documentation)||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith(route.applicationProcess)||p.startsWith(route.maintenance)||p.startsWith('/faq/')},
+    {href:route.technicalSupport,label:'Teknisk støtte',active:(p)=>p.startsWith(route.technicalSupport)},
+    {href:route.contact,label:'Kontakt',active:(p)=>p.startsWith(route.contact)}
   ];
 
   const submenus=isEnglishRoute ? {
-    '/applications/':[
-      {href:'/applications/healthcare/',label:'Healthcare'},
-      {href:'/applications/food-processing/',label:'Food Processing'},
-      {href:'/applications/public-facilities/',label:'Public Facilities'},
-      {href:'/applications/education-and-offices/',label:'Education & Offices'},
-      {href:'/applications/electronics-and-touchpoints/',label:'Electronics & Touchpoints'}
+    [route.applications]:[
+      {href:route.healthcare,label:'Healthcare'},
+      {href:route.food,label:'Food Processing'},
+      {href:route.publicFacilities,label:'Public Facilities'},
+      {href:route.education,label:'Education & Offices'},
+      {href:route.electronics,label:'Electronics & Touchpoints'}
     ],
-    '/documentation/':[
-      {href:'/documentation/',label:'Documentation Center'},
-      {href:'/benefits/continuous-protection/',label:'Continuous Protection'},
-      {href:'/benefits/easier-cleaning/',label:'Easier Cleaning'},
-      {href:'/benefits/surface-compatibility/',label:'Surface Compatibility'},
-      {href:'/proof/testing-and-standards/',label:'Testing & Standards'},
-      {href:'/proof/durability/',label:'Durability'},
-      {href:'/proof/safety-and-environment/',label:'Safety & Environment'},
-      {href:'/proof/pathogen-spectrum/',label:'Pathogen Spectrum'},
-      {href:'/application-process/',label:'Application Process'},
-      {href:'/maintenance-and-reapplication/',label:'Maintenance & Reapplication'},
-      {href:'/faq/',label:'FAQ'}
+    [route.documentation]:[
+      {href:route.documentation,label:'Documentation Center'},
+      {href:route.benefitsContinuous,label:'Continuous Protection'},
+      {href:route.benefitsCleaning,label:'Easier Cleaning'},
+      {href:route.benefitsCompatibility,label:'Surface Compatibility'},
+      {href:route.proofTesting,label:'Testing & Standards'},
+      {href:route.proofDurability,label:'Durability'},
+      {href:route.proofSafety,label:'Safety & Environment'},
+      {href:route.proofPathogens,label:'Pathogen Spectrum'},
+      {href:route.applicationProcess,label:'Application Process'},
+      {href:route.maintenance,label:'Maintenance & Reapplication'}
     ]
   } : {
-    '/applications/':[
-      {href:'/applications/healthcare/',label:'Helse'},
-      {href:'/applications/food-processing/',label:'Næringsmiddelindustri'},
-      {href:'/applications/public-facilities/',label:'Offentlige miljøer'},
-      {href:'/applications/education-and-offices/',label:'Skole og kontor'},
-      {href:'/applications/electronics-and-touchpoints/',label:'Elektronikk og kontaktpunkter'}
+    [route.applications]:[
+      {href:route.healthcare,label:'Helse'},
+      {href:route.food,label:'Næringsmiddelindustri'},
+      {href:route.publicFacilities,label:'Offentlige miljøer'},
+      {href:route.education,label:'Skole og kontor'},
+      {href:route.electronics,label:'Elektronikk og kontaktpunkter'}
     ],
-    '/documentation/':[
-      {href:'/documentation/',label:'Dokumentasjonssenter'},
-      {href:'/benefits/continuous-protection/',label:'Vedvarende beskyttelse'},
-      {href:'/benefits/easier-cleaning/',label:'Enklere rengjøring'},
-      {href:'/benefits/surface-compatibility/',label:'Overflatekompatibilitet'},
-      {href:'/proof/testing-and-standards/',label:'Testing og standarder'},
-      {href:'/proof/durability/',label:'Holdbarhet'},
-      {href:'/proof/safety-and-environment/',label:'Sikkerhet og miljø'},
-      {href:'/proof/pathogen-spectrum/',label:'Patogenspekter'},
-      {href:'/application-process/',label:'Applikasjonsprosess'},
-      {href:'/maintenance-and-reapplication/',label:'Vedlikehold og reapplikasjon'},
+    [route.documentation]:[
+      {href:route.documentation,label:'Dokumentasjonssenter'},
+      {href:route.benefitsContinuous,label:'Vedvarende beskyttelse'},
+      {href:route.benefitsCleaning,label:'Enklere rengjøring'},
+      {href:route.benefitsCompatibility,label:'Overflatekompatibilitet'},
+      {href:route.proofTesting,label:'Testing og standarder'},
+      {href:route.proofDurability,label:'Holdbarhet'},
+      {href:route.proofSafety,label:'Sikkerhet og miljø'},
+      {href:route.proofPathogens,label:'Patogenspekter'},
+      {href:route.applicationProcess,label:'Applikasjonsprosess'},
+      {href:route.maintenance,label:'Vedlikehold og reapplikasjon'},
       {href:'/faq/',label:'FAQ'}
     ]
   };
@@ -191,9 +234,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 
   const heroImageMap={
-    '/documentation/':'/assets/img/vitacoat-documentation-panel.svg',
-    '/technical-support/':'/assets/img/vitacoat-technical-support-panel.svg',
-    '/contact/':'/assets/img/vitacoat-contact-panel.svg'
+    [route.documentation]:'/assets/img/vitacoat-documentation-panel.svg',
+    [route.technicalSupport]:'/assets/img/vitacoat-technical-support-panel.svg',
+    [route.contact]:'/assets/img/vitacoat-contact-panel.svg'
   };
   const heroImg=document.querySelector('.hero-media img');
   if(heroImg&&heroImageMap[currentPath]) heroImg.src=heroImageMap[currentPath];
