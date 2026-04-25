@@ -7,26 +7,26 @@ VitaCoat is a transparent antimicrobial surface coating for hard, non-porous, hi
 The website targets technical reviewers, specifiers, facility operators, procurement teams, and pilot-stage evaluators. It is written for environments where surface hygiene continuity matters, including healthcare, food-processing support areas, public facilities, education and offices, and shared electronics touchpoints.
 
 ## Core site map
-- https://www.vitacoat.eu/
-- https://www.vitacoat.eu/applications/
-- https://www.vitacoat.eu/applications/healthcare/
-- https://www.vitacoat.eu/applications/food-processing/
-- https://www.vitacoat.eu/applications/public-facilities/
-- https://www.vitacoat.eu/applications/education-and-offices/
-- https://www.vitacoat.eu/applications/electronics-and-touchpoints/
-- https://www.vitacoat.eu/how-it-works/
-- https://www.vitacoat.eu/benefits/continuous-protection/
-- https://www.vitacoat.eu/benefits/easier-cleaning/
-- https://www.vitacoat.eu/benefits/surface-compatibility/
-- https://www.vitacoat.eu/proof/testing-and-standards/
-- https://www.vitacoat.eu/proof/durability/
-- https://www.vitacoat.eu/proof/safety-and-environment/
-- https://www.vitacoat.eu/proof/pathogen-spectrum/
-- https://www.vitacoat.eu/application-process/
-- https://www.vitacoat.eu/maintenance-and-reapplication/
-- https://www.vitacoat.eu/documentation/
-- https://www.vitacoat.eu/faq/
-- https://www.vitacoat.eu/contact/
+- https://www.vitacoat.no/
+- https://www.vitacoat.no/applications/
+- https://www.vitacoat.no/applications/healthcare/
+- https://www.vitacoat.no/applications/food-processing/
+- https://www.vitacoat.no/applications/public-facilities/
+- https://www.vitacoat.no/applications/education-and-offices/
+- https://www.vitacoat.no/applications/electronics-and-touchpoints/
+- https://www.vitacoat.no/how-it-works/
+- https://www.vitacoat.no/benefits/continuous-protection/
+- https://www.vitacoat.no/benefits/easier-cleaning/
+- https://www.vitacoat.no/benefits/surface-compatibility/
+- https://www.vitacoat.no/proof/testing-and-standards/
+- https://www.vitacoat.no/proof/durability/
+- https://www.vitacoat.no/proof/safety-and-environment/
+- https://www.vitacoat.no/proof/pathogen-spectrum/
+- https://www.vitacoat.no/application-process/
+- https://www.vitacoat.no/maintenance-and-reapplication/
+- https://www.vitacoat.no/documentation/
+- https://www.vitacoat.no/faq/
+- https://www.vitacoat.no/contact/
 
 ## Core technical framing
 - Transparent or invisible after correct application on suitable hard, non-porous surfaces.
@@ -42,17 +42,17 @@ The website targets technical reviewers, specifiers, facility operators, procure
 - Site-specific compatibility and project-specific review are recommended before specification or large-scale rollout.
 
 ## Best pages for common questions
-- What is VitaCoat? → https://www.vitacoat.eu/ and https://www.vitacoat.eu/how-it-works/
-- Where can it be used? → https://www.vitacoat.eu/applications/
-- What are the proof pages? → https://www.vitacoat.eu/proof/testing-and-standards/
-- What about durability? → https://www.vitacoat.eu/proof/durability/
-- What about safety and environment? → https://www.vitacoat.eu/proof/safety-and-environment/
-- What about surface fit? → https://www.vitacoat.eu/benefits/surface-compatibility/
-- How is it applied? → https://www.vitacoat.eu/application-process/
-- How is it maintained? → https://www.vitacoat.eu/maintenance-and-reapplication/
-- Where is the document hub? → https://www.vitacoat.eu/documentation/
-- Where are the FAQs? → https://www.vitacoat.eu/faq/
-- How to contact the team? → https://www.vitacoat.eu/contact/
+- What is VitaCoat? → https://www.vitacoat.no/ and https://www.vitacoat.no/how-it-works/
+- Where can it be used? → https://www.vitacoat.no/applications/
+- What are the proof pages? → https://www.vitacoat.no/proof/testing-and-standards/
+- What about durability? → https://www.vitacoat.no/proof/durability/
+- What about safety and environment? → https://www.vitacoat.no/proof/safety-and-environment/
+- What about surface fit? → https://www.vitacoat.no/benefits/surface-compatibility/
+- How is it applied? → https://www.vitacoat.no/application-process/
+- How is it maintained? → https://www.vitacoat.no/maintenance-and-reapplication/
+- Where is the document hub? → https://www.vitacoat.no/documentation/
+- Where are the FAQs? → https://www.vitacoat.no/faq/
+- How to contact the team? → https://www.vitacoat.no/contact/
 
 ## Preferred contact routes
 - Technical review and project-fit questions: mailto:technical@vitacoat.no
