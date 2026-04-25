@@ -263,6 +263,23 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelectorAll('.site-footer .footer-grid').forEach(footer => {
+    const columns = Array.from(footer.children).filter(node => node.nodeType === 1);
+    const resourceTitle = isEn ? 'Resources' : 'Ressurser';
+    const contactTitle = isEn ? 'Contact' : 'Kontakt';
+    const contactLabel = isEn ? 'Contact VitaCoat' : 'Kontakt VitaCoat';
+    const docLabel = isEn ? 'Documentation' : 'Dokumentasjon';
+    const supportLabel = isEn ? 'Technical Support' : 'Teknisk støtte';
+
+    const noteCol = columns.find(col => /merknad|note/i.test((col.querySelector('h4') || {}).textContent || '')) || columns[3];
+    const oldContactCol = columns.find(col => /kontakt|contact/i.test((col.querySelector('h4') || {}).textContent || '') && col !== noteCol);
+
+    if (oldContactCol) {
+      oldContactCol.innerHTML = `<h4>${resourceTitle}</h4><ul class="footer-links"><li><a href="${routes.documentation}">${docLabel}</a></li><li><a href="${routes.technicalSupport}">${supportLabel}</a></li></ul>`;
+    }
+    if (noteCol) {
+      noteCol.innerHTML = `<h4>${contactTitle}</h4><ul class="footer-links"><li><a href="${routes.contact}">${contactLabel}</a></li></ul>`;
+    }
+
     if (footer.querySelector('.footer-language-switcher')) return;
     const box = document.createElement('div');
     box.className = 'footer-language';
@@ -295,6 +312,51 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const hero = document.querySelector('.hero-media img');
   if (hero && heroMap[path]) hero.src = heroMap[path];
+
+  const animateNumber = el => {
+    if (el.dataset.animated === 'true') return;
+    el.dataset.animated = 'true';
+    const raw = el.textContent.trim();
+    const match = raw.match(/([0-9]+(?:[.,][0-9]+)?)/);
+    if (!match) return;
+    const target = parseFloat(match[1].replace(',', '.'));
+    const prefix = raw.slice(0, match.index);
+    const suffix = raw.slice(match.index + match[1].length);
+    const decimals = match[1].includes('.') || match[1].includes(',') ? 1 : 0;
+    const duration = 1100;
+    const start = performance.now();
+    const step = now => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = target * eased;
+      const rendered = decimals ? value.toFixed(decimals) : Math.round(value).toLocaleString(isEn ? 'en-US' : 'nb-NO');
+      el.textContent = `${prefix}${rendered}${suffix}`;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = raw;
+    };
+    requestAnimationFrame(step);
+  };
+
+  document.querySelectorAll('.bar-fill').forEach(bar => {
+    const width = bar.style.width || bar.getAttribute('data-width') || '0%';
+    bar.setAttribute('data-width', width);
+    bar.style.width = '0%';
+  });
+
+  const animatedTargets = document.querySelectorAll('.bar-fill,.stat-num,.metric-num,.chart-num,[data-animate="number"]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.classList.contains('bar-fill')) {
+        el.style.width = el.getAttribute('data-width') || '0%';
+      } else {
+        animateNumber(el);
+      }
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.25 });
+  animatedTargets.forEach(el => observer.observe(el));
 
   const top = document.createElement('button');
   top.type = 'button';
