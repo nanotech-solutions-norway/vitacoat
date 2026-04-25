@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     pathogens: local('/proof/pathogen-spectrum/'),
     process: local('/application-process/'),
     maintenance: local('/maintenance-and-reapplication/'),
-    faq: local('/faq/')
+    faq: local('/faq/'),
+    legal: '/legal/'
   };
 
   const nav = isEn ? [
@@ -82,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Pathogen Spectrum', routes.pathogens],
       ['Application Process', routes.process],
       ['Maintenance & Reapplication', routes.maintenance],
-      ['FAQ', routes.faq]
+      ['FAQ', routes.faq],
+      ['Legal Information', routes.legal]
     ]
   } : {
     [routes.applications]: [
@@ -104,7 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Patogenspekter', routes.pathogens],
       ['Applikasjonsprosess', routes.process],
       ['Vedlikehold og reapplikasjon', routes.maintenance],
-      ['FAQ', routes.faq]
+      ['FAQ', routes.faq],
+      ['Juridisk informasjon', routes.legal]
     ]
   };
 
@@ -262,30 +265,124 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const footerColumns = isEn ? [
+    {
+      title: 'Core pages',
+      links: [
+        ['Home', routes.home],
+        ['Applications', routes.applications],
+        ['Documentation', routes.documentation],
+        ['Technical Support', routes.technicalSupport],
+        ['Contact', routes.contact],
+        ['Legal Information', routes.legal]
+      ]
+    },
+    {
+      title: 'Applications',
+      links: [
+        ['Healthcare', routes.healthcare],
+        ['Food Processing', routes.food],
+        ['Public Facilities', routes.publicFacilities],
+        ['Education & Offices', routes.education],
+        ['Electronics & Touchpoints', routes.electronics]
+      ]
+    },
+    {
+      title: 'Evidence & guidance',
+      links: [
+        ['How it Works', routes.how],
+        ['Continuous Protection', routes.continuous],
+        ['Easier Cleaning', routes.cleaning],
+        ['Surface Compatibility', routes.compatibility],
+        ['Testing & Standards', routes.testing],
+        ['Durability', routes.durability],
+        ['Safety & Environment', routes.safety],
+        ['Pathogen Spectrum', routes.pathogens],
+        ['Application Process', routes.process],
+        ['Maintenance & Reapplication', routes.maintenance],
+        ['FAQ', routes.faq]
+      ]
+    }
+  ] : [
+    {
+      title: 'Hovedsider',
+      links: [
+        ['Hjem', routes.home],
+        ['Bruksområder', routes.applications],
+        ['Dokumentasjon', routes.documentation],
+        ['Teknisk støtte', routes.technicalSupport],
+        ['Kontakt', routes.contact],
+        ['Juridisk informasjon', routes.legal]
+      ]
+    },
+    {
+      title: 'Bruksområder',
+      links: [
+        ['Helse', routes.healthcare],
+        ['Næringsmiddelindustri', routes.food],
+        ['Offentlige miljøer', routes.publicFacilities],
+        ['Skole og kontor', routes.education],
+        ['Elektronikk og kontaktpunkter', routes.electronics]
+      ]
+    },
+    {
+      title: 'Bevis og veiledning',
+      links: [
+        ['Hvordan det fungerer', routes.how],
+        ['Vedvarende beskyttelse', routes.continuous],
+        ['Enklere rengjøring', routes.cleaning],
+        ['Overflatekompatibilitet', routes.compatibility],
+        ['Testing og standarder', routes.testing],
+        ['Holdbarhet', routes.durability],
+        ['Sikkerhet og miljø', routes.safety],
+        ['Patogenspekter', routes.pathogens],
+        ['Applikasjonsprosess', routes.process],
+        ['Vedlikehold og reapplikasjon', routes.maintenance],
+        ['FAQ', routes.faq]
+      ]
+    }
+  ];
+
+  const footerCssId = 'vitacoat-footer-normalized-css';
+  if (!document.getElementById(footerCssId)) {
+    const style = document.createElement('style');
+    style.id = footerCssId;
+    style.textContent = `.site-footer .footer-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding:38px 130px 86px 34px}.footer-top-logo{position:absolute;right:28px;top:28px;width:76px;height:76px;background:url('/assets/img/vitacoat-logo.svg') center/contain no-repeat;font-size:0;line-height:0;color:transparent}.footer-top-logo:focus-visible{outline:3px solid #fff;outline-offset:4px}.footer-column h4{margin-bottom:14px}.footer-column .footer-links{gap:7px}.footer-column .footer-links a{color:#d7dbe5}.footer-column .footer-links a:hover{color:#fff;text-decoration:underline}.site-footer .footer-grid p{display:none!important}@media(max-width:1100px){.site-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding-right:120px}}@media(max-width:860px){.site-footer .footer-grid{grid-template-columns:1fr;padding:118px 24px 86px}.footer-top-logo{left:24px;right:auto;top:28px;width:68px;height:68px}}`;
+    document.head.appendChild(style);
+  }
+
   document.querySelectorAll('.site-footer .footer-grid').forEach(footer => {
-    const columns = Array.from(footer.children).filter(node => node.nodeType === 1);
-    const resourceTitle = isEn ? 'Resources' : 'Ressurser';
-    const contactTitle = isEn ? 'Contact' : 'Kontakt';
-    const contactLabel = isEn ? 'Contact VitaCoat' : 'Kontakt VitaCoat';
-    const docLabel = isEn ? 'Documentation' : 'Dokumentasjon';
-    const supportLabel = isEn ? 'Technical Support' : 'Teknisk støtte';
+    footer.innerHTML = '';
+    const logo = document.createElement('a');
+    logo.href = routes.home;
+    logo.className = 'footer-top-logo';
+    logo.setAttribute('aria-label', 'VitaCoat');
+    footer.appendChild(logo);
 
-    const noteCol = columns.find(col => /merknad|note/i.test((col.querySelector('h4') || {}).textContent || '')) || columns[3];
-    const oldContactCol = columns.find(col => /kontakt|contact/i.test((col.querySelector('h4') || {}).textContent || '') && col !== noteCol);
+    footerColumns.forEach(column => {
+      const col = document.createElement('div');
+      col.className = 'footer-column';
+      const heading = document.createElement('h4');
+      heading.textContent = column.title;
+      const list = document.createElement('ul');
+      list.className = 'footer-links';
+      column.links.forEach(([label, href]) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = href;
+        a.textContent = label;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      col.appendChild(heading);
+      col.appendChild(list);
+      footer.appendChild(col);
+    });
 
-    if (oldContactCol) {
-      oldContactCol.innerHTML = `<h4>${resourceTitle}</h4><ul class="footer-links"><li><a href="${routes.documentation}">${docLabel}</a></li><li><a href="${routes.technicalSupport}">${supportLabel}</a></li></ul>`;
-    }
-    if (noteCol) {
-      noteCol.innerHTML = `<h4>${contactTitle}</h4><ul class="footer-links"><li><a href="${routes.contact}">${contactLabel}</a></li></ul>`;
-    }
-
-    if (footer.querySelector('.footer-language-switcher')) return;
     const box = document.createElement('div');
     box.className = 'footer-language';
     box.appendChild(makeLanguageSwitch('footer-language-switcher'));
-    const firstCol = footer.firstElementChild || footer;
-    firstCol.appendChild(box);
+    footer.appendChild(box);
   });
 
   const heroMap = {
