@@ -1,58 +1,315 @@
-document.addEventListener('DOMContentLoaded',()=>{
-  const path=window.location.pathname;
-  const isEn=path.startsWith('/en/');
-  const noPath=isEn ? (path.replace(/^\/en/,'')||'/') : path;
-  const enPath='/en/';
-  document.documentElement.lang=isEn?'en':'nb-NO';
+document.addEventListener('DOMContentLoaded', () => {
+  const path = window.location.pathname;
+  const isEn = path.startsWith('/en/');
+  document.documentElement.lang = isEn ? 'en' : 'nb-NO';
 
-  const r=isEn?{
-    home:'/en/',applications:'/applications/',documentation:'/documentation/',technicalSupport:'/technical-support/',contact:'/contact/',how:'/how-it-works/',healthcare:'/applications/healthcare/',food:'/applications/food-processing/',publicFacilities:'/applications/public-facilities/',education:'/applications/education-and-offices/',electronics:'/applications/electronics-and-touchpoints/'
-  }:{
-    home:'/',applications:'/applications/',documentation:'/documentation/',technicalSupport:'/technical-support/',contact:'/contact/',how:'/how-it-works/',healthcare:'/applications/healthcare/',food:'/applications/food-processing/',publicFacilities:'/applications/public-facilities/',education:'/applications/education-and-offices/',electronics:'/applications/electronics-and-touchpoints/'
+  const toEn = (p) => (p === '/' ? '/en/' : `/en${p}`);
+  const toNo = (p) => (p.startsWith('/en/') ? (p.replace(/^\/en/, '') || '/') : p);
+  const noPath = toNo(path);
+  const enPath = isEn ? path : toEn(path);
+  const local = (p) => (isEn ? toEn(p) : p);
+
+  try {
+    const hasChoice = localStorage.getItem('vitacoat-language-initialized') === 'true';
+    if (!hasChoice) {
+      const langs = (navigator.languages || [navigator.language || '']).map(v => String(v).toLowerCase());
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+      const wantsNo = langs.some(v => v.startsWith('no') || v.startsWith('nb') || v.startsWith('nn')) || tz.includes('oslo');
+      localStorage.setItem('vitacoat-language', wantsNo ? 'no' : 'en');
+      localStorage.setItem('vitacoat-language-initialized', 'true');
+      if (!wantsNo && path === '/') {
+        window.location.replace('/en/');
+        return;
+      }
+    }
+  } catch (e) {}
+
+  const routes = {
+    home: local('/'),
+    applications: local('/applications/'),
+    documentation: local('/documentation/'),
+    technicalSupport: local('/technical-support/'),
+    contact: local('/contact/'),
+    how: local('/how-it-works/'),
+    healthcare: local('/applications/healthcare/'),
+    food: local('/applications/food-processing/'),
+    publicFacilities: local('/applications/public-facilities/'),
+    education: local('/applications/education-and-offices/'),
+    electronics: local('/applications/electronics-and-touchpoints/'),
+    continuous: local('/benefits/continuous-protection/'),
+    cleaning: local('/benefits/easier-cleaning/'),
+    compatibility: local('/benefits/surface-compatibility/'),
+    testing: local('/proof/testing-and-standards/'),
+    durability: local('/proof/durability/'),
+    safety: local('/proof/safety-and-environment/'),
+    pathogens: local('/proof/pathogen-spectrum/'),
+    process: local('/application-process/'),
+    maintenance: local('/maintenance-and-reapplication/'),
+    faq: local('/faq/')
   };
 
-  const nav=isEn?[
-    ['Home',r.home,p=>p===r.home],['Applications',r.applications,p=>p.startsWith('/applications/')],['Documentation',r.documentation,p=>p.startsWith('/documentation/')||p.includes('/benefits/')||p.includes('/proof/')||p.includes('/faq/')],['Technical Support',r.technicalSupport,p=>p.startsWith(r.technicalSupport)],['Contact',r.contact,p=>p.startsWith(r.contact)]
-  ]:[
-    ['Hjem',r.home,p=>p===r.home],['Bruksområder',r.applications,p=>p.startsWith('/applications/')],['Dokumentasjon',r.documentation,p=>p.startsWith('/documentation/')||p.startsWith('/benefits/')||p.startsWith('/proof/')||p.startsWith('/faq/')||p.startsWith('/application-process/')||p.startsWith('/maintenance-and-reapplication/')],['Teknisk støtte',r.technicalSupport,p=>p.startsWith(r.technicalSupport)],['Kontakt',r.contact,p=>p.startsWith(r.contact)]
+  const nav = isEn ? [
+    { label: 'Home', href: routes.home, active: p => p === routes.home },
+    { label: 'Applications', href: routes.applications, active: p => p.startsWith(routes.applications) },
+    { label: 'Documentation', href: routes.documentation, active: p => p.startsWith(routes.documentation) || p.includes('/benefits/') || p.includes('/proof/') || p.includes('/faq/') || p.includes('/application-process/') || p.includes('/maintenance-and-reapplication/') },
+    { label: 'Technical Support', href: routes.technicalSupport, active: p => p.startsWith(routes.technicalSupport) },
+    { label: 'Contact', href: routes.contact, active: p => p.startsWith(routes.contact) }
+  ] : [
+    { label: 'Hjem', href: routes.home, active: p => p === routes.home },
+    { label: 'Bruksområder', href: routes.applications, active: p => p.startsWith(routes.applications) },
+    { label: 'Dokumentasjon', href: routes.documentation, active: p => p.startsWith(routes.documentation) || p.startsWith('/benefits/') || p.startsWith('/proof/') || p.startsWith('/faq/') || p.startsWith('/application-process/') || p.startsWith('/maintenance-and-reapplication/') },
+    { label: 'Teknisk støtte', href: routes.technicalSupport, active: p => p.startsWith(routes.technicalSupport) },
+    { label: 'Kontakt', href: routes.contact, active: p => p.startsWith(routes.contact) }
   ];
 
-  const sub=isEn?{
-    [r.applications]:[['Healthcare',r.healthcare],['Food Processing',r.food],['Public Facilities',r.publicFacilities],['Education & Offices',r.education],['Electronics & Touchpoints',r.electronics]],
-    [r.documentation]:[['Documentation Center',r.documentation],['How it Works',r.how],['FAQ','/faq/']]
-  }:{
-    [r.applications]:[['Helse',r.healthcare],['Næringsmiddelindustri',r.food],['Offentlige miljøer',r.publicFacilities],['Skole og kontor',r.education],['Elektronikk og kontaktpunkter',r.electronics]],
-    [r.documentation]:[['Dokumentasjonssenter',r.documentation],['Hvordan det fungerer',r.how],['Vedvarende beskyttelse','/benefits/continuous-protection/'],['Enklere rengjøring','/benefits/easier-cleaning/'],['Overflatekompatibilitet','/benefits/surface-compatibility/'],['Testing og standarder','/proof/testing-and-standards/'],['Holdbarhet','/proof/durability/'],['Sikkerhet og miljø','/proof/safety-and-environment/'],['Patogenspekter','/proof/pathogen-spectrum/'],['Applikasjonsprosess','/application-process/'],['Vedlikehold og reapplikasjon','/maintenance-and-reapplication/'],['FAQ','/faq/']]
-  }};
-
-  const langSwitch=()=>{
-    const w=document.createElement('div');w.className='language-switcher';
-    const lab=document.createElement('span');lab.className='language-switcher-label';lab.textContent=isEn?'Language':'Språk';w.appendChild(lab);
-    [['NO',noPath,!isEn,'no'],['EN',enPath,isEn,'en']].forEach(([txt,href,active,code])=>{const a=document.createElement('a');a.href=href;a.textContent=txt;a.className='language-link'+(active?' active-lang':'');a.setAttribute('hreflang',code);a.addEventListener('click',()=>{try{localStorage.setItem('vitacoat-language',code==='no'?'no':'en');localStorage.setItem('vitacoat-language-initialized','true')}catch(e){}});w.appendChild(a)});
-    return w;
+  const submenus = isEn ? {
+    [routes.applications]: [
+      ['Healthcare', routes.healthcare],
+      ['Food Processing', routes.food],
+      ['Public Facilities', routes.publicFacilities],
+      ['Education & Offices', routes.education],
+      ['Electronics & Touchpoints', routes.electronics]
+    ],
+    [routes.documentation]: [
+      ['Documentation Center', routes.documentation],
+      ['How it Works', routes.how],
+      ['Continuous Protection', routes.continuous],
+      ['Easier Cleaning', routes.cleaning],
+      ['Surface Compatibility', routes.compatibility],
+      ['Testing & Standards', routes.testing],
+      ['Durability', routes.durability],
+      ['Safety & Environment', routes.safety],
+      ['Pathogen Spectrum', routes.pathogens],
+      ['Application Process', routes.process],
+      ['Maintenance & Reapplication', routes.maintenance],
+      ['FAQ', routes.faq]
+    ]
+  } : {
+    [routes.applications]: [
+      ['Helse', routes.healthcare],
+      ['Næringsmiddelindustri', routes.food],
+      ['Offentlige miljøer', routes.publicFacilities],
+      ['Skole og kontor', routes.education],
+      ['Elektronikk og kontaktpunkter', routes.electronics]
+    ],
+    [routes.documentation]: [
+      ['Dokumentasjonssenter', routes.documentation],
+      ['Hvordan det fungerer', routes.how],
+      ['Vedvarende beskyttelse', routes.continuous],
+      ['Enklere rengjøring', routes.cleaning],
+      ['Overflatekompatibilitet', routes.compatibility],
+      ['Testing og standarder', routes.testing],
+      ['Holdbarhet', routes.durability],
+      ['Sikkerhet og miljø', routes.safety],
+      ['Patogenspekter', routes.pathogens],
+      ['Applikasjonsprosess', routes.process],
+      ['Vedlikehold og reapplikasjon', routes.maintenance],
+      ['FAQ', routes.faq]
+    ]
   };
 
-  const desktop=document.querySelector('.nav');
-  if(desktop){desktop.innerHTML='';nav.forEach(([label,href,active])=>{if(sub[href]){const dd=document.createElement('div');dd.className='nav-dropdown';const top=document.createElement('a');top.href=href;top.textContent=label;if(active(path))top.classList.add('active');dd.appendChild(top);const menu=document.createElement('div');menu.className='dropdown-menu';sub[href].forEach(([sl,sh])=>{const a=document.createElement('a');a.href=sh;a.textContent=sl;if(path===sh)a.classList.add('active-sub');menu.appendChild(a)});dd.appendChild(menu);desktop.appendChild(dd)}else{const a=document.createElement('a');a.href=href;a.textContent=label;if(active(path))a.classList.add('active');desktop.appendChild(a)}})}
-
-  const headerInner=document.querySelector('.header-inner');
-  const menuToggle=document.querySelector('.menu-toggle');
-  if(headerInner&&!headerInner.querySelector('.language-switcher')) headerInner.insertBefore(langSwitch(),menuToggle||null);
-  if(menuToggle){menuToggle.innerHTML=`<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">${isEn?'Menu':'Meny'}</span>`;menuToggle.setAttribute('aria-label',isEn?'Open menu':'Åpne meny')}
-
-  const mobile=document.querySelector('.mobile-nav');const mobc=document.querySelector('.mobile-nav .container');
-  if(mobc){mobc.innerHTML='';const ml=langSwitch();ml.classList.add('mobile-language-switcher');mobc.appendChild(ml);nav.forEach(([label,href,active])=>{const g=document.createElement('div');g.className='mobile-nav-group';const row=document.createElement('div');row.className='mobile-nav-row';const a=document.createElement('a');a.href=href;a.textContent=label;a.className='mobile-main-link';if(active(path))a.classList.add('active');row.appendChild(a);if(sub[href]){const b=document.createElement('button');b.type='button';b.className='mobile-subnav-toggle';b.setAttribute('aria-expanded','false');b.setAttribute('aria-label',isEn?`Show submenu for ${label}`:`Vis undermeny for ${label}`);b.innerHTML='<span aria-hidden="true">›</span>';row.appendChild(b);const sm=document.createElement('div');sm.className='mobile-subnav';sub[href].forEach(([sl,sh])=>{const s=document.createElement('a');s.href=sh;s.textContent=sl;s.className='mobile-subnav-link';if(path===sh)s.classList.add('active-sub');sm.appendChild(s)});g.appendChild(row);g.appendChild(sm);b.addEventListener('click',e=>{e.preventDefault();g.classList.toggle('open');b.setAttribute('aria-expanded',g.classList.contains('open')?'true':'false')})}else g.appendChild(row);mobc.appendChild(g)})}
-  if(menuToggle&&mobile)menuToggle.addEventListener('click',()=>mobile.classList.toggle('open'));
-  document.querySelectorAll('.nav a,.mobile-nav a').forEach(a=>a.addEventListener('click',()=>mobile&&mobile.classList.remove('open')));
-
-  const heroMap={
-    '/':'/assets/img/vitacoat-antimicrobial-hero.svg','/en/':'/assets/img/vitacoat-antimicrobial-hero.svg','/applications/':'/assets/img/vitacoat-applications-panel.svg','/applications/healthcare/':'/assets/img/vitacoat-healthcare-application.svg','/applications/food-processing/':'/assets/img/vitacoat-food-processing-application.svg','/applications/public-facilities/':'/assets/img/vitacoat-public-facilities-application.svg','/applications/education-and-offices/':'/assets/img/vitacoat-education-offices-application.svg','/applications/electronics-and-touchpoints/':'/assets/img/vitacoat-electronics-touchpoints-application.svg','/documentation/':'/assets/img/vitacoat-documentation-panel.svg','/technical-support/':'/assets/img/vitacoat-technical-support-panel.svg','/faq/':'/assets/img/vitacoat-home-panel.svg','/application-process/':'/assets/img/vitacoat-documentation-panel.svg','/maintenance-and-reapplication/':'/assets/img/vitacoat-documentation-panel.svg','/how-it-works/':'/assets/img/vitacoat-home-panel.svg','/benefits/continuous-protection/':'/assets/img/vitacoat-home-panel.svg','/benefits/easier-cleaning/':'/assets/img/vitacoat-home-panel.svg','/proof/testing-and-standards/':'/assets/img/vitacoat-documentation-panel.svg','/proof/durability/':'/assets/img/vitacoat-documentation-panel.svg','/proof/safety-and-environment/':'/assets/img/vitacoat-documentation-panel.svg','/proof/pathogen-spectrum/':'/assets/img/vitacoat-documentation-panel.svg','/contact/':'/assets/img/vitacoat-technical-support-panel.svg'
+  const makeLanguageSwitch = () => {
+    const wrap = document.createElement('div');
+    wrap.className = 'language-switcher';
+    const label = document.createElement('span');
+    label.className = 'language-switcher-label';
+    label.textContent = isEn ? 'Language' : 'Språk';
+    wrap.appendChild(label);
+    [
+      ['NO', noPath, !isEn, 'no'],
+      ['EN', enPath, isEn, 'en']
+    ].forEach(([text, href, active, code]) => {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = text;
+      a.className = `language-link${active ? ' active-lang' : ''}`;
+      a.setAttribute('hreflang', code);
+      a.addEventListener('click', () => {
+        try {
+          localStorage.setItem('vitacoat-language', code);
+          localStorage.setItem('vitacoat-language-initialized', 'true');
+        } catch (e) {}
+      });
+      wrap.appendChild(a);
+    });
+    return wrap;
   };
-  const h=document.querySelector('.hero-media img');if(h&&heroMap[path])h.src=heroMap[path];
-  const cardMap={'Healthcare':'/assets/img/vitacoat-healthcare-application.svg','Helse':'/assets/img/vitacoat-healthcare-application.svg','Food processing':'/assets/img/vitacoat-food-processing-application.svg','Næringsmiddelindustri':'/assets/img/vitacoat-food-processing-application.svg','Public facilities':'/assets/img/vitacoat-public-facilities-application.svg','Offentlige miljøer':'/assets/img/vitacoat-public-facilities-application.svg','Education & offices':'/assets/img/vitacoat-education-offices-application.svg','Education & Offices':'/assets/img/vitacoat-education-offices-application.svg','Skole og kontor':'/assets/img/vitacoat-education-offices-application.svg','Electronics & Touchpoints':'/assets/img/vitacoat-electronics-touchpoints-application.svg','Elektronikk og kontaktpunkter':'/assets/img/vitacoat-electronics-touchpoints-application.svg'};
-  document.querySelectorAll('.apps .card').forEach(card=>{const title=(card.querySelector('h3')||{}).textContent||'';const img=card.querySelector('img');if(img&&cardMap[title.trim()])img.src=cardMap[title.trim()]});
 
-  document.querySelectorAll('.site-footer .footer-grid').forEach(f=>{if(f.querySelector('.footer-language'))return;const box=document.createElement('div');box.className='footer-language';box.appendChild(langSwitch());f.firstElementChild?f.firstElementChild.appendChild(box):f.appendChild(box)});
+  const desktop = document.querySelector('.nav');
+  if (desktop) {
+    desktop.innerHTML = '';
+    nav.forEach(item => {
+      const submenu = submenus[item.href];
+      if (submenu) {
+        const dropdown = document.createElement('div');
+        dropdown.className = 'nav-dropdown';
+        const top = document.createElement('a');
+        top.href = item.href;
+        top.textContent = item.label;
+        if (item.active(path)) top.classList.add('active');
+        dropdown.appendChild(top);
+        const menu = document.createElement('div');
+        menu.className = 'dropdown-menu';
+        submenu.forEach(([label, href]) => {
+          const a = document.createElement('a');
+          a.href = href;
+          a.textContent = label;
+          if (path === href) a.classList.add('active-sub');
+          menu.appendChild(a);
+        });
+        dropdown.appendChild(menu);
+        desktop.appendChild(dropdown);
+      } else {
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.label;
+        if (item.active(path)) a.classList.add('active');
+        desktop.appendChild(a);
+      }
+    });
+  }
 
-  const top=document.createElement('button');top.type='button';top.className='mobile-top-button';top.setAttribute('aria-label',isEn?'Back to the top of the page':'Til toppen av siden');top.innerHTML=isEn?'<span aria-hidden="true">↑</span><span>Back to top</span>':'<span aria-hidden="true">↑</span><span>Til toppen</span>';document.body.appendChild(top);top.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));let last=scrollY,timer=null;const update=()=>{const y=scrollY;if(innerWidth<=860&&y>280&&y<last-6){top.classList.add('is-visible');clearTimeout(timer);timer=setTimeout(()=>top.classList.remove('is-visible'),2000)}else if(innerWidth>860||y<=280)top.classList.remove('is-visible');last=y};addEventListener('scroll',update,{passive:true});addEventListener('resize',update);update();
+  const headerInner = document.querySelector('.header-inner');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobile = document.querySelector('.mobile-nav');
+  const mobileContainer = document.querySelector('.mobile-nav .container');
+
+  if (headerInner && !headerInner.querySelector('.language-switcher')) {
+    headerInner.insertBefore(makeLanguageSwitch(), menuToggle || null);
+  }
+
+  if (menuToggle) {
+    menuToggle.type = 'button';
+    menuToggle.innerHTML = '<span class="hamburger-icon" aria-hidden="true">☰</span><span class="sr-only">' + (isEn ? 'Menu' : 'Meny') + '</span>';
+    menuToggle.setAttribute('aria-label', isEn ? 'Open menu' : 'Åpne meny');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-controls', 'mobile-navigation');
+  }
+  if (mobile) mobile.id = 'mobile-navigation';
+
+  if (mobileContainer) {
+    mobileContainer.innerHTML = '';
+    const mobileLanguage = makeLanguageSwitch();
+    mobileLanguage.classList.add('mobile-language-switcher');
+    mobileContainer.appendChild(mobileLanguage);
+    nav.forEach(item => {
+      const group = document.createElement('div');
+      group.className = 'mobile-nav-group';
+      const row = document.createElement('div');
+      row.className = 'mobile-nav-row';
+      const link = document.createElement('a');
+      link.href = item.href;
+      link.textContent = item.label;
+      link.className = 'mobile-main-link';
+      if (item.active(path)) link.classList.add('active');
+      row.appendChild(link);
+      const submenu = submenus[item.href];
+      if (submenu) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'mobile-subnav-toggle';
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', isEn ? `Show submenu for ${item.label}` : `Vis undermeny for ${item.label}`);
+        button.innerHTML = '<span aria-hidden="true">›</span>';
+        row.appendChild(button);
+        const submenuBox = document.createElement('div');
+        submenuBox.className = 'mobile-subnav';
+        submenu.forEach(([label, href]) => {
+          const a = document.createElement('a');
+          a.href = href;
+          a.textContent = label;
+          a.className = 'mobile-subnav-link';
+          if (path === href) a.classList.add('active-sub');
+          submenuBox.appendChild(a);
+        });
+        group.appendChild(row);
+        group.appendChild(submenuBox);
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const open = group.classList.toggle('open');
+          button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      } else {
+        group.appendChild(row);
+      }
+      mobileContainer.appendChild(group);
+    });
+  }
+
+  if (menuToggle && mobile) {
+    menuToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const open = mobile.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('mobile-menu-open', open);
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (!mobile || !menuToggle || !mobile.classList.contains('open')) return;
+    if (mobile.contains(event.target) || menuToggle.contains(event.target)) return;
+    mobile.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('mobile-menu-open');
+  });
+
+  document.querySelectorAll('.mobile-nav a').forEach(a => {
+    a.addEventListener('click', () => {
+      if (!mobile || !menuToggle) return;
+      mobile.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('mobile-menu-open');
+    });
+  });
+
+  const heroMap = {
+    '/': '/assets/img/vitacoat-antimicrobial-hero.svg',
+    '/en/': '/assets/img/vitacoat-antimicrobial-hero.svg',
+    '/applications/': '/assets/img/vitacoat-applications-panel.svg',
+    '/en/applications/': '/assets/img/vitacoat-applications-panel.svg',
+    '/applications/healthcare/': '/assets/img/vitacoat-healthcare-application.svg',
+    '/en/applications/healthcare/': '/assets/img/vitacoat-healthcare-application.svg',
+    '/applications/food-processing/': '/assets/img/vitacoat-food-processing-application.svg',
+    '/en/applications/food-processing/': '/assets/img/vitacoat-food-processing-application.svg',
+    '/applications/public-facilities/': '/assets/img/vitacoat-public-facilities-application.svg',
+    '/en/applications/public-facilities/': '/assets/img/vitacoat-public-facilities-application.svg',
+    '/applications/education-and-offices/': '/assets/img/vitacoat-education-offices-application.svg',
+    '/en/applications/education-and-offices/': '/assets/img/vitacoat-education-offices-application.svg',
+    '/applications/electronics-and-touchpoints/': '/assets/img/vitacoat-electronics-touchpoints-application.svg',
+    '/en/applications/electronics-and-touchpoints/': '/assets/img/vitacoat-electronics-touchpoints-application.svg',
+    '/documentation/': '/assets/img/vitacoat-documentation-panel.svg',
+    '/en/documentation/': '/assets/img/vitacoat-documentation-panel.svg',
+    '/technical-support/': '/assets/img/vitacoat-technical-support-panel.svg',
+    '/en/technical-support/': '/assets/img/vitacoat-technical-support-panel.svg',
+    '/contact/': '/assets/img/vitacoat-technical-support-panel.svg',
+    '/en/contact/': '/assets/img/vitacoat-technical-support-panel.svg'
+  };
+  const hero = document.querySelector('.hero-media img');
+  if (hero && heroMap[path]) hero.src = heroMap[path];
+
+  const top = document.createElement('button');
+  top.type = 'button';
+  top.className = 'mobile-top-button';
+  top.setAttribute('aria-label', isEn ? 'Back to the top of the page' : 'Til toppen av siden');
+  top.innerHTML = isEn ? '<span aria-hidden="true">↑</span><span>Back to top</span>' : '<span aria-hidden="true">↑</span><span>Til toppen</span>';
+  document.body.appendChild(top);
+  top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  let lastY = window.scrollY;
+  let hideTimer = null;
+  const handleTopButton = () => {
+    const y = window.scrollY;
+    if (window.innerWidth <= 860 && y > 280 && y < lastY - 6) {
+      top.classList.add('is-visible');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => top.classList.remove('is-visible'), 2000);
+    } else if (window.innerWidth > 860 || y <= 280) {
+      top.classList.remove('is-visible');
+    }
+    lastY = y;
+  };
+  window.addEventListener('scroll', handleTopButton, { passive: true });
+  window.addEventListener('resize', handleTopButton);
+  handleTopButton();
 });
