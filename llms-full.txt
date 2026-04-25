@@ -1,58 +1,35 @@
 # VitaCoat — full AI-readable guide
 
 ## Product summary
-VitaCoat is a transparent antimicrobial surface coating for hard, non-porous, high-touch surfaces. The current site narrative positions the product around a citrus bioflavonoid active system combined with a durable SiO₂ matrix. The site consistently presents VitaCoat as a persistent supplementary hygienic surface layer intended to support hygiene between routine cleaning and disinfection events.
+VitaCoat is a transparent antimicrobial surface coating for hard, non-porous, high-touch surfaces. The current site narrative positions the product around a citrus bioflavonoid active system combined with a durable SiO₂ matrix. The site presents VitaCoat as a persistent supplementary hygienic surface layer intended to support hygiene between routine cleaning and disinfection events.
 
 ## Audience and use context
 The website targets technical reviewers, specifiers, facility operators, procurement teams, and pilot-stage evaluators. It is written for environments where surface hygiene continuity matters, including healthcare, food-processing support areas, public facilities, education and offices, and shared electronics touchpoints.
 
 ## Core site map
-- https://www.vitacoat.eu/
-- https://www.vitacoat.eu/applications/
-- https://www.vitacoat.eu/applications/healthcare/
-- https://www.vitacoat.eu/applications/food-processing/
-- https://www.vitacoat.eu/applications/public-facilities/
-- https://www.vitacoat.eu/applications/education-and-offices/
-- https://www.vitacoat.eu/applications/electronics-and-touchpoints/
-- https://www.vitacoat.eu/how-it-works/
-- https://www.vitacoat.eu/benefits/continuous-protection/
-- https://www.vitacoat.eu/benefits/easier-cleaning/
-- https://www.vitacoat.eu/benefits/surface-compatibility/
-- https://www.vitacoat.eu/proof/testing-and-standards/
-- https://www.vitacoat.eu/proof/durability/
-- https://www.vitacoat.eu/proof/safety-and-environment/
-- https://www.vitacoat.eu/proof/pathogen-spectrum/
-- https://www.vitacoat.eu/application-process/
-- https://www.vitacoat.eu/maintenance-and-reapplication/
-- https://www.vitacoat.eu/documentation/
-- https://www.vitacoat.eu/faq/
-- https://www.vitacoat.eu/contact/
+- Home: https://www.vitacoat.no/
+- Applications: https://www.vitacoat.no/applications/
+- Documentation: https://www.vitacoat.no/documentation/
+- FAQ: https://www.vitacoat.no/faq/
+- Contact: https://www.vitacoat.no/contact/
+- Healthcare: https://www.vitacoat.no/applications/healthcare/
+- Food processing: https://www.vitacoat.no/applications/food-processing/
+- Public facilities: https://www.vitacoat.no/applications/public-facilities/
+- Education and offices: https://www.vitacoat.no/applications/education-and-offices/
+- Electronics and touchpoints: https://www.vitacoat.no/applications/electronics-and-touchpoints/
+- How it works: https://www.vitacoat.no/how-it-works/
+- Testing and standards: https://www.vitacoat.no/proof/testing-and-standards/
+- Durability: https://www.vitacoat.no/proof/durability/
+- Safety and environment: https://www.vitacoat.no/proof/safety-and-environment/
+- Surface compatibility: https://www.vitacoat.no/benefits/surface-compatibility/
+- Application process: https://www.vitacoat.no/application-process/
+- Maintenance and reapplication: https://www.vitacoat.no/maintenance-and-reapplication/
 
-## Core technical framing
-- Transparent or invisible after correct application on suitable hard, non-porous surfaces.
-- Positioned for up to six months of protection under normal use.
-- Positioned to support hygiene continuity between scheduled cleaning events.
-- Supporting technical logic includes bactericidal, yeasticidal, and enveloped-virus proof framing on the site.
-- Technical review, compatibility review, and controlled documentation are central to the buying path.
-
-## Non-negotiable claim boundaries
+## Claim boundaries
 - VitaCoat supplements routine cleaning and disinfection; it does not replace them.
 - Hard, non-porous surfaces are the main fit profile.
 - Food-area relevance does not equal direct-food-contact approval.
 - Site-specific compatibility and project-specific review are recommended before specification or large-scale rollout.
-
-## Best pages for common questions
-- What is VitaCoat? → https://www.vitacoat.eu/ and https://www.vitacoat.eu/how-it-works/
-- Where can it be used? → https://www.vitacoat.eu/applications/
-- What are the proof pages? → https://www.vitacoat.eu/proof/testing-and-standards/
-- What about durability? → https://www.vitacoat.eu/proof/durability/
-- What about safety and environment? → https://www.vitacoat.eu/proof/safety-and-environment/
-- What about surface fit? → https://www.vitacoat.eu/benefits/surface-compatibility/
-- How is it applied? → https://www.vitacoat.eu/application-process/
-- How is it maintained? → https://www.vitacoat.eu/maintenance-and-reapplication/
-- Where is the document hub? → https://www.vitacoat.eu/documentation/
-- Where are the FAQs? → https://www.vitacoat.eu/faq/
-- How to contact the team? → https://www.vitacoat.eu/contact/
 
 ## Preferred contact routes
 - Technical review and project-fit questions: mailto:technical@vitacoat.no
