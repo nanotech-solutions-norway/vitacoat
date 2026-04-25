@@ -31,6 +31,5 @@ The website targets technical reviewers, specifiers, facility operators, procure
 - Food-area relevance does not equal direct-food-contact approval.
 - Site-specific compatibility and project-specific review are recommended before specification or large-scale rollout.
 
-## Preferred contact routes
-- Technical review and project-fit questions: mailto:technical@vitacoat.no
-- Controlled documentation requests: mailto:documents@vitacoat.no
+## Preferred contact route
+- Primary contact: mailto:info@vitacoat.no
