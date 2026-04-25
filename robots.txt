@@ -2,6 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /internal/
 
-Sitemap: https://www.vitacoat.eu/sitemap.xml
+Sitemap: https://www.vitacoat.no/sitemap.xml
 # AI-readable site guide
-# https://www.vitacoat.eu/llms.txt
+# https://www.vitacoat.no/llms.txt
