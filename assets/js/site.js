@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const isEn = path.startsWith('/en/');
   document.documentElement.lang = isEn ? 'en' : 'nb-NO';
 
-  const toEn = (p) => (p === '/' ? '/en/' : `/en${p}`);
-  const toNo = (p) => (p.startsWith('/en/') ? (p.replace(/^\/en/, '') || '/') : p);
+  const toEn = p => (p === '/' ? '/en/' : `/en${p}`);
+  const toNo = p => (p.startsWith('/en/') ? (p.replace(/^\/en/, '') || '/') : p);
   const noPath = toNo(path);
   const enPath = isEn ? path : toEn(path);
-  const local = (p) => (isEn ? toEn(p) : p);
+  const local = p => (isEn ? toEn(p) : p);
 
   try {
     const hasChoice = localStorage.getItem('vitacoat-language-initialized') === 'true';
@@ -108,28 +108,28 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   };
 
-  const makeLanguageSwitch = () => {
+  const setLanguage = code => {
+    try {
+      localStorage.setItem('vitacoat-language', code);
+      localStorage.setItem('vitacoat-language-initialized', 'true');
+    } catch (e) {}
+  };
+
+  const makeLanguageSwitch = (placement = '') => {
     const wrap = document.createElement('div');
-    wrap.className = 'language-switcher';
-    const label = document.createElement('span');
-    label.className = 'language-switcher-label';
-    label.textContent = isEn ? 'Language' : 'Språk';
-    wrap.appendChild(label);
+    wrap.className = `language-switcher flag-language-switcher${placement ? ` ${placement}` : ''}`;
     [
-      ['NO', noPath, !isEn, 'no'],
-      ['EN', enPath, isEn, 'en']
-    ].forEach(([text, href, active, code]) => {
+      { flag: '🇳🇴', href: noPath, active: !isEn, code: 'no', label: 'Norsk' },
+      { flag: '🇬🇧', href: enPath, active: isEn, code: 'en', label: 'English' }
+    ].forEach(item => {
       const a = document.createElement('a');
-      a.href = href;
-      a.textContent = text;
-      a.className = `language-link${active ? ' active-lang' : ''}`;
-      a.setAttribute('hreflang', code);
-      a.addEventListener('click', () => {
-        try {
-          localStorage.setItem('vitacoat-language', code);
-          localStorage.setItem('vitacoat-language-initialized', 'true');
-        } catch (e) {}
-      });
+      a.href = item.href;
+      a.textContent = item.flag;
+      a.className = `language-link flag-language-link${item.active ? ' active-lang' : ''}`;
+      a.setAttribute('hreflang', item.code);
+      a.setAttribute('aria-label', item.label);
+      a.setAttribute('title', item.label);
+      a.addEventListener('click', () => setLanguage(item.code));
       wrap.appendChild(a);
     });
     return wrap;
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileContainer = document.querySelector('.mobile-nav .container');
 
   if (headerInner && !headerInner.querySelector('.language-switcher')) {
-    headerInner.insertBefore(makeLanguageSwitch(), menuToggle || null);
+    headerInner.insertBefore(makeLanguageSwitch('header-language-switcher'), menuToggle || null);
   }
 
   if (menuToggle) {
@@ -189,9 +189,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (mobileContainer) {
     mobileContainer.innerHTML = '';
-    const mobileLanguage = makeLanguageSwitch();
-    mobileLanguage.classList.add('mobile-language-switcher');
-    mobileContainer.appendChild(mobileLanguage);
     nav.forEach(item => {
       const group = document.createElement('div');
       group.className = 'mobile-nav-group';
@@ -224,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         group.appendChild(row);
         group.appendChild(submenuBox);
-        button.addEventListener('click', (event) => {
+        button.addEventListener('click', event => {
           event.preventDefault();
           event.stopPropagation();
           const open = group.classList.toggle('open');
@@ -235,10 +232,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       mobileContainer.appendChild(group);
     });
+    mobileContainer.appendChild(makeLanguageSwitch('mobile-language-switcher'));
   }
 
   if (menuToggle && mobile) {
-    menuToggle.addEventListener('click', (event) => {
+    menuToggle.addEventListener('click', event => {
       event.preventDefault();
       event.stopPropagation();
       const open = mobile.classList.toggle('open');
@@ -247,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', event => {
     if (!mobile || !menuToggle || !mobile.classList.contains('open')) return;
     if (mobile.contains(event.target) || menuToggle.contains(event.target)) return;
     mobile.classList.remove('open');
@@ -262,6 +260,15 @@ document.addEventListener('DOMContentLoaded', () => {
       menuToggle.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('mobile-menu-open');
     });
+  });
+
+  document.querySelectorAll('.site-footer .footer-grid').forEach(footer => {
+    if (footer.querySelector('.footer-language-switcher')) return;
+    const box = document.createElement('div');
+    box.className = 'footer-language';
+    box.appendChild(makeLanguageSwitch('footer-language-switcher'));
+    const firstCol = footer.firstElementChild || footer;
+    firstCol.appendChild(box);
   });
 
   const heroMap = {
