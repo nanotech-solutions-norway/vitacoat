@@ -34,6 +34,5 @@
 - Direct-food-contact approval should not be assumed.
 - Project-specific fit should be confirmed through technical review and documentation.
 
-## Preferred contact routes
-- Technical review: mailto:technical@vitacoat.no
-- Documentation requests: mailto:documents@vitacoat.no
+## Preferred contact route
+- Primary contact: mailto:info@vitacoat.no
