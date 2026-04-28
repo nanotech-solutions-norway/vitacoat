@@ -261,17 +261,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const footerColumns = isEn ? [
     {
-      title: 'Core pages',
+      title: 'Home',
       links: [
         ['Home', routes.home],
-        ['Applications', routes.applications],
-        ['Documentation', routes.documentation],
         ['Technical Support', routes.technicalSupport]
       ]
     },
     {
       title: 'Applications',
       links: [
+        ['Applications', routes.applications],
         ['Healthcare', routes.healthcare],
         ['Food Processing', routes.food],
         ['Public Facilities', routes.publicFacilities],
@@ -282,8 +281,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     {
-      title: 'Evidence & guidance',
+      title: 'Documentation',
       links: [
+        ['Documentation', routes.documentation],
         ['How it Works', routes.how],
         ['Continuous Protection', routes.continuous],
         ['Easier Cleaning', routes.cleaning],
@@ -304,17 +304,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ] : [
     {
-      title: 'Hovedsider',
+      title: 'Hjem',
       links: [
         ['Hjem', routes.home],
-        ['Bruksområder', routes.applications],
-        ['Dokumentasjon', routes.documentation],
         ['Teknisk støtte', routes.technicalSupport]
       ]
     },
     {
       title: 'Bruksområder',
       links: [
+        ['Bruksområder', routes.applications],
         ['Helse', routes.healthcare],
         ['Næringsmiddelindustri', routes.food],
         ['Offentlige miljøer', routes.publicFacilities],
@@ -325,8 +324,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     {
-      title: 'Bevis og veiledning',
+      title: 'Dokumentasjon',
       links: [
+        ['Dokumentasjon', routes.documentation],
         ['Hvordan det fungerer', routes.how],
         ['Vedvarende beskyttelse', routes.continuous],
         ['Enklere rengjøring', routes.cleaning],
