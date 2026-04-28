@@ -26,7 +26,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: 'Apply static VitaCoat SEO heads'
-          file_pattern: '**/*.html'
+          file_pattern: '*.html **/*.html'
 
 # Governance note: this workflow exists to make crawler-visible metadata static, deterministic, and version controlled.
-# Re-run marker: duplicate metadata cleanup after compact-head validation.
+# Re-run marker: include root-level index.html in static SEO generation.
