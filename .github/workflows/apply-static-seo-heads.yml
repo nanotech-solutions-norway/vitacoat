@@ -5,7 +5,9 @@ on:
     branches: [main]
     paths:
       - '.github/scripts/apply_static_seo_heads.py'
+      - '.github/scripts/audit_static_seo.py'
       - '.github/workflows/apply-static-seo-heads.yml'
+      - 'sitemap.xml'
   workflow_dispatch:
 
 permissions:
@@ -22,11 +24,14 @@ jobs:
       - name: Apply static SEO metadata to HTML files
         run: python .github/scripts/apply_static_seo_heads.py
 
-      - name: Commit static SEO head changes
+      - name: Audit static SEO coverage against sitemap
+        run: python .github/scripts/audit_static_seo.py
+
+      - name: Commit static SEO head changes and audit report
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
-          commit_message: 'Apply static VitaCoat SEO heads'
-          file_pattern: '*.html **/*.html'
+          commit_message: 'Apply and audit static VitaCoat SEO heads'
+          file_pattern: '*.html **/*.html seo-static-audit.json'
 
-# Governance note: this workflow exists to make crawler-visible metadata static, deterministic, and version controlled.
-# Re-run marker: include root-level index.html in static SEO generation.
+# Governance note: this workflow exists to make crawler-visible metadata static, deterministic, audited, and version controlled.
+# Re-run marker: audit all sitemap-listed canonical URLs.
