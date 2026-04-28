@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Apply static SEO metadata to all VitaCoat HTML files.
+"""Apply static SEO metadata to canonical VitaCoat HTML files.
 
-This script is intentionally deterministic. It rewrites metadata inside each
-<head> so crawlers can read title, description, canonical, hreflang, Open Graph,
-and Twitter card metadata before JavaScript executes.
+The script rewrites crawler-visible <head> metadata deterministically. It removes
+legacy duplicate title/meta/canonical/hreflang tags, then inserts one approved
+SEO block immediately after charset. Non-canonical legacy HTML files are cleaned
+of generated blocks but are not given new SEO metadata.
 """
 from __future__ import annotations
 
@@ -64,18 +65,19 @@ SEO_EN = {
     "/en/contact/": ("Contact VitaCoat | Technical Evaluation and Documentation", "Contact VitaCoat for technical evaluation, documentation requests, pilot dialogue, procurement questions or project clarification."),
 }
 
-GENERIC_NO = ("Antimikrobielt belegg og teknisk dokumentasjon | VitaCoat", "VitaCoat er et transparent antimikrobielt belegg for harde, ikke-porøse berøringsflater.")
-GENERIC_EN = ("Antimicrobial Coating and Technical Documentation | VitaCoat", "VitaCoat is a transparent antimicrobial coating for hard, non-porous high-touch surfaces.")
+CANONICAL_PATHS = set(SEO_NO) | set(SEO_EN)
 
-REMOVE_PATTERNS = [
-    r"^\s*<title>.*?</title>\s*$",
-    r"^\s*<meta\s+name=[\"']description[\"'][^>]*>\s*$",
-    r"^\s*<meta\s+property=[\"']og:[^\"']+[\"'][^>]*>\s*$",
-    r"^\s*<meta\s+name=[\"']twitter:[^\"']+[\"'][^>]*>\s*$",
-    r"^\s*<link\s+rel=[\"']canonical[\"'][^>]*>\s*$",
-    r"^\s*<link\s+rel=[\"']alternate[\"'][^>]*>\s*$",
+TAG_PATTERNS = [
+    r"<title\b[^>]*>.*?</title>",
+    r"<meta\b(?=[^>]*\bname=[\"']description[\"'])[^>]*>",
+    r"<meta\b(?=[^>]*\bname=[\"']content-language[\"'])[^>]*>",
+    r"<meta\b(?=[^>]*\bproperty=[\"']og:[^\"']+[\"'])[^>]*>",
+    r"<meta\b(?=[^>]*\bname=[\"']twitter:[^\"']+[\"'])[^>]*>",
+    r"<link\b(?=[^>]*\brel=[\"']canonical[\"'])[^>]*>",
+    r"<link\b(?=[^>]*\brel=[\"']alternate[\"'])[^>]*>",
 ]
-REMOVE_RE = [re.compile(p, re.I) for p in REMOVE_PATTERNS]
+TAG_RE = re.compile("|".join(TAG_PATTERNS), re.I | re.S)
+STATIC_BLOCK_RE = re.compile(r"\s*<!-- Static SEO metadata: start -->.*?<!-- Static SEO metadata: end -->\s*", re.I | re.S)
 
 
 def page_path(file_path: Path) -> str:
@@ -101,8 +103,8 @@ def en_equivalent(path: str) -> str:
 
 def get_seo(path: str) -> tuple[str, str]:
     if path.startswith("/en/"):
-        return SEO_EN.get(path, GENERIC_EN)
-    return SEO_NO.get(path, GENERIC_NO)
+        return SEO_EN[path]
+    return SEO_NO[path]
 
 
 def escape(value: str) -> str:
@@ -115,7 +117,7 @@ def static_block(path: str) -> str:
     en_path = en_equivalent(path)
     canonical = f"{BASE_URL}{path}"
     lang = "en" if path.startswith("/en/") else "nb-NO"
-    lines = [
+    return "\n".join([
         "  <!-- Static SEO metadata: start -->",
         f"  <title>{escape(title)}</title>",
         f"  <meta name=\"description\" content=\"{escape(description)}\">",
@@ -135,18 +137,14 @@ def static_block(path: str) -> str:
         f"  <link rel=\"alternate\" hreflang=\"x-default\" href=\"{BASE_URL}/\">",
         f"  <meta name=\"content-language\" content=\"{lang}\">",
         "  <!-- Static SEO metadata: end -->",
-    ]
-    return "\n".join(lines)
+    ])
 
 
 def clean_head(head: str) -> str:
-    head = re.sub(r"\n?\s*<!-- Static SEO metadata: start -->.*?<!-- Static SEO metadata: end -->\s*\n?", "\n", head, flags=re.S)
-    kept = []
-    for line in head.splitlines():
-        if any(rx.match(line) for rx in REMOVE_RE):
-            continue
-        kept.append(line.rstrip())
-    return "\n".join(kept).strip()
+    head = STATIC_BLOCK_RE.sub("\n", head)
+    head = TAG_RE.sub("", head)
+    head = re.sub(r"\n{3,}", "\n\n", head)
+    return "\n".join(line.rstrip() for line in head.splitlines() if line.strip())
 
 
 def rewrite_file(path_obj: Path) -> bool:
@@ -156,14 +154,17 @@ def rewrite_file(path_obj: Path) -> bool:
         return False
     path = page_path(path_obj)
     head = clean_head(match.group(1))
-    lines = head.splitlines()
-    charset_index = next((i for i, line in enumerate(lines) if "charset" in line.lower()), -1)
-    block = static_block(path)
-    if charset_index >= 0:
-        new_lines = lines[: charset_index + 1] + [block] + lines[charset_index + 1 :]
+    if path not in CANONICAL_PATHS:
+        new_head = head
     else:
-        new_lines = [block] + lines
-    new_head = "\n".join(line for line in new_lines if line.strip())
+        lines = head.splitlines()
+        charset_index = next((i for i, line in enumerate(lines) if "charset" in line.lower()), -1)
+        block = static_block(path)
+        if charset_index >= 0:
+            new_lines = lines[: charset_index + 1] + [block] + lines[charset_index + 1 :]
+        else:
+            new_lines = [block] + lines
+        new_head = "\n".join(line for line in new_lines if line.strip())
     updated = original[: match.start(1)] + "\n" + new_head + "\n" + original[match.end(1) :]
     if updated != original:
         path_obj.write_text(updated, encoding="utf-8")
