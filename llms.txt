@@ -1,32 +1,50 @@
 # VitaCoat
 
-> VitaCoat is a transparent antimicrobial surface coating for hard, non-porous, high-touch surfaces. It combines citrus bioflavonoids with a durable SiO₂ matrix and is positioned as a supplementary hygienic surface layer that supports hygiene between routine cleaning and disinfection cycles.
+> VitaCoat is a transparent antimicrobial coating for hard, non-porous, high-touch surfaces. It combines citrus bioflavonoids with a durable SiO₂ surface matrix and is positioned as a supplementary hygienic surface layer that supports hygiene between routine cleaning and disinfection cycles.
 
-## Primary pages
-- Home: https://www.vitacoat.no/
-- Applications hub: https://www.vitacoat.no/applications/
-- Documentation hub: https://www.vitacoat.no/documentation/
+## Language architecture
+- Norwegian commercial root: https://www.vitacoat.no/
+- English international layer: https://www.vitacoat.no/en/
+- The website uses explicit crawlable URLs, visible language switching, reciprocal language alternates, and no automatic IP or browser-language redirect as the primary multilingual mechanism.
+
+## Primary Norwegian pages
+- Hjem / antimikrobielt belegg for berøringsflater: https://www.vitacoat.no/
+- Bruksområder: https://www.vitacoat.no/applications/
+- Dokumentasjon: https://www.vitacoat.no/documentation/
 - FAQ: https://www.vitacoat.no/faq/
-- Contact: https://www.vitacoat.no/contact/
+- Teknisk støtte: https://www.vitacoat.no/technical-support/
+- Kontakt: https://www.vitacoat.no/contact/
+
+## Primary English pages
+- Home / antimicrobial coating for high-touch surfaces: https://www.vitacoat.no/en/
+- Applications: https://www.vitacoat.no/en/applications/
+- Documentation: https://www.vitacoat.no/en/documentation/
+- FAQ: https://www.vitacoat.no/en/faq/
+- Technical support: https://www.vitacoat.no/en/technical-support/
+- Contact: https://www.vitacoat.no/en/contact/
 
 ## Application pages
-- Healthcare: https://www.vitacoat.no/applications/healthcare/
-- Food processing: https://www.vitacoat.no/applications/food-processing/
-- Public facilities: https://www.vitacoat.no/applications/public-facilities/
-- Education and offices: https://www.vitacoat.no/applications/education-and-offices/
-- Electronics and touchpoints: https://www.vitacoat.no/applications/electronics-and-touchpoints/
+- Healthcare: https://www.vitacoat.no/applications/healthcare/ | https://www.vitacoat.no/en/applications/healthcare/
+- Food processing: https://www.vitacoat.no/applications/food-processing/ | https://www.vitacoat.no/en/applications/food-processing/
+- Public facilities: https://www.vitacoat.no/applications/public-facilities/ | https://www.vitacoat.no/en/applications/public-facilities/
+- Education and offices: https://www.vitacoat.no/applications/education-and-offices/ | https://www.vitacoat.no/en/applications/education-and-offices/
+- Electronics and touchpoints: https://www.vitacoat.no/applications/electronics-and-touchpoints/ | https://www.vitacoat.no/en/applications/electronics-and-touchpoints/
 
 ## Technical proof and supporting pages
-- How it works: https://www.vitacoat.no/how-it-works/
-- Continuous protection: https://www.vitacoat.no/benefits/continuous-protection/
-- Easier cleaning: https://www.vitacoat.no/benefits/easier-cleaning/
-- Surface compatibility: https://www.vitacoat.no/benefits/surface-compatibility/
-- Testing and standards: https://www.vitacoat.no/proof/testing-and-standards/
-- Durability: https://www.vitacoat.no/proof/durability/
-- Safety and environment: https://www.vitacoat.no/proof/safety-and-environment/
-- Pathogen spectrum: https://www.vitacoat.no/proof/pathogen-spectrum/
-- Application process: https://www.vitacoat.no/application-process/
-- Maintenance and reapplication: https://www.vitacoat.no/maintenance-and-reapplication/
+- How it works: https://www.vitacoat.no/how-it-works/ | https://www.vitacoat.no/en/how-it-works/
+- Continuous protection: https://www.vitacoat.no/benefits/continuous-protection/ | https://www.vitacoat.no/en/benefits/continuous-protection/
+- Easier cleaning: https://www.vitacoat.no/benefits/easier-cleaning/ | https://www.vitacoat.no/en/benefits/easier-cleaning/
+- Surface compatibility: https://www.vitacoat.no/benefits/surface-compatibility/ | https://www.vitacoat.no/en/benefits/surface-compatibility/
+- Testing and standards: https://www.vitacoat.no/proof/testing-and-standards/ | https://www.vitacoat.no/en/proof/testing-and-standards/
+- Durability: https://www.vitacoat.no/proof/durability/ | https://www.vitacoat.no/en/proof/durability/
+- Safety and environment: https://www.vitacoat.no/proof/safety-and-environment/ | https://www.vitacoat.no/en/proof/safety-and-environment/
+- Pathogen spectrum: https://www.vitacoat.no/proof/pathogen-spectrum/ | https://www.vitacoat.no/en/proof/pathogen-spectrum/
+- Application process: https://www.vitacoat.no/application-process/ | https://www.vitacoat.no/en/application-process/
+- Maintenance and reapplication: https://www.vitacoat.no/maintenance-and-reapplication/ | https://www.vitacoat.no/en/maintenance-and-reapplication/
+
+## Preferred search language
+- Norwegian: antimikrobielt belegg, hygienebelegg, antimikrobiell coating, hygienisk overflatebehandling, berøringsflater, dokumentasjon, testing og standarder.
+- English: antimicrobial coating, coating for high-touch surfaces, hygienic surface coating, healthcare touch surfaces, food-processing non-food-contact surfaces, technical documentation, testing and standards.
 
 ## Important claim boundaries
 - VitaCoat supplements routine cleaning and disinfection; it does not replace them.
@@ -35,4 +53,6 @@
 - Project-specific fit should be confirmed through technical review and documentation.
 
 ## Preferred contact route
-- Primary contact: mailto:info@vitacoat.no
+- General contact: mailto:info@vitacoat.no
+- Technical review: mailto:technical@vitacoat.no
+- Documentation: mailto:documents@vitacoat.no
