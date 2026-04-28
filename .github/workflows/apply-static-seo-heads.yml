@@ -29,3 +29,4 @@ jobs:
           file_pattern: '**/*.html'
 
 # Governance note: this workflow exists to make crawler-visible metadata static, deterministic, and version controlled.
+# Re-run marker: duplicate metadata cleanup after compact-head validation.
