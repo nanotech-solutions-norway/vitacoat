@@ -1,0 +1,362 @@
+{
+  "generated_at_utc": "2026-04-28T21:37:45+00:00",
+  "scope": "All canonical public URLs listed in sitemap.xml",
+  "total_sitemap_urls": 44,
+  "passed": 44,
+  "failed": 0,
+  "all_pages_have_static_seo": true,
+  "pages": [
+    {
+      "url": "https://www.vitacoat.no/",
+      "path": "/",
+      "file": "index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimikrobielt belegg for berøringsflater | VitaCoat Norge"
+    },
+    {
+      "url": "https://www.vitacoat.no/applications/",
+      "path": "/applications/",
+      "file": "applications/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Bruksområder for antimikrobielt belegg | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/applications/healthcare/",
+      "path": "/applications/healthcare/",
+      "file": "applications/healthcare/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimikrobielt belegg for kliniske berøringsflater | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/applications/food-processing/",
+      "path": "/applications/food-processing/",
+      "file": "applications/food-processing/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Hygienebelegg for harde flater uten direkte matkontakt | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/applications/public-facilities/",
+      "path": "/applications/public-facilities/",
+      "file": "applications/public-facilities/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimikrobiell overflatebehandling for offentlige kontaktflater | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/applications/education-and-offices/",
+      "path": "/applications/education-and-offices/",
+      "file": "applications/education-and-offices/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Hygienebelegg for delte flater i skole og kontor | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/applications/electronics-and-touchpoints/",
+      "path": "/applications/electronics-and-touchpoints/",
+      "file": "applications/electronics-and-touchpoints/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimikrobiell coating for touchskjermer og terminaler | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/how-it-works/",
+      "path": "/how-it-works/",
+      "file": "how-it-works/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Hvordan VitaCoat fungerer | Citrox og SiO₂ overflatefilm"
+    },
+    {
+      "url": "https://www.vitacoat.no/benefits/continuous-protection/",
+      "path": "/benefits/continuous-protection/",
+      "file": "benefits/continuous-protection/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Vedvarende antimikrobiell beskyttelse | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/benefits/easier-cleaning/",
+      "path": "/benefits/easier-cleaning/",
+      "file": "benefits/easier-cleaning/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Enklere rengjøring av berøringsflater | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/benefits/surface-compatibility/",
+      "path": "/benefits/surface-compatibility/",
+      "file": "benefits/surface-compatibility/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Overflatekompatibilitet for VitaCoat | Glass, metall og plast"
+    },
+    {
+      "url": "https://www.vitacoat.no/proof/testing-and-standards/",
+      "path": "/proof/testing-and-standards/",
+      "file": "proof/testing-and-standards/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Testing og standarder for VitaCoat | EN 13727, EN 13624, EN 14476"
+    },
+    {
+      "url": "https://www.vitacoat.no/proof/durability/",
+      "path": "/proof/durability/",
+      "file": "proof/durability/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Holdbarhet for antimikrobielt belegg | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/proof/safety-and-environment/",
+      "path": "/proof/safety-and-environment/",
+      "file": "proof/safety-and-environment/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Sikkerhet og miljø for VitaCoat | Teknisk dokumentasjon"
+    },
+    {
+      "url": "https://www.vitacoat.no/proof/pathogen-spectrum/",
+      "path": "/proof/pathogen-spectrum/",
+      "file": "proof/pathogen-spectrum/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Patogenspekter og dokumenterte grenser | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/application-process/",
+      "path": "/application-process/",
+      "file": "application-process/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Applikasjonsprosess for VitaCoat | Pilot og utrulling"
+    },
+    {
+      "url": "https://www.vitacoat.no/maintenance-and-reapplication/",
+      "path": "/maintenance-and-reapplication/",
+      "file": "maintenance-and-reapplication/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Vedlikehold og re-applikasjon av VitaCoat | Serviceintervall"
+    },
+    {
+      "url": "https://www.vitacoat.no/documentation/",
+      "path": "/documentation/",
+      "file": "documentation/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Dokumentasjon for VitaCoat | Standarder, sikkerhet og teknisk underlag"
+    },
+    {
+      "url": "https://www.vitacoat.no/faq/",
+      "path": "/faq/",
+      "file": "faq/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Spørsmål og svar om antimikrobielt belegg | VitaCoat FAQ"
+    },
+    {
+      "url": "https://www.vitacoat.no/legal/",
+      "path": "/legal/",
+      "file": "legal/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Juridisk informasjon og claim-grenser | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/technical-support/",
+      "path": "/technical-support/",
+      "file": "technical-support/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Teknisk støtte for VitaCoat | Vurdering, dokumentasjon og pilot"
+    },
+    {
+      "url": "https://www.vitacoat.no/contact/",
+      "path": "/contact/",
+      "file": "contact/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Kontakt VitaCoat | Teknisk vurdering og dokumentasjon"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/",
+      "path": "/en/",
+      "file": "en/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimicrobial Coating for High-Touch Surfaces | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/applications/",
+      "path": "/en/applications/",
+      "file": "en/applications/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Applications for Antimicrobial Coating | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/applications/healthcare/",
+      "path": "/en/applications/healthcare/",
+      "file": "en/applications/healthcare/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimicrobial Coating for Healthcare Touch Surfaces | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/applications/food-processing/",
+      "path": "/en/applications/food-processing/",
+      "file": "en/applications/food-processing/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Hygienic Coating for Hard Surfaces in Food Processing | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/applications/public-facilities/",
+      "path": "/en/applications/public-facilities/",
+      "file": "en/applications/public-facilities/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimicrobial Surface Protection for Public Touchpoints | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/applications/education-and-offices/",
+      "path": "/en/applications/education-and-offices/",
+      "file": "en/applications/education-and-offices/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimicrobial Coating for Shared Surfaces in Schools and Workplaces | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/applications/electronics-and-touchpoints/",
+      "path": "/en/applications/electronics-and-touchpoints/",
+      "file": "en/applications/electronics-and-touchpoints/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Antimicrobial Coating for Touchscreens, Kiosks and Terminals | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/how-it-works/",
+      "path": "/en/how-it-works/",
+      "file": "en/how-it-works/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "How VitaCoat Works | Citrus Bioflavonoids + SiO₂ Surface Matrix"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/benefits/continuous-protection/",
+      "path": "/en/benefits/continuous-protection/",
+      "file": "en/benefits/continuous-protection/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Continuous Antimicrobial Surface Protection | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/benefits/easier-cleaning/",
+      "path": "/en/benefits/easier-cleaning/",
+      "file": "en/benefits/easier-cleaning/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Easier Cleaning for High-Touch Surfaces | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/benefits/surface-compatibility/",
+      "path": "/en/benefits/surface-compatibility/",
+      "file": "en/benefits/surface-compatibility/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Surface Compatibility for VitaCoat | Glass, Metal and Plastic"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/proof/testing-and-standards/",
+      "path": "/en/proof/testing-and-standards/",
+      "file": "en/proof/testing-and-standards/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Testing and Standards | EN 13727, EN 13624, EN 14476 | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/proof/durability/",
+      "path": "/en/proof/durability/",
+      "file": "en/proof/durability/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Durability of Antimicrobial Coating | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/proof/safety-and-environment/",
+      "path": "/en/proof/safety-and-environment/",
+      "file": "en/proof/safety-and-environment/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Safety and Environment | VitaCoat Technical Documentation"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/proof/pathogen-spectrum/",
+      "path": "/en/proof/pathogen-spectrum/",
+      "file": "en/proof/pathogen-spectrum/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Pathogen Spectrum and Documented Boundaries | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/application-process/",
+      "path": "/en/application-process/",
+      "file": "en/application-process/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "VitaCoat Application Process | Pilot and Rollout"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/maintenance-and-reapplication/",
+      "path": "/en/maintenance-and-reapplication/",
+      "file": "en/maintenance-and-reapplication/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Maintenance and Reapplication of VitaCoat | Service Interval"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/documentation/",
+      "path": "/en/documentation/",
+      "file": "en/documentation/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Technical Documentation for VitaCoat | Standards, Safety and Support"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/faq/",
+      "path": "/en/faq/",
+      "file": "en/faq/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "FAQ About Antimicrobial Coating | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/legal/",
+      "path": "/en/legal/",
+      "file": "en/legal/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Legal Information and Claim Boundaries | VitaCoat"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/technical-support/",
+      "path": "/en/technical-support/",
+      "file": "en/technical-support/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Technical Support for VitaCoat | Evaluation, Documentation and Pilot"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/contact/",
+      "path": "/en/contact/",
+      "file": "en/contact/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Contact VitaCoat | Technical Evaluation and Documentation"
+    }
+  ]
+}
