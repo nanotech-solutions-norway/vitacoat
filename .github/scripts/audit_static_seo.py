@@ -2,8 +2,8 @@
 """Audit VitaCoat static SEO coverage against sitemap.xml.
 
 This script validates every URL listed in sitemap.xml against the generated raw
-HTML head metadata. It intentionally audits only public canonical sitemap URLs.
-Legacy pages outside the sitemap are not treated as canonical SEO targets.
+HTML head metadata. It audits only public canonical sitemap URLs. Legacy pages
+outside the sitemap are not treated as canonical SEO targets.
 """
 from __future__ import annotations
 
@@ -67,24 +67,20 @@ def check_page(path: str) -> dict:
     expected_no = seo.BASE_URL + seo.no_equivalent(path)
     expected_en = seo.BASE_URL + seo.en_equivalent(path)
 
-    if head.count("<!-- Static SEO metadata: start -->") != 1:
-        result["issues"].append("static_seo_block_count_not_one")
-    if head.count("<title") != 1:
-        result["issues"].append("title_count_not_one")
-    if f"<title>{expected_title}</title>" not in head:
-        result["issues"].append("title_mismatch")
-    if f'name="description" content="{expected_description}"' not in head:
-        result["issues"].append("description_mismatch")
-    if f'rel="canonical" href="{expected_canonical}"' not in head:
-        result["issues"].append("canonical_mismatch")
-    if f'hreflang="nb-NO" href="{expected_no}"' not in head:
-        result["issues"].append("hreflang_nb_no_missing_or_mismatch")
-    if f'hreflang="no" href="{expected_no}"' not in head:
-        result["issues"].append("hreflang_no_missing_or_mismatch")
-    if f'hreflang="en" href="{expected_en}"' not in head:
-        result["issues"].append("hreflang_en_missing_or_mismatch")
-    if 'hreflang="x-default" href="https://www.vitacoat.no/"' not in head:
-        result["issues"].append("hreflang_x_default_missing")
+    checks = [
+        (head.count("<!-- Static SEO metadata: start -->") == 1, "static_seo_block_count_not_one"),
+        (head.count("<title") == 1, "title_count_not_one"),
+        (f"<title>{expected_title}</title>" in head, "title_mismatch"),
+        (f'name="description" content="{expected_description}"' in head, "description_mismatch"),
+        (f'rel="canonical" href="{expected_canonical}"' in head, "canonical_mismatch"),
+        (f'hreflang="nb-NO" href="{expected_no}"' in head, "hreflang_nb_no_missing_or_mismatch"),
+        (f'hreflang="no" href="{expected_no}"' in head, "hreflang_no_missing_or_mismatch"),
+        (f'hreflang="en" href="{expected_en}"' in head, "hreflang_en_missing_or_mismatch"),
+        ('hreflang="x-default" href="https://www.vitacoat.no/"' in head, "hreflang_x_default_missing"),
+    ]
+    for ok, issue in checks:
+        if not ok:
+            result["issues"].append(issue)
 
     result["title"] = expected_title
     if result["issues"]:
@@ -115,7 +111,13 @@ def main() -> int:
         "pages": pages,
     }
     REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({k: report[k] for k in ["total_sitemap_urls", "passed", "failed", "all_pages_have_static_seo"]}, ensure_ascii=False, indent=2))
+    summary = {k: report[k] for k in ["total_sitemap_urls", "passed", "failed", "all_pages_have_static_seo"]}
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+    if failed:
+        print("Static SEO audit failed for:")
+        for page in failed:
+            print(f"- {page['path']}: {', '.join(page['issues'])}")
+        return 1
     return 0
 
 
