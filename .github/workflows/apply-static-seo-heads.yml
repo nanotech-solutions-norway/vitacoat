@@ -1,0 +1,29 @@
+name: Apply static SEO heads
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/apply_static_seo_heads.py'
+      - '.github/workflows/apply-static-seo-heads.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-static-seo-heads:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Apply static SEO metadata to HTML files
+        run: python .github/scripts/apply_static_seo_heads.py
+
+      - name: Commit static SEO head changes
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: 'Apply static VitaCoat SEO heads'
+          file_pattern: '**/*.html'
