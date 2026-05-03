@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-04-28T21:48:57+00:00",
+  "generated_at_utc": "2026-05-03T14:57:41+00:00",
   "scope": "All canonical public URLs listed in sitemap.xml",
-  "total_sitemap_urls": 44,
-  "passed": 44,
+  "total_sitemap_urls": 46,
+  "passed": 46,
   "failed": 0,
   "all_pages_have_static_seo": true,
   "pages": [
@@ -173,6 +173,14 @@
       "status": "pass",
       "issues": [],
       "title": "Teknisk støtte for VitaCoat | Vurdering, dokumentasjon og pilot"
+    },
+    {
+      "url": "https://www.vitacoat.no/technical-support/downloads/",
+      "path": "/technical-support/downloads/",
+      "file": "technical-support/downloads/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "Nedlastingssenter for VitaCoat | PDF-dokumentasjon"
     },
     {
       "url": "https://www.vitacoat.no/contact/",
@@ -349,6 +357,14 @@
       "status": "pass",
       "issues": [],
       "title": "Technical Support for VitaCoat | Evaluation, Documentation and Pilot"
+    },
+    {
+      "url": "https://www.vitacoat.no/en/technical-support/downloads/",
+      "path": "/en/technical-support/downloads/",
+      "file": "en/technical-support/downloads/index.html",
+      "status": "pass",
+      "issues": [],
+      "title": "VitaCoat Download Center | PDF Documentation"
     },
     {
       "url": "https://www.vitacoat.no/en/contact/",
