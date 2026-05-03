@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Apply static SEO metadata to canonical VitaCoat HTML files.
-
-The script rewrites crawler-visible <head> metadata deterministically. It removes
-legacy duplicate title/meta/canonical/hreflang tags, then inserts one approved
-SEO block immediately after charset. Non-canonical legacy HTML files are cleaned
-of generated blocks but are not given new SEO metadata.
-"""
+"""Apply static SEO metadata to canonical VitaCoat HTML files."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -37,6 +31,7 @@ SEO_NO = {
     "/faq/": ("Spørsmål og svar om antimikrobielt belegg | VitaCoat FAQ", "Svar på spørsmål om VitaCoat, antimikrobielt belegg, rengjøring, varighet, kompatibilitet, dokumentasjon, pilotprosesser og claim-grenser."),
     "/legal/": ("Juridisk informasjon og claim-grenser | VitaCoat", "Juridisk informasjon, ansvarsgrenser og brukskrav for VitaCoat som supplerende antimikrobielt belegg for harde berøringsflater."),
     "/technical-support/": ("Teknisk støtte for VitaCoat | Vurdering, dokumentasjon og pilot", "Kontakt teknisk støtte for VitaCoat for substratvurdering, dokumentasjon, applikasjonsprosess, pilotprosjekt og implementeringsspørsmål."),
+    "/technical-support/downloads/": ("Nedlastingssenter for VitaCoat | PDF-dokumentasjon", "Direkte nedlasting av tilgjengelig VitaCoat-dokumentasjon, inkludert teknisk presentasjon, EN-testdokumentasjon, slitasjetest og virusrapporter. SDS og TDS kommer senere."),
     "/contact/": ("Kontakt VitaCoat | Teknisk vurdering og dokumentasjon", "Kontakt VitaCoat for teknisk vurdering, dokumentasjon, pilotdialog, innkjøpsspørsmål eller prosjektavklaring."),
 }
 
@@ -62,6 +57,7 @@ SEO_EN = {
     "/en/faq/": ("FAQ About Antimicrobial Coating | VitaCoat", "Answers about VitaCoat, antimicrobial coating, cleaning, durability, compatibility, documentation, pilot adoption and claim boundaries."),
     "/en/legal/": ("Legal Information and Claim Boundaries | VitaCoat", "Legal information, usage limitations and claim boundaries for VitaCoat as a supplementary antimicrobial coating for hard high-touch surfaces."),
     "/en/technical-support/": ("Technical Support for VitaCoat | Evaluation, Documentation and Pilot", "Contact VitaCoat technical support for surface assessment, documentation, application process, pilot evaluation and implementation questions."),
+    "/en/technical-support/downloads/": ("VitaCoat Download Center | PDF Documentation", "Direct download of available VitaCoat documentation, including technical presentation, EN test documentation, wear testing and virus reports. SDS and TDS will be added later."),
     "/en/contact/": ("Contact VitaCoat | Technical Evaluation and Documentation", "Contact VitaCoat for technical evaluation, documentation requests, pilot dialogue, procurement questions or project clarification."),
 }
 
