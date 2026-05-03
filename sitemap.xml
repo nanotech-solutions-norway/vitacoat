@@ -21,6 +21,7 @@
   <url><loc>https://www.vitacoat.no/faq/</loc><xhtml:link rel="alternate" hreflang="nb-NO" href="https://www.vitacoat.no/faq/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.vitacoat.no/en/faq/"/></url>
   <url><loc>https://www.vitacoat.no/legal/</loc><xhtml:link rel="alternate" hreflang="nb-NO" href="https://www.vitacoat.no/legal/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.vitacoat.no/en/legal/"/></url>
   <url><loc>https://www.vitacoat.no/technical-support/</loc><xhtml:link rel="alternate" hreflang="nb-NO" href="https://www.vitacoat.no/technical-support/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.vitacoat.no/en/technical-support/"/></url>
+  <url><loc>https://www.vitacoat.no/technical-support/downloads/</loc><xhtml:link rel="alternate" hreflang="nb-NO" href="https://www.vitacoat.no/technical-support/downloads/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.vitacoat.no/en/technical-support/downloads/"/></url>
   <url><loc>https://www.vitacoat.no/contact/</loc><xhtml:link rel="alternate" hreflang="nb-NO" href="https://www.vitacoat.no/contact/"/><xhtml:link rel="alternate" hreflang="en" href="https://www.vitacoat.no/en/contact/"/></url>
   <url><loc>https://www.vitacoat.no/en/</loc></url>
   <url><loc>https://www.vitacoat.no/en/applications/</loc></url>
@@ -43,5 +44,6 @@
   <url><loc>https://www.vitacoat.no/en/faq/</loc></url>
   <url><loc>https://www.vitacoat.no/en/legal/</loc></url>
   <url><loc>https://www.vitacoat.no/en/technical-support/</loc></url>
+  <url><loc>https://www.vitacoat.no/en/technical-support/downloads/</loc></url>
   <url><loc>https://www.vitacoat.no/en/contact/</loc></url>
 </urlset>
