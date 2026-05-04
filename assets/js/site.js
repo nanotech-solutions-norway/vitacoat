@@ -32,16 +32,70 @@ document.addEventListener('DOMContentLoaded', () => {
     'vitacoat-food-processing-application.svg': 'vitacoat-food-processing-application.jpg', 'vitacoat-food-processing-application.jpeg': 'vitacoat-food-processing-application.jpg',
     'vitacoat-public-facilities-application.svg': 'vitacoat-public-facilities-application.jpg', 'vitacoat-public-facilities-application.jpeg': 'vitacoat-public-facilities-application.jpg',
     'vitacoat-education-offices-application.svg': 'vitacoat-education-offices-application.jpg', 'vitacoat-education-offices-application.jpeg': 'vitacoat-education-offices-application.jpg',
-    'vitacoat-electronics-touchpoints-application.svg': 'vitacoat-electronics-touchpoints-application.jpg', 'vitacoat-electronics-touchpoints-application.jpeg': 'vitacoat-electronics-touchpoints-application.jpg'
+    'vitacoat-electronics-touchpoints-application.svg': 'vitacoat-electronics-touchpoints-application.jpg', 'vitacoat-electronics-touchpoints-application.jpeg': 'vitacoat-electronics-touchpoints-application.jpg',
+    'vitacoat-applications-panel.svg': 'vitacoat-applications-panel.jpeg',
+    'vitacoat-application-process.svg': 'vitacoat-application-process.jpeg',
+    'vitacoat-testing-standards.svg': 'vitacoat-testing-standards.jpeg',
+    'vitacoat-durability.svg': 'vitacoat-durability.jpeg',
+    'vitacoat-safety-environment.svg': 'vitacoat-safety-environment.jpeg',
+    'vitacoat-pathogen-spectrum.svg': 'vitacoat-pathogen-spectrum.jpeg',
+    'vitacoat-easier-cleaning.svg': 'vitacoat-easier-cleaning.jpeg',
+    'vitacoat-contact-panel.svg': 'vitacoat-contact-panel.jpeg',
+    'technical-support-hero-01.svg': 'technical-support-hero-01.jpeg'
   };
+
   const heroMap = {
     '/': 'frontpage-hero.jpg', '/en/': 'frontpage-hero.jpg',
+    '/applications/': 'vitacoat-applications-panel.jpeg', '/en/applications/': 'vitacoat-applications-panel.jpeg',
     '/applications/healthcare/': 'vitacoat-healthcare-application.jpg', '/en/applications/healthcare/': 'vitacoat-healthcare-application.jpg',
     '/applications/food-processing/': 'vitacoat-food-processing-application.jpg', '/en/applications/food-processing/': 'vitacoat-food-processing-application.jpg',
     '/applications/public-facilities/': 'vitacoat-public-facilities-application.jpg', '/en/applications/public-facilities/': 'vitacoat-public-facilities-application.jpg',
     '/applications/education-and-offices/': 'vitacoat-education-offices-application.jpg', '/en/applications/education-and-offices/': 'vitacoat-education-offices-application.jpg',
     '/applications/electronics-and-touchpoints/': 'vitacoat-electronics-touchpoints-application.jpg', '/en/applications/electronics-and-touchpoints/': 'vitacoat-electronics-touchpoints-application.jpg',
-    '/documentation/': 'vitacoat-documentation-panel.jpg', '/en/documentation/': 'vitacoat-documentation-panel.jpg'
+    '/documentation/': 'vitacoat-documentation-panel.jpg', '/en/documentation/': 'vitacoat-documentation-panel.jpg',
+    '/technical-support/': 'technical-support-hero-01.jpeg', '/en/technical-support/': 'technical-support-hero-01.jpeg',
+    '/contact/': 'vitacoat-contact-panel.jpeg', '/en/contact/': 'vitacoat-contact-panel.jpeg',
+    '/application-process/': 'vitacoat-application-process.jpeg', '/en/application-process/': 'vitacoat-application-process.jpeg',
+    '/benefits/easier-cleaning/': 'vitacoat-easier-cleaning.jpeg', '/en/benefits/easier-cleaning/': 'vitacoat-easier-cleaning.jpeg',
+    '/proof/testing-and-standards/': 'vitacoat-testing-standards.jpeg', '/en/proof/testing-and-standards/': 'vitacoat-testing-standards.jpeg',
+    '/proof/durability/': 'vitacoat-durability.jpeg', '/en/proof/durability/': 'vitacoat-durability.jpeg',
+    '/proof/safety-and-environment/': 'vitacoat-safety-environment.jpeg', '/en/proof/safety-and-environment/': 'vitacoat-safety-environment.jpeg',
+    '/proof/pathogen-spectrum/': 'vitacoat-pathogen-spectrum.jpeg', '/en/proof/pathogen-spectrum/': 'vitacoat-pathogen-spectrum.jpeg'
+  };
+
+  const expectedImages = [
+    'frontpage-hero.jpg', 'vitacoat-applications-panel.jpeg', 'applications-graph-01.jpeg',
+    'vitacoat-application-process.jpeg', 'application-process-specification-at-a-glance.jpeg',
+    'frontpage-five-reasons-facilities-trust-vitacoat.jpeg', 'frontpage-three-mechanisms-one-continuous-barrier.jpeg',
+    'frontpage-routine-disinfection-vs-vitacoat-protection-model.jpeg', 'frontpage-en-backed-performance-data.jpeg',
+    'frontpage-coating-integrity-real-world-conditions.jpeg', 'frontpage-surface-environment-fit-assessment.jpeg',
+    'vitacoat-healthcare-application.jpg', 'vitacoat-food-processing-application.jpg', 'vitacoat-public-facilities-application.jpg',
+    'vitacoat-education-offices-application.jpg', 'vitacoat-electronics-touchpoints-application.jpg',
+    'vitacoat-documentation-panel.jpg', 'technical-support-hero-01.jpeg', 'vitacoat-contact-panel.jpeg',
+    'vitacoat-download-center.jpeg', 'vitacoat-maintenance.jpeg', 'vitacoat-reapplication.jpeg',
+    'vitacoat-easier-cleaning.jpeg', 'applications-hard-surface-compatibility.jpeg', 'vitacoat-testing-standards.jpeg',
+    'vitacoat-durability.jpeg', 'vitacoat-durability-inspection.jpeg', 'vitacoat-safety-environment.jpeg',
+    'vitacoat-pathogen-spectrum.jpeg', 'vitacoat-legal-claim-boundaries.jpeg'
+  ];
+
+  const placeholderSvg = filename => {
+    const safe = String(filename || 'missing-image.jpeg').replace(/[<>&]/g, '');
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f5f4ef"/><stop offset="1" stop-color="#eceaf9"/></linearGradient></defs><rect width="1600" height="900" rx="30" fill="url(#g)"/><rect x="42" y="42" width="1516" height="816" rx="28" fill="none" stroke="#4950bc" stroke-width="8" stroke-dasharray="26 18"/><text x="800" y="265" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800" fill="#4950bc">MISSING IMAGE PLACEHOLDER</text><text x="800" y="410" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="60" font-weight="900" fill="#171717">${safe}</text><text x="800" y="520" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="#4b5563">Upload manually to:</text><text x="800" y="575" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" fill="#111827">/assets/img/${safe}</text><text x="800" y="690" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#6b7280">Use exactly this filename to replace the dummy image.</text></svg>`)}`;
+  };
+
+  const showPlaceholderIfMissing = (img, filename) => {
+    if (!img || !filename || /logo|favicon/i.test(filename)) return;
+    img.dataset.expectedImageName = filename;
+    img.alt = img.alt || filename;
+    img.title = `Expected image: ${filename}`;
+    img.onerror = function () {
+      const expected = this.dataset.expectedImageName || filename;
+      this.onerror = null;
+      this.src = placeholderSvg(expected);
+      this.classList.add('vc-missing-image-placeholder');
+      this.alt = `Missing image placeholder for ${expected}`;
+      this.title = `Upload required: /assets/img/${expected}`;
+    };
   };
 
   const style = document.createElement('style');
@@ -51,12 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
     .nav{position:relative!important;flex-wrap:nowrap!important}.nav-dropdown{position:relative!important}.dropdown-menu{display:flex!important;position:absolute!important;top:calc(100% + 10px)!important;left:0!important;z-index:500!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(4px)!important;transition:opacity .18s ease,transform .18s ease,visibility 0s linear .18s!important}.nav-dropdown.is-open .dropdown-menu{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important}
     .language-switcher{display:flex!important;align-items:center!important;gap:8px!important}.flag-language-link{font-size:23px!important;line-height:1!important;text-decoration:none!important;opacity:.65!important}.flag-language-link.active-lang{opacity:1!important}
     .site-footer .footer-grid{position:relative!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:26px!important;padding:38px 130px 86px 34px!important}.footer-top-logo{display:block!important;position:absolute!important;right:28px!important;top:28px!important;width:76px!important;height:76px!important;background:url('/assets/img/vitacoat-logo.png.png') center/contain no-repeat,url('/assets/img/vitacoat-logo.png') center/contain no-repeat,url('/assets/img/vitacoat-logo.svg') center/contain no-repeat!important;font-size:0!important}.footer-column h4 a{color:#fff!important}
+    .vc-missing-image-placeholder{object-fit:contain!important;background:#f5f4ef!important;border:2px dashed #4950bc!important;border-radius:18px!important;box-shadow:0 10px 28px rgba(15,23,42,.08)!important}
     .vc-performance-chart-section .panel{overflow:hidden}.vc-chart-explainer{max-width:920px;margin:18px auto 0;text-align:center;color:#4b5563}.vc-log-chart{margin-top:26px;background:#fff;border:1px solid rgba(17,24,39,.08);border-radius:18px;padding:18px 18px 14px;box-shadow:0 10px 30px rgba(15,23,42,.06);overflow-x:auto}.vc-log-chart-inner{min-width:1060px}.vc-log-chart-title{font-size:13px;font-weight:700;color:#5b5f6b;margin-bottom:6px}.vc-chart-row{display:grid;grid-template-columns:245px minmax(760px,1fr);align-items:center;gap:12px;margin:0 0 16px}.vc-y-label{font-size:13px;font-weight:700;color:#5a5d65;text-align:right;white-space:nowrap;overflow:visible}.vc-track{height:60px;position:relative;border-radius:4px;background:repeating-linear-gradient(to right,transparent 0,transparent calc(4% - 1px),rgba(70,86,120,.16) calc(4% - 1px),rgba(70,86,120,.16) 4%)}.vc-bar{position:absolute;left:0;top:7px;height:46px;border-radius:4px;background:var(--c);display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#fff;font-size:12px;font-weight:800;box-sizing:border-box;width:0;transition:width 1.25s cubic-bezier(.16,1,.3,1),opacity .35s ease;opacity:.35}.vc-bar.is-animated{width:var(--w);opacity:1}.vc-axis{display:grid;grid-template-columns:245px minmax(760px,1fr);gap:12px;margin-top:-4px}.vc-axis-ticks{display:flex;justify-content:space-between;color:#676b73;font-size:12px;font-weight:600;padding-top:2px}.vc-axis-title{grid-column:2;text-align:center;font-size:12px;font-weight:800;color:#686b73;margin-top:4px}.vc-chart-copy{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
     @media(max-width:1100px){.site-footer .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;padding-right:120px!important}.nav a{padding:9px 10px!important;font-size:.88rem!important}}
-    @media(max-width:860px){
-      body.mobile-menu-open{overflow:hidden!important}.site-footer .footer-grid{grid-template-columns:1fr!important;padding:118px 24px 86px!important}.footer-top-logo{left:24px!important;right:auto!important;top:28px!important;width:68px!important;height:68px!important}.brand{width:52px!important;height:52px!important}
-      .mobile-nav{display:none!important;position:absolute!important;left:0!important;right:0!important;top:100%!important;z-index:999!important;background:#fff!important;border-top:1px solid rgba(17,24,39,.08)!important;box-shadow:0 18px 40px rgba(15,23,42,.12)!important;max-height:calc(100vh - 96px)!important;overflow-y:auto!important}.mobile-nav.open{display:block!important}.mobile-nav .container{display:flex!important;flex-direction:column!important;gap:0!important;padding:12px 24px 22px!important}.mobile-nav-group{display:block!important;width:100%!important;padding:12px 0!important;border-bottom:1px solid rgba(17,24,39,.08)!important}.mobile-main-link{display:block!important;width:100%!important;margin:0 0 8px!important;padding:0!important;font-size:18px!important;line-height:1.25!important;font-weight:800!important;color:#171717!important;text-decoration:none!important}.mobile-subnav-link{display:block!important;width:100%!important;margin:0!important;padding:7px 0 7px 16px!important;font-size:15px!important;line-height:1.35!important;font-weight:600!important;color:#5b6270!important;text-decoration:none!important}.mobile-subnav-link:hover{color:#4950bc!important}.mobile-language-switcher{justify-content:center!important;margin-top:14px!important;padding-top:14px!important}.menu-toggle[aria-expanded='true']{background:#f4f4ff!important}
-      .vc-log-chart{padding:12px!important;overflow-x:hidden!important;max-width:100%!important}.vc-log-chart-inner{min-width:0!important;width:100%!important}.vc-log-chart-title{margin-bottom:14px!important}.vc-chart-row{display:block!important;margin:0 0 14px!important}.vc-y-label{display:none!important}.vc-track{height:68px!important;width:100%!important;min-width:0!important;border-radius:10px!important;background:rgba(70,86,120,.08)!important}.vc-bar{top:6px!important;height:56px!important;min-width:min(76%,260px)!important;max-width:100%!important;justify-content:flex-start!important;align-items:center!important;padding:8px 42px 8px 12px!important;text-align:left!important;font-size:0!important;line-height:1.12!important;white-space:normal!important;overflow:hidden!important}.vc-bar::before{content:attr(data-label);display:block;color:#fff;font-size:12px;font-weight:800;line-height:1.14;max-width:100%;white-space:normal}.vc-bar::after{content:attr(data-value);position:absolute;right:9px;top:50%;transform:translateY(-50%);color:#fff;font-size:12px;font-weight:900}.vc-axis{display:none!important}.vc-chart-explainer{font-size:15px!important;line-height:1.55!important}}
+    @media(max-width:860px){body.mobile-menu-open{overflow:hidden!important}.site-footer .footer-grid{grid-template-columns:1fr!important;padding:118px 24px 86px!important}.footer-top-logo{left:24px!important;right:auto!important;top:28px!important;width:68px!important;height:68px!important}.brand{width:52px!important;height:52px!important}.mobile-nav{display:none!important;position:absolute!important;left:0!important;right:0!important;top:100%!important;z-index:999!important;background:#fff!important;border-top:1px solid rgba(17,24,39,.08)!important;box-shadow:0 18px 40px rgba(15,23,42,.12)!important;max-height:calc(100vh - 96px)!important;overflow-y:auto!important}.mobile-nav.open{display:block!important}.mobile-nav .container{display:flex!important;flex-direction:column!important;gap:0!important;padding:12px 24px 22px!important}.mobile-nav-group{display:block!important;width:100%!important;padding:12px 0!important;border-bottom:1px solid rgba(17,24,39,.08)!important}.mobile-main-link{display:block!important;width:100%!important;margin:0 0 8px!important;padding:0!important;font-size:18px!important;line-height:1.25!important;font-weight:800!important;color:#171717!important;text-decoration:none!important}.mobile-subnav-link{display:block!important;width:100%!important;margin:0!important;padding:7px 0 7px 16px!important;font-size:15px!important;line-height:1.35!important;font-weight:600!important;color:#5b6270!important;text-decoration:none!important}.mobile-subnav-link:hover{color:#4950bc!important}.mobile-language-switcher{justify-content:center!important;margin-top:14px!important;padding-top:14px!important}.menu-toggle[aria-expanded='true']{background:#f4f4ff!important}.vc-log-chart{padding:12px!important;overflow-x:hidden!important;max-width:100%!important}.vc-log-chart-inner{min-width:0!important;width:100%!important}.vc-log-chart-title{margin-bottom:14px!important}.vc-chart-row{display:block!important;margin:0 0 14px!important}.vc-y-label{display:none!important}.vc-track{height:68px!important;width:100%!important;min-width:0!important;border-radius:10px!important;background:rgba(70,86,120,.08)!important}.vc-bar{top:6px!important;height:56px!important;min-width:min(76%,260px)!important;max-width:100%!important;justify-content:flex-start!important;align-items:center!important;padding:8px 42px 8px 12px!important;text-align:left!important;font-size:0!important;line-height:1.12!important;white-space:normal!important;overflow:hidden!important}.vc-bar::before{content:attr(data-label);display:block;color:#fff;font-size:12px;font-weight:800;line-height:1.14;max-width:100%;white-space:normal}.vc-bar::after{content:attr(data-value);position:absolute;right:9px;top:50%;transform:translateY(-50%);color:#fff;font-size:12px;font-weight:900}.vc-axis{display:none!important}.vc-chart-explainer{font-size:15px!important;line-height:1.55!important}}
   `;
   document.head.appendChild(style);
 
@@ -128,8 +180,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const fileFromSrc = src => (src || '').split('/').pop().split('?')[0].split('#')[0];
   const asset = name => `/assets/img/${name}`;
   const hero = document.querySelector('.hero-media img');
-  if (hero && heroMap[path]) hero.src = asset(heroMap[path]);
-  document.querySelectorAll('main img[src^="/assets/img/"]').forEach(img => { const next = imageMap[fileFromSrc(img.getAttribute('src'))]; if (next) img.src = asset(next); });
+  if (hero && heroMap[path]) { hero.src = asset(heroMap[path]); showPlaceholderIfMissing(hero, heroMap[path]); }
+  document.querySelectorAll('main img[src^="/assets/img/"]').forEach(img => {
+    const current = fileFromSrc(img.getAttribute('src'));
+    const next = imageMap[current] || current;
+    if (next && !/logo|favicon/i.test(next)) { img.src = asset(next); showPlaceholderIfMissing(img, next); }
+  });
+
+  window.vitacoatExpectedImages = expectedImages.slice();
   document.querySelectorAll('a[href^="mailto:"]').forEach(a => { a.href = `${routes.contact}?topic=${encodeURIComponent('Technical review')}`; if (/@vitacoat\.no/i.test(a.textContent || '')) a.textContent = isEn ? 'Contact VitaCoat' : 'Kontakt VitaCoat'; });
 
   const labels = ['EN 13727 — Bactericidal assessment', 'EN 13624 — Yeasticidal / Candida', 'EN 14476 — Enveloped viruses', 'SARS-CoV-2 / enveloped-virus proxy'];
