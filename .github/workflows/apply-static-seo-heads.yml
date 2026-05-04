@@ -20,6 +20,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Confirm active commit and download-center SEO map
+        run: |
+          echo "Checked out commit: $(git rev-parse HEAD)"
+          grep -n '"/technical-support/downloads/"' .github/scripts/apply_static_seo_heads.py
+          grep -n '"/en/technical-support/downloads/"' .github/scripts/apply_static_seo_heads.py
 
       - name: Apply static SEO metadata to HTML files
         run: python .github/scripts/apply_static_seo_heads.py
@@ -34,4 +43,4 @@ jobs:
           file_pattern: '*.html **/*.html seo-static-audit.json'
 
 # Governance note: this workflow exists to make crawler-visible metadata static, deterministic, audited, and version controlled.
-# Re-run marker: validate download center SEO map coverage on the current main HEAD.
+# Re-run marker: force checkout of current main and verify download-center SEO-map coverage before audit.
