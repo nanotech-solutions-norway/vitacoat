@@ -1,27 +1,32 @@
 # VitaCoat Website
 
-Static GitHub Pages implementation for the VitaCoat website, recreated from the approved Gamma source and supporting VitaCoat technical materials.
+Static GitHub Pages implementation for the VitaCoat website, based on the approved VitaCoat source material and supporting technical documentation.
 
-## Build scope
+## Production structure
 
-This repository contains:
+- `index.html` — Norwegian homepage
+- `en/index.html` — English homepage
+- `assets/css/styles.css` — global design system and responsive layout
+- `assets/js/site.js` — lightweight progressive enhancement only
+- `assets/img/` — repository-owned production image assets
+- `assets/downloads/` — approved downloadable technical material
+- `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt` — discovery and crawl support
+- `.github/workflows/deploy-pages.yml` — GitHub Pages deployment
+- `.github/scripts/audit_frontend.py` — pre-deployment frontend integrity audit
 
-- `index.html` — main VitaCoat website
-- `assets/css/styles.css` — global design system and layout styling
-- `assets/js/site.js` — lightweight navigation behavior
-- `404.html` — custom not-found page
-- `robots.txt` and `sitemap.xml` — crawl support
-- `.github/workflows/deploy-pages.yml` — GitHub Pages deployment workflow
+## Frontend rules
 
-## Notes
+- Navigation and footer markup are authoritative static HTML. JavaScript must not rebuild the site shell.
+- Production pages must not depend on Gamma CDN imagery.
+- Public contact routing uses the VitaCoat contact pages and current `vitacoat.no` identity.
+- Legacy route files are redirect stubs only and are excluded from the sitemap.
+- Norwegian is the root language; English is served under `/en/`.
+- Claim wording must remain within the approved VitaCoat evidence and limitation framework.
 
-- All email references use the `@vitacoat.eu` domain.
-- The site is implemented as a static GitHub Pages build.
-- The design direction follows the Gamma source and project handoff guidance.
-- Deployment workflow corrected on 2026-04-20 to remove the recursive artifact copy step.
+## Deployment
 
-## Asset hardening status
+GitHub Pages publishes the repository root from `main`. Before the Pages artifact is uploaded, the frontend audit checks canonical sitemap files, stale external dependencies, deprecated email-domain references, and local image references.
 
-- Several page images are still referenced from Gamma-hosted CDN URLs as interim visual placeholders.
-- Recommended final-state improvement: replace those references with approved local files inside the repository assets structure.
-- Final launch-grade QA should also include image compression review, filename normalization, and OG/share-image standardization.
+## Visual hardening
+
+The September 2026 hardening pass moves reconstruction-era runtime styling into the main stylesheet, restores hierarchical mobile navigation, keeps desktop dropdowns selectable across the hover gap, reduces card/shadow density, improves section rhythm, and standardizes stable local hero assets. Further image-format optimization and source-visual recreation can be handled as a subsequent asset/performance pass.
