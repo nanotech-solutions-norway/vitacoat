@@ -7,12 +7,15 @@ Static GitHub Pages implementation for the VitaCoat website, based on the approv
 - `index.html` — Norwegian homepage
 - `en/index.html` — English homepage
 - `assets/css/styles.css` — global design system and responsive layout
-- `assets/js/site.js` — lightweight progressive enhancement only
+- `assets/js/site.js` — lightweight progressive enhancement and provider-neutral measurement events
 - `assets/img/` — repository-owned production image assets
 - `assets/downloads/` — approved downloadable technical material
 - `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt` — discovery and crawl support
-- `.github/workflows/deploy-pages.yml` — GitHub Pages deployment
-- `.github/scripts/audit_frontend.py` — pre-deployment frontend integrity audit
+- `.github/workflows/deploy-pages.yml` — optimized GitHub Pages build, deploy and post-deploy acceptance
+- `.github/scripts/audit_frontend.py` — frontend integrity audit
+- `.github/scripts/audit_release.py` — SEO, schema, internal-link and discovery acceptance audit
+- `.github/scripts/production_acceptance.py` — live custom-domain release verification
+- `docs/measurement-and-acceptance.md` — measurement event contract and release gates
 
 ## Frontend rules
 
@@ -25,12 +28,9 @@ Static GitHub Pages implementation for the VitaCoat website, based on the approv
 
 ## Deployment
 
-GitHub Pages publishes the repository root from `main`. Before the Pages artifact is uploaded, the frontend audit checks canonical sitemap files, stale external dependencies, deprecated email-domain references, and local image references.
+GitHub Pages publishes the generated `_site/` artifact from `main`. Pull requests run static SEO, frontend, performance and release-acceptance checks without deploying. Main deployments run the same gates, deploy the optimized artifact, then verify the live `www.vitacoat.no` release.
 
-## Visual hardening
-
-The September 2026 hardening pass moves reconstruction-era runtime styling into the main stylesheet, restores hierarchical mobile navigation, keeps desktop dropdowns selectable across the hover gap, reduces card/shadow density, improves section rhythm, and standardizes stable local hero assets. Further image-format optimization and source-visual recreation can be handled as a subsequent asset/performance pass.
-
+Static SEO governance is read-only in CI. Metadata changes must be committed through a normal branch and pull request; workflows do not auto-commit to `main`.
 
 ## Performance delivery
 
@@ -40,7 +40,10 @@ Production deployment is built into `_site/` before upload to GitHub Pages. The 
 - constrains oversized raster dimensions for browser delivery;
 - rewrites deployed references to optimized derivatives;
 - adds intrinsic dimensions to local raster images to reduce layout shift;
-- validates aggregate byte savings and prevents large JPEG delivery from canonical pages;
-- runs on pull requests as a non-deploying build/audit check.
+- validates aggregate byte savings and prevents large JPEG delivery from canonical pages.
 
 The source repository remains the archival-quality input; `_site/` is generated only in GitHub Actions and is not committed.
+
+## Measurement
+
+The site emits a small provider-neutral event contract for high-value CTA, download, language and contact-form interactions. It does not activate analytics, set cookies or transmit form-field values by itself. See `docs/measurement-and-acceptance.md`.
