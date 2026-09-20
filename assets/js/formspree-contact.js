@@ -9,13 +9,21 @@ document.addEventListener('DOMContentLoaded', function () {
     status.setAttribute('aria-live', 'polite');
     form.appendChild(status);
 
+    function measure(name) {
+      if (window.VitaCoatMeasurement && typeof window.VitaCoatMeasurement.emit === 'function') {
+        window.VitaCoatMeasurement.emit(name, { form: 'contact' });
+      }
+    }
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       if (!form.checkValidity()) {
+        measure('contact_form_validation_error');
         form.reportValidity();
         return;
       }
 
+      measure('contact_form_submit_attempt');
       var originalText = submitButton ? submitButton.textContent : '';
       if (submitButton) {
         submitButton.disabled = true;
@@ -29,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         headers: { 'Accept': 'application/json' }
       }).then(function (response) {
         if (response.ok) {
+          measure('contact_form_submit_success');
           window.location.href = successUrl;
           return;
         }
@@ -37,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
           throw new Error(errorText || 'Form submission failed.');
         });
       }).catch(function () {
+        measure('contact_form_submit_error');
         status.textContent = lang.startsWith('no')
           ? 'Skjemaet kunne ikke sendes. Send e-post direkte til info@vitacoat.no.'
           : 'The form could not be sent. Please email info@vitacoat.no directly.';

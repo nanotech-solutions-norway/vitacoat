@@ -76,4 +76,56 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.bar-group').forEach(group => {
     if (!group.classList.contains('is-visible') && !('IntersectionObserver' in window)) group.classList.add('is-visible');
   });
+
+  const emitMeasurement = (name, detail = {}) => {
+    const payload = {
+      event: name,
+      page_path: window.location.pathname,
+      language: document.documentElement.lang || '',
+      ...detail
+    };
+    window.dispatchEvent(new CustomEvent('vitacoat:measurement', { detail: payload }));
+    if (Array.isArray(window.dataLayer)) window.dataLayer.push(payload);
+  };
+
+  window.VitaCoatMeasurement = { emit: emitMeasurement };
+
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link) return;
+    const rawHref = link.getAttribute('href');
+    if (!rawHref || rawHref.startsWith('#')) return;
+
+    let url;
+    try {
+      url = new URL(rawHref, window.location.href);
+    } catch {
+      return;
+    }
+
+    let eventName = '';
+    const detail = {};
+
+    if (link.classList.contains('language-link')) {
+      eventName = 'language_switch';
+      detail.destination_path = url.pathname;
+    } else if (/\/assets\/downloads\//.test(url.pathname) || /\.(pdf|docx?|xlsx?|pptx?)$/i.test(url.pathname)) {
+      eventName = 'download_click';
+      detail.destination_path = url.pathname;
+    } else if (url.origin !== window.location.origin) {
+      eventName = 'outbound_link';
+      detail.destination_host = url.hostname;
+    } else if (/\/technical-evaluation\/$/.test(url.pathname)) {
+      eventName = 'cta_technical_evaluation';
+      detail.destination_path = url.pathname;
+    } else if (/\/documentation\/$/.test(url.pathname)) {
+      eventName = 'cta_documentation';
+      detail.destination_path = url.pathname;
+    } else if (/\/contact\/$/.test(url.pathname)) {
+      eventName = 'cta_contact';
+      detail.destination_path = url.pathname;
+    }
+
+    if (eventName) emitMeasurement(eventName, detail);
+  });
 });

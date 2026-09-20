@@ -25,6 +25,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Audit static SEO source
+        run: python .github/scripts/audit_static_seo.py
+
       - name: Install image optimizer
         run: python -m pip install --disable-pip-version-check Pillow==11.3.0
 
@@ -33,6 +36,9 @@ jobs:
 
       - name: Audit optimized frontend
         run: python .github/scripts/audit_frontend.py _site
+
+      - name: Run release acceptance audit
+        run: python .github/scripts/audit_release.py _site
 
       - name: Setup Pages
         if: github.event_name != 'pull_request'
@@ -55,3 +61,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+
+  production-acceptance:
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout release definition
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Verify live production release
+        run: python .github/scripts/production_acceptance.py
