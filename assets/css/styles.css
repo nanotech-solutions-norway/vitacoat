@@ -297,3 +297,15 @@ tr:last-child td{border-bottom:0}
 .decision-gates p{margin-bottom:0}
 @media(max-width:860px){.decision-gates{grid-template-columns:1fr 1fr}.entity-facts{grid-template-columns:1fr}}
 @media(max-width:560px){.decision-gates{grid-template-columns:1fr}}
+
+
+/* Final compact-screen overrides */
+@media(max-width:360px){
+  .panel,.cta-band{padding:24px 16px}
+  .hero-copy{padding:30px 18px}
+  .fit-panel{padding:28px 18px}
+  .footer-grid{padding-left:20px;padding-right:20px}
+  .footer-brand-block,.footer-language{left:20px}
+  .footer-meta{right:20px;max-width:52%;text-align:right;overflow-wrap:anywhere}
+  .entity-facts strong,.source-note{overflow-wrap:anywhere}
+}
