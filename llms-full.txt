@@ -11,7 +11,7 @@ The website targets technical reviewers, specifiers, facility operators, procure
 - Applications: https://www.vitacoat.no/applications/
 - Documentation: https://www.vitacoat.no/documentation/
 - FAQ: https://www.vitacoat.no/faq/
-- Contact: https://www.vitacoat.no/contact/
+- About / legal entity: https://www.vitacoat.no/about/\n- Technical evaluation & procurement: https://www.vitacoat.no/technical-evaluation/\n- Contact: https://www.vitacoat.no/contact/
 - Healthcare: https://www.vitacoat.no/applications/healthcare/
 - Food processing: https://www.vitacoat.no/applications/food-processing/
 - Public facilities: https://www.vitacoat.no/applications/public-facilities/
@@ -31,5 +31,4 @@ The website targets technical reviewers, specifiers, facility operators, procure
 - Food-area relevance does not equal direct-food-contact approval.
 - Site-specific compatibility and project-specific review are recommended before specification or large-scale rollout.
 
-## Preferred contact route
-- Primary contact: mailto:info@vitacoat.no
+## Entity and evidence governance\nVitaCoat is the product/brand layer on this website. NanoTech Solutions Norway AS is the legal publisher and technical-commercial entity identified by the site. The registered organisation number is 925 367 869 and the registered business address is Vestsideveien 279, 3648 Passebekk, Norway. Manufacturer, formulation and supplier provenance must be taken from controlled product documents rather than inferred from the website publisher identity.\n\nPublic pages are orientation and decision-support material. Controlled TDS, SDS, test reports and project-specific technical review govern final specification, safety, method and procurement decisions.\n\n## Preferred contact route\n- Structured contact: https://www.vitacoat.no/contact/\n- English structured contact: https://www.vitacoat.no/en/contact/\n

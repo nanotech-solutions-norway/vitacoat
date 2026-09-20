@@ -13,7 +13,7 @@
 - Dokumentasjon: https://www.vitacoat.no/documentation/
 - FAQ: https://www.vitacoat.no/faq/
 - Teknisk støtte: https://www.vitacoat.no/technical-support/
-- Kontakt: https://www.vitacoat.no/contact/
+- Om VitaCoat og selskapet: https://www.vitacoat.no/about/\n- Teknisk evaluering og innkjøp: https://www.vitacoat.no/technical-evaluation/\n- Kontakt: https://www.vitacoat.no/contact/
 
 ## Primary English pages
 - Home / antimicrobial coating for high-touch surfaces: https://www.vitacoat.no/en/
@@ -21,7 +21,7 @@
 - Documentation: https://www.vitacoat.no/en/documentation/
 - FAQ: https://www.vitacoat.no/en/faq/
 - Technical support: https://www.vitacoat.no/en/technical-support/
-- Contact: https://www.vitacoat.no/en/contact/
+- About VitaCoat & Company: https://www.vitacoat.no/en/about/\n- Technical Evaluation & Procurement: https://www.vitacoat.no/en/technical-evaluation/\n- Contact: https://www.vitacoat.no/en/contact/
 
 ## Application pages
 - Healthcare: https://www.vitacoat.no/applications/healthcare/ | https://www.vitacoat.no/en/applications/healthcare/
@@ -52,7 +52,4 @@
 - Direct-food-contact approval should not be assumed.
 - Project-specific fit should be confirmed through technical review and documentation.
 
-## Preferred contact route
-- General contact: mailto:info@vitacoat.no
-- Technical review: mailto:technical@vitacoat.no
-- Documentation: mailto:documents@vitacoat.no
+## Entity and publisher\n- VitaCoat is the product/brand presented on this site.\n- Legal website publisher and technical-commercial entity: NanoTech Solutions Norway AS, organisation no. 925 367 869.\n- Registered business address: Vestsideveien 279, 3648 Passebekk, Norway.\n- Manufacturer/formulation provenance should be taken from controlled product documentation, not inferred from website publisher information.\n\n## Preferred contact route\n- Structured contact route: https://www.vitacoat.no/contact/\n- English contact route: https://www.vitacoat.no/en/contact/\n
