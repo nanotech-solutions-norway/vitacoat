@@ -93,11 +93,11 @@ for path in OUT.rglob("*"):
     if text != original:
         path.write_text(text, encoding="utf-8")
 
-img_pattern = re.compile(r'<img\\b[^>]*?\\bsrc=(["\\'])(/assets/img/[^"\\']+)\\1[^>]*>', re.I)
+img_pattern = re.compile(r'<img\b[^>]*?\bsrc=(["\'])(/assets/img/[^"\']+)\1[^>]*>', re.I)
 
 def add_dimensions(match):
     tag = match.group(0)
-    if re.search(r'\\bwidth\\s*=', tag, flags=re.I) and re.search(r'\\bheight\\s*=', tag, flags=re.I):
+    if re.search(r'\bwidth\s*=', tag, flags=re.I) and re.search(r'\bheight\s*=', tag, flags=re.I):
         return tag
     src = match.group(2)
     local = OUT / src.lstrip("/")
@@ -110,9 +110,9 @@ def add_dimensions(match):
         return tag
     closing = "/>" if tag.endswith("/>") else ">"
     body = tag[:-len(closing)].rstrip()
-    if not re.search(r'\\bwidth\\s*=', tag, flags=re.I):
+    if not re.search(r'\bwidth\s*=', tag, flags=re.I):
         body += f' width="{width}"'
-    if not re.search(r'\\bheight\\s*=', tag, flags=re.I):
+    if not re.search(r'\bheight\s*=', tag, flags=re.I):
         body += f' height="{height}"'
     return body + closing
 
