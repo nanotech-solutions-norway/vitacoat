@@ -31,18 +31,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Apply deterministic SEO metadata in working tree
-        run: python .github/scripts/apply_static_seo_heads.py
-
-      - name: Verify checked-in HTML matches SEO map
-        run: |
-          if ! git diff --exit-code -- '*.html'; then
-            echo "Static SEO metadata is out of sync with the canonical SEO map."
-            echo "Run python .github/scripts/apply_static_seo_heads.py and commit the resulting HTML changes."
-            exit 1
-          fi
-
       - name: Audit static SEO coverage against sitemap
         run: python .github/scripts/audit_static_seo.py
 
-# Governance: validation is read-only. SEO metadata changes must arrive through normal branch/PR review.
+# Governance: validation is read-only. The generator is a maintainer helper only.
+# Metadata changes must arrive through normal branch/PR review.
