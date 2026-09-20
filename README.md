@@ -14,6 +14,7 @@ Static GitHub Pages implementation for the VitaCoat website, based on the approv
 - `.github/workflows/deploy-pages.yml` — optimized GitHub Pages build, deploy and post-deploy acceptance
 - `.github/scripts/audit_frontend.py` — frontend integrity audit
 - `.github/scripts/audit_release.py` — SEO, schema, internal-link and discovery acceptance audit
+- `.github/scripts/audit_accessibility.py` — canonical-page accessibility, ARIA, keyboard-hook and mobile-markup audit
 - `.github/scripts/production_acceptance.py` — live custom-domain release verification
 - `docs/measurement-and-acceptance.md` — measurement event contract and release gates
 
@@ -28,7 +29,7 @@ Static GitHub Pages implementation for the VitaCoat website, based on the approv
 
 ## Deployment
 
-GitHub Pages publishes the generated `_site/` artifact from `main`. Pull requests run static SEO, frontend, performance and release-acceptance checks without deploying. Main deployments run the same gates, deploy the optimized artifact, then verify the live `www.vitacoat.no` release.
+GitHub Pages publishes the generated `_site/` artifact from `main`. Pull requests run static SEO, frontend, performance, accessibility/agent-readiness and release-acceptance checks without deploying. Main deployments run the same gates, deploy the optimized artifact, then verify the live `www.vitacoat.no` release.
 
 Static SEO governance is read-only in CI. Metadata changes must be committed through a normal branch and pull request; workflows do not auto-commit to `main`.
 
@@ -47,3 +48,9 @@ The source repository remains the archival-quality input; `_site/` is generated 
 ## Measurement
 
 The site emits a small provider-neutral event contract for high-value CTA, download, language and contact-form interactions. It does not activate analytics, set cookies or transmit form-field values by itself. See `docs/measurement-and-acceptance.md`.
+
+## Accessibility and agent readiness
+
+Canonical pages include a static skip-to-main link, a focusable main landmark, accessible language-switch names, named mobile submenu controls and explicit menu state labels. Shared JavaScript supports Escape-to-close with focus return, while CSS preserves visible keyboard focus, reduced-motion handling and compact-screen reflow. The mobile EN-performance chart places the test-standard label inside each bar while retaining the desktop label layout.
+
+The deployment pipeline runs `.github/scripts/audit_accessibility.py` against the generated site so these semantics and interaction hooks are release-gated.
