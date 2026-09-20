@@ -32,6 +32,8 @@ SEO_NO = {
     "/legal/": ("Juridisk informasjon og claim-grenser | VitaCoat", "Juridisk informasjon, ansvarsgrenser og brukskrav for VitaCoat som supplerende antimikrobielt belegg for harde berøringsflater."),
     "/technical-support/": ("Teknisk støtte for VitaCoat | Vurdering, dokumentasjon og pilot", "Kontakt teknisk støtte for VitaCoat for substratvurdering, dokumentasjon, applikasjonsprosess, pilotprosjekt og implementeringsspørsmål."),
     "/technical-support/downloads/": ("Nedlastingssenter for VitaCoat | PDF-dokumentasjon", "Direkte nedlasting av tilgjengelig VitaCoat-dokumentasjon, inkludert teknisk presentasjon, EN-testdokumentasjon, slitasjetest og virusrapporter. SDS og TDS kommer senere."),
+    "/about/": ("Om VitaCoat og NanoTech Solutions Norway AS | Selskapsinformasjon", "Hvem som står bak VitaCoat-nettstedet, registrert selskapsinformasjon, roller, dokumentasjonsansvar og hvordan tekniske påstander skal tolkes."),
+    "/technical-evaluation/": ("Teknisk evaluering og innkjøp | VitaCoat", "Beslutningsrammeverk for teknisk evaluering, dokumentasjon, pilot, spesifikasjon og innkjøp av VitaCoat på harde, ikke-porøse berøringsflater."),
     "/contact/": ("Kontakt VitaCoat | Teknisk vurdering og dokumentasjon", "Kontakt VitaCoat for teknisk vurdering, dokumentasjon, pilotdialog, innkjøpsspørsmål eller prosjektavklaring."),
 }
 
@@ -58,6 +60,8 @@ SEO_EN = {
     "/en/legal/": ("Legal Information and Claim Boundaries | VitaCoat", "Legal information, usage limitations and claim boundaries for VitaCoat as a supplementary antimicrobial coating for hard high-touch surfaces."),
     "/en/technical-support/": ("Technical Support for VitaCoat | Evaluation, Documentation and Pilot", "Contact VitaCoat technical support for surface assessment, documentation, application process, pilot evaluation and implementation questions."),
     "/en/technical-support/downloads/": ("VitaCoat Download Center | PDF Documentation", "Direct download of available VitaCoat documentation, including technical presentation, EN test documentation, wear testing and virus reports. SDS and TDS will be added later."),
+    "/en/about/": ("About VitaCoat and NanoTech Solutions Norway AS | Company Information", "Who publishes the VitaCoat website, registered company details, role boundaries, document responsibility, and how technical claims should be interpreted."),
+    "/en/technical-evaluation/": ("Technical Evaluation and Procurement | VitaCoat", "Decision framework for technical evaluation, documentation, pilot, specification and procurement of VitaCoat for hard, non-porous high-touch surfaces."),
     "/en/contact/": ("Contact VitaCoat | Technical Evaluation and Documentation", "Contact VitaCoat for technical evaluation, documentation requests, pilot dialogue, procurement questions or project clarification."),
 }
 
