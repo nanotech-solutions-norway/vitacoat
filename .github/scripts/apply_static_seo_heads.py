@@ -153,18 +153,17 @@ def rewrite_file(path_obj: Path) -> bool:
     if not match:
         return False
     path = page_path(path_obj)
-    head = clean_head(match.group(1))
     if path not in CANONICAL_PATHS:
-        new_head = head
+        return False
+    head = clean_head(match.group(1))
+    lines = head.splitlines()
+    charset_index = next((i for i, line in enumerate(lines) if "charset" in line.lower()), -1)
+    block = static_block(path)
+    if charset_index >= 0:
+        new_lines = lines[: charset_index + 1] + [block] + lines[charset_index + 1 :]
     else:
-        lines = head.splitlines()
-        charset_index = next((i for i, line in enumerate(lines) if "charset" in line.lower()), -1)
-        block = static_block(path)
-        if charset_index >= 0:
-            new_lines = lines[: charset_index + 1] + [block] + lines[charset_index + 1 :]
-        else:
-            new_lines = [block] + lines
-        new_head = "\n".join(line for line in new_lines if line.strip())
+        new_lines = [block] + lines
+    new_head = "\n".join(line for line in new_lines if line.strip())
     updated = original[: match.start(1)] + "\n" + new_head + "\n" + original[match.end(1) :]
     if updated != original:
         path_obj.write_text(updated, encoding="utf-8")
