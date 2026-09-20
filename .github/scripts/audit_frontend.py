@@ -46,7 +46,7 @@ for loc in locs:
         fail(f"Static footer missing: {file_path.relative_to(ROOT)}")
     if "vitacoat-global-js-overrides" in html or "vc-image-placeholder-section" in html:
         fail(f"Reconstruction-era runtime marker remains: {file_path.relative_to(ROOT)}")
-    for src in re.findall(r'<img[^>]+src=["\\'](/assets/img/[^"\\']+)["\\']', html, flags=re.I):
+    for src in re.findall(r'<img[^>]+src=["\'](/assets/img/[^"\']+)["\']', html, flags=re.I):
         asset = ROOT / src.lstrip("/")
         if not asset.exists():
             fail(f"Missing local image: {file_path.relative_to(ROOT)} -> {src}")
@@ -67,7 +67,7 @@ if manifest_path.exists():
         fail(f"Performance build image saving is only {saving:.1f}%; expected at least 25%.")
     for file_path in seen:
         html = file_path.read_text(encoding="utf-8", errors="ignore")
-        for src in re.findall(r'<img[^>]+src=["\\'](/assets/img/[^"\\']+\\.(?:jpg|jpeg))["\\']', html, flags=re.I):
+        for src in re.findall(r'<img[^>]+src=["\'](/assets/img/[^"\']+\.(?:jpg|jpeg))["\']', html, flags=re.I):
             asset = ROOT / src.lstrip("/")
             if asset.exists() and asset.stat().st_size >= 100_000:
                 fail(f"Large JPEG still delivered from canonical page: {file_path.relative_to(ROOT)} -> {src}")
