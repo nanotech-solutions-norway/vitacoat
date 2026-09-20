@@ -4,18 +4,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.querySelector('.menu-toggle');
   const mobileNav = document.querySelector('.mobile-nav');
 
-  const closeMobileMenu = () => {
+  const setMenuLabel = open => {
+    if (!menuToggle) return;
+    const label = open ? menuToggle.dataset.labelClose : menuToggle.dataset.labelOpen;
+    if (label) menuToggle.setAttribute('aria-label', label);
+  };
+
+  const closeMobileMenu = ({ restoreFocus = false } = {}) => {
     if (!mobileNav || !menuToggle) return;
     mobileNav.classList.remove('open');
     menuToggle.setAttribute('aria-expanded', 'false');
+    setMenuLabel(false);
     document.body.classList.remove('mobile-menu-open');
+    if (restoreFocus) menuToggle.focus();
   };
 
   if (menuToggle && mobileNav) {
+    setMenuLabel(false);
+
     menuToggle.addEventListener('click', () => {
       const open = !mobileNav.classList.contains('open');
       mobileNav.classList.toggle('open', open);
       menuToggle.setAttribute('aria-expanded', String(open));
+      setMenuLabel(open);
       document.body.classList.toggle('mobile-menu-open', open);
     });
 
@@ -35,8 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
-    window.addEventListener('resize', () => { if (window.innerWidth > 860) closeMobileMenu(); });
+    mobileNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMobileMenu()));
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860) closeMobileMenu();
+    });
   }
 
   const closeTimers = new WeakMap();
@@ -55,6 +68,23 @@ document.addEventListener('DOMContentLoaded', () => {
     dropdown.addEventListener('focusout', event => {
       if (!dropdown.contains(event.relatedTarget)) close();
     });
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Escape') return;
+
+    if (mobileNav?.classList.contains('open')) {
+      event.preventDefault();
+      closeMobileMenu({ restoreFocus: true });
+      return;
+    }
+
+    const openDropdown = document.activeElement?.closest?.('.nav-dropdown.is-open');
+    if (openDropdown) {
+      event.preventDefault();
+      openDropdown.classList.remove('is-open');
+      openDropdown.querySelector('.nav-top-link')?.focus();
+    }
   });
 
   const revealTargets = [...document.querySelectorAll('main > .section, .bar-group')];
