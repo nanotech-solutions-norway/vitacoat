@@ -59,7 +59,7 @@ p{margin:0 0 16px;color:var(--vc-muted)}
 .hero-media img[src$=".svg"]{object-fit:cover}
 
 /* Sections and surfaces */
-.section{padding:40px 0}
+.section{padding:40px 0;content-visibility:auto;contain-intrinsic-size:1px 720px}
 .section+.section{padding-top:32px}
 .panel,.cta-band{padding:52px 46px;border-radius:var(--vc-radius-lg);background:var(--vc-surface);border:1px solid rgba(23,23,23,.055)}
 .panel{box-shadow:0 8px 26px rgba(25,30,50,.035)}

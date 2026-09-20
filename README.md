@@ -30,3 +30,17 @@ GitHub Pages publishes the repository root from `main`. Before the Pages artifac
 ## Visual hardening
 
 The September 2026 hardening pass moves reconstruction-era runtime styling into the main stylesheet, restores hierarchical mobile navigation, keeps desktop dropdowns selectable across the hover gap, reduces card/shadow density, improves section rhythm, and standardizes stable local hero assets. Further image-format optimization and source-visual recreation can be handled as a subsequent asset/performance pass.
+
+
+## Performance delivery
+
+Production deployment is built into `_site/` before upload to GitHub Pages. The build stage:
+
+- converts qualifying JPEG assets to WebP at controlled quality while retaining source originals in the repository;
+- constrains oversized raster dimensions for browser delivery;
+- rewrites deployed references to optimized derivatives;
+- adds intrinsic dimensions to local raster images to reduce layout shift;
+- validates aggregate byte savings and prevents large JPEG delivery from canonical pages;
+- runs on pull requests as a non-deploying build/audit check.
+
+The source repository remains the archival-quality input; `_site/` is generated only in GitHub Actions and is not committed.
