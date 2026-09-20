@@ -2,7 +2,7 @@
 from __future__ import annotations
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 import json, re, sys
 import xml.etree.ElementTree as ET
 
@@ -16,7 +16,7 @@ errors, warnings = [], []
 def fail(m): errors.append(m)
 def warn(m): warnings.append(m)
 def path_to_file(path):
-    clean = path.split("?",1)[0].split("#",1)[0]
+    clean = unquote(path.split("?",1)[0].split("#",1)[0])
     if clean == "/": return ROOT / "index.html"
     if clean.endswith("/"): return ROOT / clean.lstrip("/") / "index.html"
     return ROOT / clean.lstrip("/")
