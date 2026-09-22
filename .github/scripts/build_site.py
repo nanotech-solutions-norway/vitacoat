@@ -116,17 +116,17 @@ def add_dimensions(match):
         body += f' height="{height}"'
     return body + closing
 
-all_img_pattern = re.compile(r'<img\\b[^>]*>', re.I)
+all_img_pattern = re.compile(r'<img\b[^>]*>', re.I)
 
 def add_loading_hints(match):
     tag = match.group(0)
-    if re.search(r'\\bfetchpriority\\s*=\\s*["\\']high["\\']', tag, flags=re.I):
+    if re.search(r"\bfetchpriority\s*=\s*['\"]high['\"]", tag, flags=re.I):
         return tag
     closing = "/>" if tag.endswith("/>") else ">"
     body = tag[:-len(closing)].rstrip()
-    if not re.search(r'\\bloading\\s*=', tag, flags=re.I):
+    if not re.search(r'\bloading\s*=', tag, flags=re.I):
         body += ' loading="lazy"'
-    if not re.search(r'\\bdecoding\\s*=', tag, flags=re.I):
+    if not re.search(r'\bdecoding\s*=', tag, flags=re.I):
         body += ' decoding="async"'
     return body + closing
 
