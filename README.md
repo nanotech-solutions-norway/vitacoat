@@ -15,6 +15,7 @@ Static GitHub Pages implementation for the VitaCoat website, based on the approv
 - `.github/scripts/audit_frontend.py` — frontend integrity audit
 - `.github/scripts/audit_release.py` — SEO, schema, internal-link and discovery acceptance audit
 - `.github/scripts/audit_accessibility.py` — canonical-page accessibility, ARIA, keyboard-hook and mobile-markup audit
+- `.github/scripts/audit_performance_budget.py` — CSS/JS/HTML/image delivery regression budget
 - `.github/scripts/production_acceptance.py` — live custom-domain release verification
 - `docs/measurement-and-acceptance.md` — measurement event contract and release gates
 
@@ -41,7 +42,9 @@ Production deployment is built into `_site/` before upload to GitHub Pages. The 
 - constrains oversized raster dimensions for browser delivery;
 - rewrites deployed references to optimized derivatives;
 - adds intrinsic dimensions to local raster images to reduce layout shift;
-- validates aggregate byte savings and prevents large JPEG delivery from canonical pages.
+- lazy-loads non-critical images while keeping high-priority hero/LCP images eager;
+- validates aggregate byte savings and prevents large JPEG delivery from canonical pages;
+- enforces CSS/JS/HTML/raster delivery budgets in CI.
 
 The source repository remains the archival-quality input; `_site/` is generated only in GitHub Actions and is not committed.
 
@@ -54,3 +57,9 @@ The site emits a small provider-neutral event contract for high-value CTA, downl
 Canonical pages include a static skip-to-main link, a focusable main landmark, accessible language-switch names, named mobile submenu controls and explicit menu state labels. Shared JavaScript supports Escape-to-close with focus return, while CSS preserves visible keyboard focus, reduced-motion handling and compact-screen reflow. The mobile EN-performance chart places the test-standard label inside each bar while retaining the desktop label layout.
 
 The deployment pipeline runs `.github/scripts/audit_accessibility.py` against the generated site so these semantics and interaction hooks are release-gated.
+
+## Structured data and handoff
+
+Every canonical page carries WebPage structured data; non-home canonical pages also carry BreadcrumbList hierarchy. Documentation hubs expose public PDFs as DigitalDocument entities. See `docs/schema-map.md`.
+
+Operational ownership, rollback, account-side tasks and hosting limitations are documented in `docs/production-handoff.md`, `docs/performance-budget.md` and `docs/security-hosting-constraints.md`.
