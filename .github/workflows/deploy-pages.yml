@@ -37,6 +37,9 @@ jobs:
       - name: Audit optimized frontend
         run: python .github/scripts/audit_frontend.py _site
 
+      - name: Run accessibility and agent-readiness audit
+        run: python .github/scripts/audit_accessibility.py _site
+
       - name: Run release acceptance audit
         run: python .github/scripts/audit_release.py _site
 
