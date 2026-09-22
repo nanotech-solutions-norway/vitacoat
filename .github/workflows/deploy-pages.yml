@@ -40,6 +40,9 @@ jobs:
       - name: Run accessibility and agent-readiness audit
         run: python .github/scripts/audit_accessibility.py _site
 
+      - name: Enforce performance budget
+        run: python .github/scripts/audit_performance_budget.py _site
+
       - name: Run release acceptance audit
         run: python .github/scripts/audit_release.py _site
 

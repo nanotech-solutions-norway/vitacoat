@@ -116,9 +116,24 @@ def add_dimensions(match):
         body += f' height="{height}"'
     return body + closing
 
+all_img_pattern = re.compile(r'<img\b[^>]*>', re.I)
+
+def add_loading_hints(match):
+    tag = match.group(0)
+    if re.search(r"\bfetchpriority\s*=\s*['\"]high['\"]", tag, flags=re.I):
+        return tag
+    closing = "/>" if tag.endswith("/>") else ">"
+    body = tag[:-len(closing)].rstrip()
+    if not re.search(r'\bloading\s*=', tag, flags=re.I):
+        body += ' loading="lazy"'
+    if not re.search(r'\bdecoding\s*=', tag, flags=re.I):
+        body += ' decoding="async"'
+    return body + closing
+
 for path in OUT.rglob("*.html"):
     html = path.read_text(encoding="utf-8", errors="ignore")
     updated = img_pattern.sub(add_dimensions, html)
+    updated = all_img_pattern.sub(add_loading_hints, updated)
     if updated != html:
         path.write_text(updated, encoding="utf-8")
 

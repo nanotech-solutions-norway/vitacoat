@@ -25,7 +25,7 @@ class PageParser(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.links=[]; self.images=[]; self.jsonld=[]; self._json=False; self._chunks=[]
-        self.h1_count=0; self.lang=None; self.meta_robots=[]; self.canonical=[]; self.alternates={}
+        self.h1_count=0; self.lang=None; self.meta_robots=[]; self.meta_referrer=[]; self.canonical=[]; self.alternates={}
     def handle_starttag(self, tag, attrs_list):
         attrs=dict(attrs_list)
         if tag=="html": self.lang=attrs.get("lang")
@@ -34,6 +34,8 @@ class PageParser(HTMLParser):
         elif tag=="h1": self.h1_count += 1
         elif tag=="meta" and (attrs.get("name") or "").lower()=="robots" and attrs.get("content"):
             self.meta_robots.append(attrs["content"].lower())
+        elif tag=="meta" and (attrs.get("name") or "").lower()=="referrer" and attrs.get("content"):
+            self.meta_referrer.append(attrs["content"].lower())
         elif tag=="link":
             rel=(attrs.get("rel") or "").lower(); href=attrs.get("href")
             if rel=="canonical" and href: self.canonical.append(href)
@@ -70,10 +72,9 @@ if canonical_paths != seo.CANONICAL_PATHS:
     if extra: fail("Sitemap paths missing from SEO map: "+", ".join(extra))
 incoming={p:0 for p in canonical_paths}
 required_schema={
-"/":{"Organization","WebSite","Brand","Product"},"/en/":{"Organization","WebSite","Brand","Product"},
-"/about/":{"Organization","AboutPage"},"/en/about/":{"Organization","AboutPage"},
-"/faq/":{"FAQPage"},"/en/faq/":{"FAQPage"},"/contact/":{"ContactPage"},"/en/contact/":{"ContactPage"},
-"/technical-evaluation/":{"WebPage"},"/en/technical-evaluation/":{"WebPage"}}
+"/":{"Organization","WebSite","Brand","Product","ContactPoint"},"/en/":{"Organization","WebSite","Brand","Product","ContactPoint"},
+"/about/":{"Organization","AboutPage","ContactPoint"},"/en/about/":{"Organization","AboutPage","ContactPoint"},
+"/faq/":{"FAQPage"},"/en/faq/":{"FAQPage"},"/contact/":{"ContactPage"},"/en/contact/":{"ContactPage"}}
 for path in sorted(canonical_paths):
     fp=path_to_file(path)
     if not fp.exists(): fail(f"Missing canonical file: {path}"); continue
@@ -87,13 +88,19 @@ for path in sorted(canonical_paths):
         if p.alternates.get(code,[]) != [expected]: fail(f"{path}: hreflang {code} mismatch")
     robots=",".join(p.meta_robots)
     if "noindex" in robots or "nosnippet" in robots: fail(f"{path}: restrictive robots directive {robots}")
+    if p.meta_referrer != ["strict-origin-when-cross-origin"]:
+        fail(f"{path}: expected one strict-origin-when-cross-origin referrer policy, found {p.meta_referrer}")
     types=set()
     for raw in p.jsonld:
         if not raw: continue
         try: data=json.loads(raw)
         except json.JSONDecodeError as exc: fail(f"{path}: invalid JSON-LD: {exc}"); continue
         types.update(jsonld_types(data))
-    missing_types=required_schema.get(path,set())-types
+    expected_types={"WebPage"} | required_schema.get(path,set())
+    if path not in {"/","/en/"}: expected_types.add("BreadcrumbList")
+    if path in {"/documentation/","/en/documentation/","/technical-support/downloads/","/en/technical-support/downloads/"}:
+        expected_types.add("DigitalDocument")
+    missing_types=expected_types-types
     if missing_types: fail(f"{path}: missing schema types {', '.join(sorted(missing_types))}")
     for src,alt in p.images:
         if src.startswith("/") and not path_to_file(src).exists(): fail(f"{path}: missing image {src}")

@@ -57,18 +57,25 @@ def main():
         p=CanonicalParser(); p.feed(body)
         if p.canonical != [url]: errors.append(f"{url}: live canonical mismatch {p.canonical}")
     checks={
-        BASE_URL+"/":["NanoTech Solutions Norway AS","/assets/img/frontpage-hero.webp"],
-        BASE_URL+"/about/":["925 367 869","Vestsideveien 279"],
+        BASE_URL+"/":["NanoTech Solutions Norway AS","/assets/img/frontpage-hero.webp",'"@type":"ContactPoint"','"@type":"WebPage"','<meta name="referrer" content="strict-origin-when-cross-origin">','loading="lazy"'],
+        BASE_URL+"/about/":["925 367 869","Vestsideveien 279",'"@type":"BreadcrumbList"'],
         BASE_URL+"/technical-evaluation/":["Seks spørsmål som bør være avklart før innkjøp"],
         BASE_URL+"/en/technical-evaluation/":["Six questions to resolve before procurement"],
         BASE_URL+"/faq/":['"@type":"FAQPage"'],
         BASE_URL+"/en/contact/":['"@type":"ContactPage"'],
+        BASE_URL+"/documentation/":['"@type":"DigitalDocument"','"@type":"BreadcrumbList"'],
+        BASE_URL+"/en/documentation/":['"@type":"DigitalDocument"','"@type":"BreadcrumbList"'],
     }
     for url,markers in checks.items():
         try: _,_,body=fetch(url,attempts=8,delay=5.0)
         except RuntimeError as exc: errors.append(str(exc)); continue
         for marker in markers:
             if marker not in body: errors.append(f"{url}: missing production marker: {marker}")
+    for path in ("/documentation/","/en/documentation/"):
+        try: _,_,body=fetch(BASE_URL+path,attempts=8,delay=5.0)
+        except RuntimeError as exc: errors.append(str(exc)); continue
+        count=body.count('"@type":"DigitalDocument"')
+        if count < 7: errors.append(f"{path}: expected at least 7 DigitalDocument entities, found {count}")
     try:
         _,_,robots=fetch(BASE_URL+"/robots.txt",attempts=5,delay=3.0)
         if f"Sitemap: {BASE_URL}/sitemap.xml" not in robots: errors.append("robots.txt missing live sitemap")
