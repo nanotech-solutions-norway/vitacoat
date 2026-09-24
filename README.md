@@ -15,7 +15,7 @@ Static GitHub Pages implementation for the VitaCoat website, based on the approv
 - `.github/scripts/audit_frontend.py` — frontend integrity audit
 - `.github/scripts/audit_release.py` — SEO, schema, internal-link and discovery acceptance audit
 - `.github/scripts/audit_accessibility.py` — canonical-page accessibility, ARIA, keyboard-hook and mobile-markup audit
-- `.github/scripts/production_acceptance.py` — live custom-domain release verification
+- `.github/scripts/production_acceptance.py` — live custom-domain release verification\n- `.github/scripts/browser_acceptance.cjs` — real-Chromium interaction and responsive regression checks\n- `.github/workflows/browser-quality.yml` — Lighthouse CI and browser behavior quality gates
 - `docs/measurement-and-acceptance.md` — measurement event contract and release gates
 
 ## Frontend rules
@@ -54,3 +54,9 @@ The site emits a small provider-neutral event contract for high-value CTA, downl
 Canonical pages include a static skip-to-main link, a focusable main landmark, accessible language-switch names, named mobile submenu controls and explicit menu state labels. Shared JavaScript supports Escape-to-close with focus return, while CSS preserves visible keyboard focus, reduced-motion handling and compact-screen reflow. The mobile EN-performance chart places the test-standard label inside each bar while retaining the desktop label layout.
 
 The deployment pipeline runs `.github/scripts/audit_accessibility.py` against the generated site so these semantics and interaction hooks are release-gated.
+
+## Browser quality gates
+
+A separate read-only workflow builds the same optimized `_site/` artifact and tests it in real Chrome. It verifies keyboard/mobile interactions, skip-link focus, dropdown hover persistence, Escape-to-close focus return, 320 px reflow, mobile evidence-chart labels, contact-form labeling and the privacy boundary of provider-neutral measurement events.
+
+Lighthouse CI 0.15.1 runs three times on representative Norwegian/English, contact, evidence and evaluation pages. Accessibility, SEO, best-practice and CLS thresholds are hard release signals; performance/LCP/TBT/byte-weight thresholds start as warning budgets so baseline variance can be observed without masking functional failures.

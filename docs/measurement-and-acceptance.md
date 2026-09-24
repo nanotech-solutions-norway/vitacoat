@@ -56,3 +56,21 @@ After GitHub Pages deployment, the workflow checks the custom production domain 
 - noindex on Norwegian and English thank-you pages.
 
 External account-side validation remains necessary for Google Search Console, Bing Webmaster Tools / AI Performance, field Core Web Vitals and any approved analytics platform.
+
+## Browser-level quality gates
+
+The static audits are supplemented by a real-Chromium workflow. It validates interaction behavior at desktop, standard mobile and 320 px compact widths without submitting the public contact form. The checks cover skip-to-main focus, mobile menu state, submenu control relationships, Escape-to-close with focus return, desktop dropdown hover persistence, language-control accessible names, mobile evidence-bar labels, horizontal reflow, form labeling and the measurement-event privacy boundary.
+
+Lighthouse CI is pinned to `@lhci/cli@0.15.1` and runs three collections on representative routes. Current thresholds are:
+
+- accessibility category: error below 95;
+- SEO category: error below 95;
+- best-practices category: error below 90;
+- cumulative layout shift: error above 0.10;
+- performance category: warning below 80;
+- LCP: warning above 3.5 s;
+- total blocking time: warning above 300 ms;
+- interactive: warning above 5.0 s;
+- total transferred bytes: warning above 2.5 MB.
+
+Performance metrics from shared GitHub runners are synthetic laboratory signals and can vary. Field Core Web Vitals still require Search Console, CrUX/PageSpeed Insights or another approved production measurement source.
