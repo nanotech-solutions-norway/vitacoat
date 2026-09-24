@@ -71,7 +71,9 @@ async function assertLanguageNames(page, label) {
     const topLink = firstDropdown.locator('.nav-top-link');
     const menu = firstDropdown.locator('.dropdown-menu');
 
-    await firstDropdown.hover();
+    await topLink.hover();
+    await page.waitForTimeout(100);
+    check(await firstDropdown.evaluate(el => el.matches(':hover')), 'desktop dropdown parent did not enter CSS hover state');
     check(await menu.isVisible(), 'desktop dropdown did not open on hover');
     await menu.locator('a').first().hover();
     await page.waitForTimeout(260);
