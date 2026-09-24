@@ -56,11 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
     const open = () => {
       clearTimeout(closeTimers.get(dropdown));
+      dropdown.classList.remove('escape-closed');
       dropdown.classList.add('is-open');
     };
     const close = () => {
       clearTimeout(closeTimers.get(dropdown));
-      closeTimers.set(dropdown, setTimeout(() => dropdown.classList.remove('is-open'), 180));
+      closeTimers.set(dropdown, setTimeout(() => {
+        dropdown.classList.remove('is-open');
+        dropdown.classList.remove('escape-closed');
+      }, 180));
     };
     dropdown.addEventListener('pointerenter', open);
     dropdown.addEventListener('pointerleave', close);
@@ -82,8 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const openDropdown = document.activeElement?.closest?.('.nav-dropdown.is-open');
     if (openDropdown) {
       event.preventDefault();
+      const topLink = openDropdown.querySelector('.nav-top-link');
+      topLink?.focus();
       openDropdown.classList.remove('is-open');
-      openDropdown.querySelector('.nav-top-link')?.focus();
+      openDropdown.classList.add('escape-closed');
     }
   });
 
