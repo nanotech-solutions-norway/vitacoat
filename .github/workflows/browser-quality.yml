@@ -1,0 +1,56 @@
+name: Browser quality baseline
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install image optimizer
+        run: python -m pip install --disable-pip-version-check Pillow==11.3.0
+
+      - name: Build optimized static site
+        run: python .github/scripts/build_site.py
+
+      - name: Setup Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Install browser quality tools
+        run: npm install --no-save --no-package-lock @lhci/cli@0.15.1 playwright@1.63.0
+
+      - name: Run Lighthouse CI baseline
+        run: npx lhci autorun --config=./lighthouserc.cjs
+
+      - name: Install cross-browser engines
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Start static test server
+        run: |
+          python -m http.server 4173 --directory _site >/tmp/vitacoat-http.log 2>&1 &
+          echo $! >/tmp/vitacoat-http.pid
+
+      - name: Run responsive cross-browser acceptance
+        env:
+          BASE_URL: http://127.0.0.1:4173
+        run: node .github/scripts/browser_acceptance.mjs
