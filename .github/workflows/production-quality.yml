@@ -1,0 +1,122 @@
+name: Production quality gates
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    name: Lighthouse lab budgets
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "24"
+
+      - name: Install build dependency
+        run: python -m pip install --disable-pip-version-check Pillow==11.3.0
+
+      - name: Build optimized static site
+        run: |
+          python .github/scripts/build_site.py
+          python .github/scripts/enhance_release.py _site
+
+      - name: Start local site
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 --directory _site >/tmp/vitacoat-http.log 2>&1 &
+          python - <<'PY'
+          import time
+          from urllib.request import urlopen
+          for _ in range(40):
+              try:
+                  with urlopen("http://127.0.0.1:8000/", timeout=1) as response:
+                      if response.status == 200:
+                          break
+              except Exception:
+                  time.sleep(0.25)
+          else:
+              raise SystemExit("Local test server did not become ready")
+          PY
+
+      - name: Run Lighthouse budgets
+        run: python .github/scripts/lighthouse_gate.py --base-url http://127.0.0.1:8000 --output-dir qa/lighthouse
+
+      - name: Upload Lighthouse evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lighthouse-${{ github.sha }}
+          path: qa/lighthouse
+          if-no-files-found: warn
+          retention-days: 14
+
+  browser-smoke:
+    name: Browser smoke (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install browser QA dependencies
+        run: python -m pip install --disable-pip-version-check Pillow==11.3.0 playwright==1.63.0
+
+      - name: Install ${{ matrix.browser }}
+        run: python -m playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Build optimized static site
+        run: |
+          python .github/scripts/build_site.py
+          python .github/scripts/enhance_release.py _site
+
+      - name: Start local site
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 --directory _site >/tmp/vitacoat-http.log 2>&1 &
+          python - <<'PY'
+          import time
+          from urllib.request import urlopen
+          for _ in range(40):
+              try:
+                  with urlopen("http://127.0.0.1:8000/", timeout=1) as response:
+                      if response.status == 200:
+                          break
+              except Exception:
+                  time.sleep(0.25)
+          else:
+              raise SystemExit("Local test server did not become ready")
+          PY
+
+      - name: Run responsive browser smoke
+        run: python .github/scripts/browser_smoke.py --browser ${{ matrix.browser }} --base-url http://127.0.0.1:8000 --output-dir qa/browser
+
+      - name: Upload responsive screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: browser-${{ matrix.browser }}-${{ github.sha }}
+          path: qa/browser/${{ matrix.browser }}
+          if-no-files-found: warn
+          retention-days: 14
