@@ -82,8 +82,18 @@ if manifest_path.exists():
         html = homepage.read_text(encoding="utf-8", errors="ignore")
         if '<source media="(max-width: 860px)" srcset="/assets/img/frontpage-hero-mobile.webp" type="image/webp">' not in html:
             fail(f"Responsive mobile hero source missing: {homepage.relative_to(ROOT)}")
+        if 'href="/assets/img/frontpage-hero.webp" media="(min-width: 861px)" fetchpriority="high"' not in html:
+            fail(f"Desktop-only hero preload missing: {homepage.relative_to(ROOT)}")
     for file_path in seen:
         html = file_path.read_text(encoding="utf-8", errors="ignore")
+        if 'fonts.googleapis.com/css2?family=Inter' in html:
+            blocking_font = re.search(
+                r'<link[^>]+fonts\.googleapis\.com/css2\?family=Inter[^>]+rel=["\']stylesheet["\'][^>]*>',
+                html,
+                flags=re.I,
+            )
+            if blocking_font and 'media="print"' not in blocking_font.group(0):
+                fail(f"Blocking Google Fonts stylesheet remains: {file_path.relative_to(ROOT)}")
         for src in re.findall(r'<img[^>]+src=["\'](/assets/img/[^"\']+\.(?:jpg|jpeg))["\']', html, flags=re.I):
             asset = ROOT / src.lstrip("/")
             if asset.exists() and asset.stat().st_size >= 100_000:
