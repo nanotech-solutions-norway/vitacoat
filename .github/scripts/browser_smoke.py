@@ -70,7 +70,9 @@ def main() -> int:
                         try:
                             image.evaluate("""img => {
                               if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-                              return img.decode ? img.decode().catch(() => undefined) : Promise.resolve();
+                              const decode = img.decode ? img.decode().catch(() => undefined) : Promise.resolve();
+                              const timeout = new Promise(resolve => setTimeout(resolve, 750));
+                              return Promise.race([decode, timeout]);
                             }""")
                         except Exception:
                             pass
