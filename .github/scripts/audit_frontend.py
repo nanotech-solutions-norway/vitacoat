@@ -65,6 +65,23 @@ if manifest_path.exists():
         fail(f"Performance build converted only {converted} raster images; expected at least 6.")
     if saving < 25:
         fail(f"Performance build image saving is only {saving:.1f}%; expected at least 25%.")
+    variants = manifest.get("responsive_variants", [])
+    hero_variants = [v for v in variants if v.get("output") == "/assets/img/frontpage-hero-mobile.webp"]
+    if len(hero_variants) != 1:
+        fail("Performance build must generate exactly one responsive mobile homepage hero variant.")
+    else:
+        hero_variant = hero_variants[0]
+        hero_asset = ROOT / hero_variant["output"].lstrip("/")
+        if not hero_asset.exists():
+            fail("Responsive mobile homepage hero asset is missing from generated site.")
+        if int(hero_variant.get("output_dimensions", [9999])[0]) > 900:
+            fail("Responsive mobile homepage hero exceeds the 900px delivery budget.")
+        if int(hero_variant.get("output_bytes", 9999999)) > 180_000:
+            fail("Responsive mobile homepage hero exceeds the 180 KiB byte budget.")
+    for homepage in (ROOT / "index.html", ROOT / "en" / "index.html"):
+        html = homepage.read_text(encoding="utf-8", errors="ignore")
+        if '<source media="(max-width: 860px)" srcset="/assets/img/frontpage-hero-mobile.webp" type="image/webp">' not in html:
+            fail(f"Responsive mobile hero source missing: {homepage.relative_to(ROOT)}")
     for file_path in seen:
         html = file_path.read_text(encoding="utf-8", errors="ignore")
         for src in re.findall(r'<img[^>]+src=["\'](/assets/img/[^"\']+\.(?:jpg|jpeg))["\']', html, flags=re.I):
