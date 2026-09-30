@@ -95,6 +95,17 @@ for path in sorted(canonical_paths):
         types.update(jsonld_types(data))
     missing_types=required_schema.get(path,set())-types
     if missing_types: fail(f"{path}: missing schema types {', '.join(sorted(missing_types))}")
+    if path not in {"/","/en/"}:
+        if "BreadcrumbList" not in types: fail(f"{path}: missing BreadcrumbList schema")
+        if 'class="breadcrumbs container"' not in content: fail(f"{path}: missing visible breadcrumb navigation")
+        if 'data-vc-schema="breadcrumb"' not in content: fail(f"{path}: missing generated breadcrumb schema marker")
+    if path in {"/technical-support/downloads/","/en/technical-support/downloads/"}:
+        if "CollectionPage" not in types or "DigitalDocument" not in types:
+            fail(f"{path}: missing download collection/document schema")
+        if content.count('"@type":"DigitalDocument"') != 7:
+            fail(f"{path}: expected seven DigitalDocument items")
+        if 'data-vc-schema="download-collection"' not in content:
+            fail(f"{path}: missing generated download-collection marker")
     for src,alt in p.images:
         if src.startswith("/") and not path_to_file(src).exists(): fail(f"{path}: missing image {src}")
         if alt is None: fail(f"{path}: image missing alt attribute {src}")
@@ -126,4 +137,4 @@ if errors:
     print("VitaCoat release audit FAILED")
     for x in errors: print("- "+x)
     sys.exit(1)
-print(f"VitaCoat release audit passed: {len(canonical_paths)} canonical URLs, {sum(incoming.values())} internal canonical link edges, structured data and discovery controls validated.")
+print(f"VitaCoat release audit passed: {len(canonical_paths)} canonical URLs, {sum(incoming.values())} internal canonical link edges, visible breadcrumbs, document schema, structured data and discovery controls validated.")
