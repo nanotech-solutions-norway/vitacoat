@@ -15,6 +15,8 @@ QUALITY = 82
 MIN_SOURCE_BYTES = 100_000
 MIN_INDIVIDUAL_SAVING = 0.08
 MIN_TOTAL_SAVING = 0.25
+HERO_MOBILE_MAX_DIMENSION = 900
+HERO_MOBILE_QUALITY = 78
 
 if OUT.exists():
     shutil.rmtree(OUT)
@@ -31,6 +33,7 @@ for child in ROOT.iterdir():
 
 mapping = {}
 records = []
+responsive_variants = []
 source_total = 0
 optimized_total = 0
 
@@ -72,6 +75,20 @@ for path in sorted(ASSET_ROOT.rglob("*")):
             "source_dimensions": [original_width, original_height],
             "output_dimensions": list(image.size),
         })
+
+        if path.name.lower() == "frontpage-hero.jpg":
+            mobile = image.copy()
+            mobile.thumbnail((HERO_MOBILE_MAX_DIMENSION, HERO_MOBILE_MAX_DIMENSION), Image.Resampling.LANCZOS)
+            mobile_output = path.with_name("frontpage-hero-mobile.webp")
+            mobile.save(mobile_output, "WEBP", quality=HERO_MOBILE_QUALITY, method=6, optimize=True)
+            responsive_variants.append({
+                "source": old_url,
+                "output": "/" + mobile_output.relative_to(OUT).as_posix(),
+                "output_bytes": mobile_output.stat().st_size,
+                "output_dimensions": list(mobile.size),
+                "quality": HERO_MOBILE_QUALITY,
+                "media": "(max-width: 860px)",
+            })
 
 if not records:
     print("Performance build failed: no raster images qualified for WebP optimization.")
@@ -116,9 +133,22 @@ def add_dimensions(match):
         body += f' height="{height}"'
     return body + closing
 
+hero_mobile_url = "/assets/img/frontpage-hero-mobile.webp"
+hero_desktop_url = "/assets/img/frontpage-hero.webp"
+hero_mobile_file = OUT / hero_mobile_url.lstrip("/")
+hero_pattern = re.compile(
+    r'(<img\\b[^>]*?\\bsrc=(["\\'])' + re.escape(hero_desktop_url) + r'\\2[^>]*>)',
+    re.I,
+)
+
 for path in OUT.rglob("*.html"):
     html = path.read_text(encoding="utf-8", errors="ignore")
     updated = img_pattern.sub(add_dimensions, html)
+    if hero_mobile_file.exists() and hero_desktop_url in updated and "<picture" not in updated:
+        updated = hero_pattern.sub(
+            rf'<picture><source media="(max-width: 860px)" srcset="{hero_mobile_url}" type="image/webp">\\1</picture>',
+            updated,
+        )
     if updated != html:
         path.write_text(updated, encoding="utf-8")
 
@@ -132,12 +162,23 @@ manifest = {
     "bytes_saved": source_total - optimized_total,
     "saving_percent": round(total_saving * 100, 1),
     "files": records,
+    "responsive_variants": responsive_variants,
 }
 manifest_path = ASSET_ROOT / "image-build-manifest.json"
 manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+if not responsive_variants:
+    print("Performance build failed: responsive homepage hero variant was not generated.")
+    sys.exit(1)
 
 print(
     f"Optimized {len(records)} raster images: "
     f"{source_total / 1024 / 1024:.2f} MiB -> {optimized_total / 1024 / 1024:.2f} MiB "
     f"({total_saving:.1%} smaller for optimized delivery)."
+)
+
+print(
+    f"Responsive hero delivery: {responsive_variants[0]['output_dimensions'][0]}x"
+    f"{responsive_variants[0]['output_dimensions'][1]} WebP at "
+    f"{responsive_variants[0]['output_bytes'] / 1024:.1f} KiB for <=860px viewports."
 )
