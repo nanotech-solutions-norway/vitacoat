@@ -137,7 +137,7 @@ hero_mobile_url = "/assets/img/frontpage-hero-mobile.webp"
 hero_desktop_url = "/assets/img/frontpage-hero.webp"
 hero_mobile_file = OUT / hero_mobile_url.lstrip("/")
 hero_pattern = re.compile(
-    r'(<img\\b[^>]*?\\bsrc=(["\\'])' + re.escape(hero_desktop_url) + r'\\2[^>]*>)',
+    r'''(<img\\b[^>]*?\\bsrc=["']''' + re.escape(hero_desktop_url) + r'''["'][^>]*>)''',
     re.I,
 )
 
@@ -146,7 +146,10 @@ for path in OUT.rglob("*.html"):
     updated = img_pattern.sub(add_dimensions, html)
     if hero_mobile_file.exists() and hero_desktop_url in updated and "<picture" not in updated:
         updated = hero_pattern.sub(
-            rf'<picture><source media="(max-width: 860px)" srcset="{hero_mobile_url}" type="image/webp">\\1</picture>',
+            lambda match: (
+                f'<picture><source media="(max-width: 860px)" '
+                f'srcset="{hero_mobile_url}" type="image/webp">{match.group(1)}</picture>'
+            ),
             updated,
         )
     if updated != html:
