@@ -12,11 +12,16 @@ Static GitHub Pages implementation for the VitaCoat website, based on the approv
 - `assets/downloads/` — approved downloadable technical material
 - `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt` — discovery and crawl support
 - `.github/workflows/deploy-pages.yml` — optimized GitHub Pages build, deploy and post-deploy acceptance
+- `.github/workflows/production-quality.yml` — Lighthouse and Chromium/Firefox/WebKit responsive quality gates
+- `.github/scripts/enhance_release.py` — generated visible breadcrumbs, BreadcrumbList and download-document schema
+- `.github/scripts/lighthouse_gate.py` — mobile/desktop Lighthouse budgets
+- `.github/scripts/browser_smoke.py` — responsive cross-browser interaction and screenshot QA
 - `.github/scripts/audit_frontend.py` — frontend integrity audit
 - `.github/scripts/audit_release.py` — SEO, schema, internal-link and discovery acceptance audit
 - `.github/scripts/audit_accessibility.py` — canonical-page accessibility, ARIA, keyboard-hook and mobile-markup audit
 - `.github/scripts/production_acceptance.py` — live custom-domain release verification
 - `docs/measurement-and-acceptance.md` — measurement event contract and release gates
+- `docs/production-handoff.md` — final production acceptance, operating procedure and external/manual evidence boundary
 
 ## Frontend rules
 
@@ -54,3 +59,10 @@ The site emits a small provider-neutral event contract for high-value CTA, downl
 Canonical pages include a static skip-to-main link, a focusable main landmark, accessible language-switch names, named mobile submenu controls and explicit menu state labels. Shared JavaScript supports Escape-to-close with focus return, while CSS preserves visible keyboard focus, reduced-motion handling and compact-screen reflow. The mobile EN-performance chart places the test-standard label inside each bar while retaining the desktop label layout.
 
 The deployment pipeline runs `.github/scripts/audit_accessibility.py` against the generated site so these semantics and interaction hooks are release-gated.
+
+
+## Final production quality gates
+
+Phase 8 adds visible breadcrumbs with matching structured data, a structured DigitalDocument model for the published download center, Lighthouse 13.5 mobile/desktop budgets, and responsive smoke testing in Chromium, Firefox and WebKit. Browser jobs retain short-lived screenshot artifacts for human visual review.
+
+Lighthouse gates lab LCP, CLS and TBT. Real-user INP and 75th-percentile field Core Web Vitals remain account/field measurement items and are not inferred from successful lab CI. See `docs/production-handoff.md`.
