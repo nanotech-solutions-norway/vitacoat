@@ -54,3 +54,8 @@ The site emits a small provider-neutral event contract for high-value CTA, downl
 Canonical pages include a static skip-to-main link, a focusable main landmark, accessible language-switch names, named mobile submenu controls and explicit menu state labels. Shared JavaScript supports Escape-to-close with focus return, while CSS preserves visible keyboard focus, reduced-motion handling and compact-screen reflow. The mobile EN-performance chart places the test-standard label inside each bar while retaining the desktop label layout.
 
 The deployment pipeline runs `.github/scripts/audit_accessibility.py` against the generated site so these semantics and interaction hooks are release-gated.
+
+
+## Browser quality and handoff
+
+A separate `Browser quality baseline` workflow runs Lighthouse CI and cross-browser acceptance against the generated `_site/` artifact. The browser gate covers Chromium, Firefox and WebKit at compact mobile and desktop widths, including menu state, hover persistence, reflow, mobile evidence bars and contact-form labeling. Final operational responsibilities and rollback guidance are documented in `docs/production-handoff.md`.
