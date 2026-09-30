@@ -63,6 +63,15 @@ def main() -> int:
                     overflow = page.evaluate("document.documentElement.scrollWidth - document.documentElement.clientWidth")
                     require(overflow <= 1, f"{prefix}: horizontal overflow {overflow}px", failures)
 
+                    page.evaluate("""async () => {
+                      const step = Math.max(320, Math.floor(window.innerHeight * 0.75));
+                      for (let y = 0; y < document.body.scrollHeight; y += step) {
+                        window.scrollTo(0, y);
+                        await new Promise(resolve => setTimeout(resolve, 25));
+                      }
+                      window.scrollTo(0, 0);
+                    }""")
+                    page.wait_for_timeout(120)
                     broken_images = page.evaluate(
                         "Array.from(document.images).filter(img => !img.complete || img.naturalWidth === 0).map(img => img.getAttribute('src'))"
                     )
@@ -93,7 +102,9 @@ def main() -> int:
                     if viewport["width"] > 860 and path == "/":
                         dropdown = page.locator(".nav-dropdown").first
                         menu = dropdown.locator(".dropdown-menu")
+                        page.locator("body").hover()
                         dropdown.hover()
+                        page.wait_for_timeout(100)
                         require(menu.is_visible(), f"{prefix}: desktop dropdown not visible on hover", failures)
                         menu.locator("a").first.hover()
                         require(menu.is_visible(), f"{prefix}: dropdown collapsed while pointer remained inside", failures)
