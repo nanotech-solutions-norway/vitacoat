@@ -63,6 +63,8 @@ def main():
         BASE_URL+"/en/technical-evaluation/":["Six questions to resolve before procurement"],
         BASE_URL+"/faq/":['"@type":"FAQPage"'],
         BASE_URL+"/en/contact/":['"@type":"ContactPage"'],
+        BASE_URL+"/applications/healthcare/":['class="breadcrumbs container"','data-vc-schema="breadcrumb"','"@type":"BreadcrumbList"'],
+        BASE_URL+"/en/technical-support/downloads/":['data-vc-schema="download-collection"','"@type":"CollectionPage"','"@type":"DigitalDocument"'],
     }
     for url,markers in checks.items():
         try: _,_,body=fetch(url,attempts=8,delay=5.0)
@@ -87,7 +89,7 @@ def main():
         print("VitaCoat production acceptance FAILED")
         for x in errors: print("- "+x)
         return 1
-    print(f"VitaCoat production acceptance passed: {len(expected)} canonical URLs returned HTTP 200 with matching canonical tags; discovery and release markers verified.")
+    print(f"VitaCoat production acceptance passed: {len(expected)} canonical URLs returned HTTP 200 with matching canonical tags; discovery, breadcrumbs, document schema and release markers verified.")
     return 0
 if __name__=="__main__":
     raise SystemExit(main())
