@@ -165,6 +165,26 @@ for path in OUT.rglob("*.html"):
     if updated != html:
         path.write_text(updated, encoding="utf-8")
 
+# The mobile hero is selected by <picture> after HTML parsing. Explicitly
+# preload its generated 21-25 KiB WebP variant so the LCP resource is
+# discovered in <head>, matching the responsive image media query.
+if hero_mobile_file.exists():
+    mobile_preload = (
+        '<link rel="preload" as="image" href="/assets/img/frontpage-hero-mobile.webp" '
+        'media="(max-width: 860px)" type="image/webp" fetchpriority="high">'
+    )
+    for homepage in (OUT / "index.html", OUT / "en" / "index.html"):
+        html = homepage.read_text(encoding="utf-8")
+        if html.count("</head>") != 1:
+            raise SystemExit(f"Cannot inject mobile preload into {homepage}: invalid head")
+        if '<source media="(max-width: 860px)" srcset="/assets/img/frontpage-hero-mobile.webp"' not in html:
+            raise SystemExit(f"Mobile hero source missing from {homepage}; preload aborted")
+        if mobile_preload not in html:
+            homepage.write_text(
+                html.replace("</head>", f"  {mobile_preload}\\n</head>", 1),
+                encoding="utf-8",
+            )
+
 manifest = {
     "format": "webp",
     "quality": QUALITY,
