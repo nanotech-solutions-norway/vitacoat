@@ -17,3 +17,5 @@ Status: IN_PROGRESS; merge and public deployment not authorized by this ledger i
 - Improve brand palette and wordmark without changing page architecture.
 - Improve contact transparency and routing while preserving current Formspree endpoint; account-side delivery verification remains open.
 - Complete CI, source readback, regulatory review and any release approval before merge.
+
+- E003 | STAGING_PLAN | 31.10.2026 | SEO registry, bilingual application/durability/FAQ claim qualification, homepage CTA labels, factual Formspree disclosure, CSS blue/cyan identity and desktop wordmark. No PDF or third-party changes; privacy controller review, formulation equivalence and regulatory claims remain PENDING_REVIEW.
