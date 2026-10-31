@@ -84,6 +84,8 @@ if manifest_path.exists():
             fail(f"Responsive mobile hero source missing: {homepage.relative_to(ROOT)}")
         if 'href="/assets/img/frontpage-hero.webp" media="(min-width: 861px)" fetchpriority="high"' not in html:
             fail(f"Desktop-only hero preload missing: {homepage.relative_to(ROOT)}")
+        if '<link rel="preload" as="image" href="/assets/img/frontpage-hero-mobile.webp" media="(max-width: 860px)" type="image/webp" fetchpriority="high">' not in html:
+            fail(f"Mobile-first hero preload missing: {homepage.relative_to(ROOT)}")
     for file_path in seen:
         html = file_path.read_text(encoding="utf-8", errors="ignore")
         if 'fonts.googleapis.com/css2?family=Inter' in html:

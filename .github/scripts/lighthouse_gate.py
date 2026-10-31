@@ -68,6 +68,32 @@ def main() -> int:
             data = json.loads(report_path.read_text(encoding="utf-8"))
             categories = data.get("categories", {})
             audits = data.get("audits", {})
+            if label == "home-no" and mode == "mobile":
+                # Report the measured LCP element and its load phases without
+                # relaxing any budget or exposing personal data.
+                insight_ids = (
+                    "largest-contentful-paint-element",
+                    "lcp-discovery-insight",
+                    "lcp-phases-insight",
+                    "image-delivery-insight",
+                )
+                for insight_id in insight_ids:
+                    insight = audits.get(insight_id)
+                    if not insight:
+                        continue
+                    excerpt = {
+                        "title": insight.get("title"),
+                        "displayValue": insight.get("displayValue"),
+                        "details": insight.get("details"),
+                    }
+                    print(
+                        f"LCP diagnostic {insight_id}: "
+                        + json.dumps(excerpt, ensure_ascii=False)[:2400]
+                    )
+                print(
+                    "LCP-related audit ids: "
+                    + ", ".join(k for k in audits if "lcp" in k.lower() or "largest-contentful" in k.lower())
+                )
             row = {"page": label, "path": path, "mode": mode, "categories": {}, "metrics": {}}
 
             for category, minimum in CATEGORY_MINIMUMS.items():
