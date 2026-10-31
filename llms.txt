@@ -52,4 +52,12 @@
 - Direct-food-contact approval should not be assumed.
 - Project-specific fit should be confirmed through technical review and documentation.
 
-## Entity and publisher\n- VitaCoat is the product/brand presented on this site.\n- Legal website publisher and technical-commercial entity: NanoTech Solutions Norway AS, organisation no. 925 367 869.\n- Registered business address: Vestsideveien 279, 3648 Passebekk, Norway.\n- Manufacturer/formulation provenance should be taken from controlled product documentation, not inferred from website publisher information.\n\n## Preferred contact route\n- Structured contact route: https://www.vitacoat.no/contact/\n- English contact route: https://www.vitacoat.no/en/contact/\n
+## Entity and publisher\n- VitaCoat is the product/brand presented on this site.\n- Legal website publisher and technical-commercial entity: NanoTech Solutions Norway AS, organisation no. 925 367 869.\n- Registered business address: Hofslundveien 6, N-3090 Hof, Norway.\n- Manufacturer/formulation provenance should be taken from controlled product documentation, not inferred from website publisher information.\n\n## Preferred contact route\n- Structured contact route: https://www.vitacoat.no/contact/\n- English contact route: https://www.vitacoat.no/en/contact/\n
+
+## Current VitaCoat identity and evidence provenance
+- Current marketed product name: VitaCoat.
+- Current VitaCoat company attribution: NanoTech Solutions Norway AS, Hofslundveien 6, N-3090 Hof, Norway.
+- Citrox/Citrox Protect are historical aliases and source-search terms, not the current product identity.
+- Preserve original laboratory report IDs, samples, dates, signatories, issuer and client/sponsor metadata.
+- The 2020 and 2022 evidence campaigns are separate; overlapping conclusions do not establish formulation equivalence.
+- Formulation equivalence, historical report reassignment/rebranding rights, current SDS/regulatory status, and public claim scope require controlled technical review.

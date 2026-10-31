@@ -34,6 +34,9 @@ jobs:
       - name: Build optimized static site
         run: python .github/scripts/build_site.py
 
+      - name: Add production breadcrumbs and document schema
+        run: python .github/scripts/enhance_release.py _site
+
       - name: Audit optimized frontend
         run: python .github/scripts/audit_frontend.py _site
 
