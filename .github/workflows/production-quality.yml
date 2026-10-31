@@ -30,6 +30,9 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Resolve pinned Lighthouse CLI before measurements
+        run: npx --yes lighthouse@13.5.0 --version
+
       - name: Install build dependency
         run: python -m pip install --disable-pip-version-check Pillow==11.3.0
 
