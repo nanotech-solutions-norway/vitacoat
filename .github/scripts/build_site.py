@@ -181,7 +181,7 @@ if hero_mobile_file.exists():
             raise SystemExit(f"Mobile hero source missing from {homepage}; preload aborted")
         if mobile_preload not in html:
             homepage.write_text(
-                html.replace("</head>", f"  {mobile_preload}\\n</head>", 1),
+                html.replace("</head>", f"  {mobile_preload}\n</head>", 1),
                 encoding="utf-8",
             )
 
