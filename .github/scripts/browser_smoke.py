@@ -131,10 +131,14 @@ def main() -> int:
                             require(all(not mobile_labels.nth(i).is_visible() for i in range(4)), f"{prefix}: mobile labels should be hidden on desktop", failures)
                             require(all(desktop_labels.nth(i).is_visible() for i in range(4)), f"{prefix}: desktop bar labels not visible", failures)
 
-                    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                    page.wait_for_timeout(80)
+                    # Visit intermediate positions to reveal sections before screenshot.
+                    max_scroll = max(0, page.evaluate("document.documentElement.scrollHeight - window.innerHeight"))
+                    scroll_step = max(320, page.evaluate("Math.floor(window.innerHeight * 0.75)"))
+                    for offset in range(0, max_scroll + scroll_step, scroll_step):
+                        page.evaluate("(y) => window.scrollTo(0, y)", offset)
+                        page.wait_for_timeout(70)
                     page.evaluate("window.scrollTo(0, 0)")
-                    page.wait_for_timeout(80)
+                    page.wait_for_timeout(100)
                     screenshot = out / f"{safe_name(label)}-{viewport_name}.png"
                     page.screenshot(path=str(screenshot), full_page=True, animations="disabled")
                     results.append({"page": label, "path": path, "viewport": viewport_name, "screenshot": str(screenshot)})
