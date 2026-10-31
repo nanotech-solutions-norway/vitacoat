@@ -10,8 +10,8 @@ import subprocess
 
 LIGHTHOUSE_VERSION = "13.5.0"
 PAGES = [
-    ("home-en", "/en/"),
     ("home-no", "/"),
+    ("home-en", "/en/"),
     ("contact-no", "/contact/"),
     ("downloads-en", "/en/technical-support/downloads/"),
 ]
