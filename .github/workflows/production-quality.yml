@@ -112,6 +112,9 @@ jobs:
       - name: Run responsive browser smoke
         run: python .github/scripts/browser_smoke.py --browser ${{ matrix.browser }} --base-url http://127.0.0.1:8000 --output-dir qa/browser
 
+      - name: Run synthetic contact form regression (network intercepted)
+        run: python .github/scripts/formspree_synthetic.py --browser ${{ matrix.browser }} --base-url http://127.0.0.1:8000
+
       - name: Upload responsive screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
