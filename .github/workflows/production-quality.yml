@@ -30,6 +30,9 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Resolve pinned Lighthouse CLI before measurements
+        run: npx --yes lighthouse@13.5.0 --version
+
       - name: Install build dependency
         run: python -m pip install --disable-pip-version-check Pillow==11.3.0
 
@@ -111,6 +114,9 @@ jobs:
 
       - name: Run responsive browser smoke
         run: python .github/scripts/browser_smoke.py --browser ${{ matrix.browser }} --base-url http://127.0.0.1:8000 --output-dir qa/browser
+
+      - name: Run synthetic contact form regression (network intercepted)
+        run: python .github/scripts/formspree_synthetic.py --browser ${{ matrix.browser }} --base-url http://127.0.0.1:8000
 
       - name: Upload responsive screenshots
         if: always()
