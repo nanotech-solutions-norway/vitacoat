@@ -153,9 +153,6 @@ tr:last-child td{border-bottom:0}
   .grid-4,.timeline-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding-bottom:96px}
 }
-/* Keep the above-fold mobile heading independent of delayed remote font swaps. */
-@media(max-width:860px){#overview.hero .hero-copy{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}}
-
 @media(max-width:860px){
   .container{width:min(calc(100% - 32px),var(--vc-max))}
   .header-inner{min-height:72px}
