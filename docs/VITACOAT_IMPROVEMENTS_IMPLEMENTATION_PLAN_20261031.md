@@ -63,3 +63,10 @@
 There are **seven independently accepted work packages (VC-IMP-00 through VC-IMP-06)**. Each counts as accepted only when its specific evidence and owner gate are met; planning/staged PRs are not counted as completed. Baseline accepted packages: **0/7** for this new improvement program. Historical PR #25/#26 release validation is a predecessor milestone, not new-package completion.
 
 **This document is a proposed implementation plan, not a regulatory approval or production release authorization.**
+
+
+## Post-merge continuation — 16:14, 01.11.2026 · Europe/Madrid
+
+**Verified main at review:** `2d34d9a04802f9569efc6485f7795774e0f5c398`; PRs #27, #28 and #29 merged. Deployment/live production acceptance run 41320135793, security run 41320135777, CodeQL run 41320135706, and production quality run 41320135804 all succeeded on this SHA. The existing 2,500 ms LCP budget remains unchanged. Current NO/mobile homepage sample was 1,658.413 ms with H1 as LCP and 181.465 ms element render delay. Previous same-program failed measurements remain in the ledger; this single pass does not establish repeatability or root cause.
+
+**Package update:** VC-IMP-01 synthetic-only QA is independently accepted for its stated scope from successful Chromium/Firefox/WebKit CI and merged implementation; no live Formspree delivery is inferred. VC-IMP-00 remains IN_PROGRESS because earlier samples on the implementation sequence exceeded the unchanged budget and causality is unconfirmed. The first-pass 50-URL bilingual claims inventory is staged in [VITACOAT_CLAIM_EVIDENCE_MATRIX_20261101.md](VITACOAT_CLAIM_EVIDENCE_MATRIX_20261101.md), with scientific, formulation, report and publication-rights fields still PENDING_REVIEW. Remaining packages retain their prior gates.
