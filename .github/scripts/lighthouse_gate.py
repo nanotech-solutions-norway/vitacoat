@@ -83,56 +83,56 @@ def main() -> int:
                 categories = data.get("categories", {})
                 audits = data.get("audits", {})
                 if label == "home-no" and mode == "mobile":
-                # Report the measured LCP element and its load phases without
-                # relaxing any budget or exposing personal data.
-                insight_ids = (
-                    "largest-contentful-paint-element",
-                    "lcp-discovery-insight",
-                    "lcp-phases-insight",
-                    "image-delivery-insight",
-                )
-                for insight_id in insight_ids:
-                    insight = audits.get(insight_id)
-                    if not insight:
-                        continue
-                    excerpt = {
-                        "title": insight.get("title"),
-                        "displayValue": insight.get("displayValue"),
-                        "details": insight.get("details"),
-                    }
-                    print(
-                        f"LCP diagnostic {insight_id}: "
-                        + json.dumps(excerpt, ensure_ascii=False)[:2400]
+                    # Report the measured LCP element and its load phases without
+                    # relaxing any budget or exposing personal data.
+                    insight_ids = (
+                        "largest-contentful-paint-element",
+                        "lcp-discovery-insight",
+                        "lcp-phases-insight",
+                        "image-delivery-insight",
                     )
-                print(
-                    "LCP-related audit ids: "
-                    + ", ".join(k for k in audits if "lcp" in k.lower() or "largest-contentful" in k.lower())
-                )
+                    for insight_id in insight_ids:
+                        insight = audits.get(insight_id)
+                        if not insight:
+                            continue
+                        excerpt = {
+                            "title": insight.get("title"),
+                            "displayValue": insight.get("displayValue"),
+                            "details": insight.get("details"),
+                        }
+                        print(
+                            f"LCP diagnostic {insight_id}: "
+                            + json.dumps(excerpt, ensure_ascii=False)[:2400]
+                        )
+                    print(
+                        "LCP-related audit ids: "
+                        + ", ".join(k for k in audits if "lcp" in k.lower() or "largest-contentful" in k.lower())
+                    )
                 row = {"page": label, "path": path, "mode": mode, "sample": sample, "samples": repeats, "categories": {}, "metrics": {}}
 
                 for category, minimum in CATEGORY_MINIMUMS.items():
-                score = categories.get(category, {}).get("score")
-                row["categories"][category] = score
-                if score is None or score < minimum:
-                    failures.append(f"{label}/{mode}: {category} score {score!r} below {minimum:.2f}")
+                    score = categories.get(category, {}).get("score")
+                    row["categories"][category] = score
+                    if score is None or score < minimum:
+                        failures.append(f"{label}/{mode}: {category} score {score!r} below {minimum:.2f}")
 
                 for audit_id, maximum in METRIC_MAXIMUMS.items():
-                value = audits.get(audit_id, {}).get("numericValue")
-                row["metrics"][audit_id] = value
-                if value is None or value > maximum:
-                    failures.append(f"{label}/{mode}: {audit_id} {value!r} exceeds {maximum}")
+                    value = audits.get(audit_id, {}).get("numericValue")
+                    row["metrics"][audit_id] = value
+                    if value is None or value > maximum:
+                        failures.append(f"{label}/{mode}: {audit_id} {value!r} exceeds {maximum}")
 
                 summary.append(row)
                 scores = ", ".join(f"{k}={v:.0%}" for k, v in row["categories"].items() if isinstance(v, (int, float)))
                 metrics = row["metrics"]
                 print(
-                f"{label}/{mode}: {scores}; "
-                f"LCP={metrics.get('largest-contentful-paint')} ms, "
-                f"CLS={metrics.get('cumulative-layout-shift')}, "
-                f"TBT={metrics.get('total-blocking-time')} ms"
+                    f"{label}/{mode}: {scores}; "
+                    f"LCP={metrics.get('largest-contentful-paint')} ms, "
+                    f"CLS={metrics.get('cumulative-layout-shift')}, "
+                    f"TBT={metrics.get('total-blocking-time')} ms"
                 )
 
-        (output_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    (output_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
     if failures:
         print("VitaCoat Lighthouse gate FAILED")
