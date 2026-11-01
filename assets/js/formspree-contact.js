@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var successUrl = form.getAttribute('data-success-url') || '/thank-you/';
     var submitButton = form.querySelector('button[type="submit"]');
     var lang = form.getAttribute('data-lang') || document.documentElement.lang || 'en';
+    var inFlight = false;
     var status = document.createElement('p');
     status.className = 'small-note form-status';
     status.setAttribute('role', 'status');
@@ -17,12 +18,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
+      if (inFlight) return;
       if (!form.checkValidity()) {
         measure('contact_form_validation_error');
         form.reportValidity();
         return;
       }
 
+      inFlight = true;
       measure('contact_form_submit_attempt');
       var originalText = submitButton ? submitButton.textContent : '';
       if (submitButton) {
@@ -46,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
           throw new Error(errorText || 'Form submission failed.');
         });
       }).catch(function () {
+        inFlight = false;
         measure('contact_form_submit_error');
         status.textContent = lang.startsWith('no')
           ? 'Skjemaet kunne ikke sendes. Send e-post direkte til info@vitacoat.no.'
