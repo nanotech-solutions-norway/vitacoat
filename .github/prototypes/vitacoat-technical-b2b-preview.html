@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>VitaCoat — Technical B2B Prototype</title>
+<style>
+:root{color-scheme:light;--ink:#142b3b;--muted:#526a78;--line:#d7e2e8;--paper:#f4f8fa;--white:#fff;--blue:#006f9c;--blue-dark:#07506b;--cyan:#10b8df;--green:#279900;--soft:#e7f4f8;--radius:18px;--max:1180px;font-family:Inter,Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);line-height:1.6}
+a{color:var(--blue-dark);text-underline-offset:.2em}
+a:focus-visible,button:focus-visible{outline:3px solid var(--green);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:auto}
+.skip:focus{left:1rem;top:1rem;z-index:10;background:#fff;padding:.7rem 1rem;border-radius:8px}
+.locale{max-width:var(--max);margin:auto;padding:0 24px 72px}
+#norsk{display:none}
+#norsk:target{display:block}
+#norsk:target+#english{display:none}
+header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;color:var(--ink);text-decoration:none;font-weight:750;letter-spacing:-.02em}
+.brand img{width:42px;height:42px}
+.nav{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.nav a{text-decoration:none;font-size:.93rem;font-weight:600}
+.nav a:hover{text-decoration:underline}
+.lang{display:flex;gap:8px}
+.lang a{padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:#fff}
+main{padding-top:38px}
+.kicker{margin:0 0 14px;color:var(--blue);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:62px 0 70px}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(2.35rem,5vw,4.4rem);line-height:1.04;letter-spacing:-.045em;max-width:760px;margin-bottom:22px}
+.lead{font-size:1.12rem;line-height:1.65;color:var(--muted);max-width:650px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:11px 17px;border-radius:9px;background:var(--blue-dark);color:#fff;font-weight:700;text-decoration:none}
+.button.secondary{background:#fff;color:var(--blue-dark);border:1px solid var(--line)}
+.visual{padding:24px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 18px 50px #1231460c}
+.visual svg{display:block;width:100%;height:auto}
+.caption{font-size:.78rem;color:var(--muted);margin:14px 2px 0}
+.section{padding:54px 0;border-top:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:start;margin-bottom:28px}
+h2{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.15;letter-spacing:-.03em;margin-bottom:10px}
+.section-head p{color:var(--muted);max-width:650px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step{padding:20px 20px 22px 0}
+.step+.step{border-left:1px solid var(--line);padding-left:20px}
+.step-no{font-size:.78rem;color:var(--blue);font-weight:800;letter-spacing:.12em}
+.step h3{font-size:1.05rem;margin:9px 0}
+.step p{color:var(--muted);font-size:.94rem;margin-bottom:0}
+.evidence{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.evidence table{width:100%;border-collapse:collapse;background:#fff}
+th,td{text-align:left;vertical-align:top;padding:13px 12px;border-bottom:1px solid var(--line);font-size:.9rem}
+th{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.note{border-left:4px solid var(--cyan);padding:4px 0 4px 18px;color:var(--muted)}
+.note strong{color:var(--ink)}
+footer{border-top:1px solid var(--line);padding:24px 0 0;color:var(--muted);font-size:.85rem}
+@media(max-width:820px){.hero{grid-template-columns:1fr;gap:28px;padding:42px 0 52px}.section-head{grid-template-columns:1fr;gap:8px}.steps{grid-template-columns:repeat(2,1fr)}.step:nth-child(3){border-left:0;padding-left:0;border-top:1px solid var(--line)}.step:nth-child(4){border-top:1px solid var(--line)}.evidence{grid-template-columns:1fr}}
+@media(max-width:560px){.locale{padding:0 18px 48px}header{align-items:flex-start;flex-direction:column}.nav{gap:10px 18px}main{padding-top:20px}.hero{padding-top:32px}h1{font-size:2.55rem}.visual{padding:14px}.steps{grid-template-columns:1fr}.step,.step+.step,.step:nth-child(3){padding:17px 0;border-left:0;border-top:1px solid var(--line)}.step:first-child{border-top:0}.actions{flex-direction:column}.button{width:100%}th,td{padding:10px 8px;font-size:.82rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main-en">Skip to content</a>
+<section class="locale" id="norsk" lang="nb-NO">
+<header>
+<a class="brand" href="#norsk"><img src="../../assets/img/vitacoat-logo.svg" alt=""><span>VitaCoat</span></a>
+<nav class="nav" aria-label="Hovednavigasjon"><a href="#kvalifisering-no">Evaluering</a><a href="#evidens-no">Dokumentasjon</a><a href="#kontakt-no">Kontakt</a><span class="lang" aria-label="Velg språk"><a href="#norsk" lang="nb-NO" aria-current="page">NO</a><a href="#english" lang="en">EN</a></span></nav>
+</header>
+<main id="main-no">
+<div class="hero">
+<div><p class="kicker">Teknisk vurdering · Prosjektgrunnlag</p><h1>Bygg spesifikasjonen rundt dokumentasjonen.</h1><p class="lead">En strukturert vei fra bruksområde og materialvalg til teknisk gjennomgang og dokumentert beslutningsgrunnlag.</p><div class="actions"><a class="button" href="#kvalifisering-no">Start teknisk evaluering</a><a class="button secondary" href="#evidens-no">Se dokumentasjonsstruktur</a></div></div>
+<figure class="visual"><svg viewBox="0 0 620 380" role="img" aria-labelledby="title-no desc-no"><title id="title-no">Konseptuell prosjekt- og dokumentasjonsflyt</title><desc id="desc-no">Tre nivåer viser grunnmateriale, prosjektdefinert behandling og driftsbetingelser. Illustrasjonen viser ingen bestemt formulering eller ytelse.</desc><rect x="35" y="35" width="550" height="310" rx="18" fill="#f4f8fa"/><path d="M90 250h440v52H90z" fill="#d9e3e8"/><path d="M90 225h440v25H90z" fill="#10b8df"/><path d="M90 155h440v70H90z" fill="#e7f4f8"/><path d="M125 117h370" stroke="#006f9c" stroke-width="3" stroke-dasharray="7 8"/><circle cx="125" cy="117" r="9" fill="#279900"/><circle cx="310" cy="117" r="9" fill="#279900"/><circle cx="495" cy="117" r="9" fill="#279900"/><text x="310" y="86" text-anchor="middle" fill="#07506b" font-size="17" font-weight="700">Prosjektdefinert vurdering</text><text x="310" y="198" text-anchor="middle" fill="#142b3b" font-size="17" font-weight="700">Behandlingslag under vurdering</text><text x="310" y="284" text-anchor="middle" fill="#142b3b" font-size="16" font-weight="700">Grunnmateriale</text></svg><figcaption class="caption">Konseptuell prosessillustrasjon — ikke målestokkriktig og ikke en påstand om formulering eller ytelse.</figcaption></figure>
+</div>
+<section class="section" id="kvalifisering-no"><div class="section-head"><div><p class="kicker">Arbeidsflyt</p><h2>Fire steg til et kontrollert beslutningsgrunnlag.</h2></div><p>Avklar prosjektets rammer først. Koble deretter hvert dokument til riktig prøve, metode og begrensning før en teknisk konklusjon tas.</p></div><div class="steps"><article class="step"><span class="step-no">01</span><h3>Definer bruken</h3><p>Beskriv miljø, berørte materialer, rengjøring og driftsbetingelser.</p></article><article class="step"><span class="step-no">02</span><h3>Kontroller kilden</h3><p>Registrer rapport, utsteder, prøvenavn, dato og opprinnelig sponsor.</p></article><article class="step"><span class="step-no">03</span><h3>Vurder egnethet</h3><p>Sammenlign dokumenterte testbetingelser med den konkrete bruken.</p></article><article class="step"><span class="step-no">04</span><h3>Avtal neste steg</h3><p>Sett prosjektspesifikke kriterier for teknisk gjennomgang og videre beslutning.</p></article></div></section>
+<section class="section" id="evidens-no"><div class="section-head"><div><p class="kicker">Dokumentasjon</p><h2>Gjør proveniens synlig.</h2></div><p>Et dokument får mening når testet prøve, metode, betingelser og kilde er tydelige. Denne layouten viser plasseringen av informasjonen som må kontrolleres.</p></div><div class="evidence"><table><thead><tr><th>Felt</th><th>Registrering</th></tr></thead><tbody><tr><td>Testet prøve</td><td>Kontrolleres mot originalrapport</td></tr><tr><td>Metode og dato</td><td>Registreres per rapport</td></tr><tr><td>Testbetingelser</td><td>Kontaktid, temperatur, belastning og øvrige vilkår</td></tr><tr><td>Proveniens</td><td>Utsteder, sponsor og publiseringsrettigheter</td></tr></tbody></table><p class="note"><strong>Avgrensning</strong><br>Historisk dokumentasjon skal knyttes til den eksakte prøven den beskriver. Den fastslår ikke i seg selv egenskaper for en nåværende formulering.</p></div></section>
+<section class="section" id="kontakt-no"><div class="section-head"><div><p class="kicker">Neste steg</p><h2>Avklar prosjektet før formuleringer låses.</h2></div><p>Samle bruksområde, substrat, rengjøringsrutine og ønsket dokumentasjon for en teknisk gjennomgang.</p></div><a class="button" href="#main-no">Til toppen</a></section>
+<footer>Prototype for intern gjennomgang · Ingen effekt-, varighets-, klinisk- eller regulatorisk påstand.</footer>
+</main>
+</section>
+<section class="locale" id="english" lang="en">
+<header>
+<a class="brand" href="#english"><img src="../../assets/img/vitacoat-logo.svg" alt=""><span>VitaCoat</span></a>
+<nav class="nav" aria-label="Primary navigation"><a href="#qualification-en">Evaluation</a><a href="#evidence-en">Documentation</a><a href="#contact-en">Contact</a><span class="lang" aria-label="Choose language"><a href="#norsk" lang="nb-NO">NO</a><a href="#english" lang="en" aria-current="page">EN</a></span></nav>
+</header>
+<main id="main-en">
+<div class="hero">
+<div><p class="kicker">Technical review · Project scope</p><h1>Build the specification around the evidence.</h1><p class="lead">A structured path from application context and material selection to technical review and a documented decision.</p><div class="actions"><a class="button" href="#qualification-en">Start technical evaluation</a><a class="button secondary" href="#evidence-en">View documentation structure</a></div></div>
+<figure class="visual"><svg viewBox="0 0 620 380" role="img" aria-labelledby="title-en desc-en"><title id="title-en">Conceptual project and documentation flow</title><desc id="desc-en">Three layers represent base material, a project-defined treatment under review, and operating conditions. The illustration does not depict a formulation or performance result.</desc><rect x="35" y="35" width="550" height="310" rx="18" fill="#f4f8fa"/><path d="M90 250h440v52H90z" fill="#d9e3e8"/><path d="M90 225h440v25H90z" fill="#10b8df"/><path d="M90 155h440v70H90z" fill="#e7f4f8"/><path d="M125 117h370" stroke="#006f9c" stroke-width="3" stroke-dasharray="7 8"/><circle cx="125" cy="117" r="9" fill="#279900"/><circle cx="310" cy="117" r="9" fill="#279900"/><circle cx="495" cy="117" r="9" fill="#279900"/><text x="310" y="86" text-anchor="middle" fill="#07506b" font-size="17" font-weight="700">Project-defined review</text><text x="310" y="198" text-anchor="middle" fill="#142b3b" font-size="17" font-weight="700">Treatment layer under review</text><text x="310" y="284" text-anchor="middle" fill="#142b3b" font-size="16" font-weight="700">Base material</text></svg><figcaption class="caption">Conceptual process illustration — not to scale and not a formulation or performance claim.</figcaption></figure>
+</div>
+<section class="section" id="qualification-en"><div class="section-head"><div><p class="kicker">Workflow</p><h2>Four steps to a controlled decision record.</h2></div><p>Define the project conditions first. Then connect each document to the correct test sample, method and limitations before drawing a technical conclusion.</p></div><div class="steps"><article class="step"><span class="step-no">01</span><h3>Define the use</h3><p>Describe the environment, materials, cleaning routine and operating conditions.</p></article><article class="step"><span class="step-no">02</span><h3>Check the source</h3><p>Record the report, issuer, sample identity, date and original sponsor.</p></article><article class="step"><span class="step-no">03</span><h3>Assess fit</h3><p>Compare documented test conditions with the proposed use case.</p></article><article class="step"><span class="step-no">04</span><h3>Agree next steps</h3><p>Set project-specific criteria for technical review and any further decision.</p></article></div></section>
+<section class="section" id="evidence-en"><div class="section-head"><div><p class="kicker">Documentation</p><h2>Make provenance visible.</h2></div><p>A document is useful when its tested sample, method, conditions and source are clear. This layout shows where information needing verification belongs.</p></div><div class="evidence"><table><thead><tr><th>Field</th><th>Record</th></tr></thead><tbody><tr><td>Tested sample</td><td>Verify against the original report</td></tr><tr><td>Method and date</td><td>Record for each report</td></tr><tr><td>Test conditions</td><td>Contact time, temperature, load and other terms</td></tr><tr><td>Provenance</td><td>Issuer, sponsor and publication rights</td></tr></tbody></table><p class="note"><strong>Boundary</strong><br>Historical evidence must stay linked to the exact sample it describes. It does not by itself establish properties of a current formulation.</p></div></section>
+<section class="section" id="contact-en"><div class="section-head"><div><p class="kicker">Next step</p><h2>Define the project before fixing the specification.</h2></div><p>Collect the use case, substrate, cleaning routine and required documentation for a technical review.</p></div><a class="button" href="#main-en">Back to top</a></section>
+<footer>Internal review prototype · No efficacy, duration, clinical or regulatory claim.</footer>
+</main>
+</section>
+</body>
+</html>
