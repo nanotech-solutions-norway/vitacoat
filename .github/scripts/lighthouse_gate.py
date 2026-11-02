@@ -42,6 +42,9 @@ def run_lighthouse(url: str, output: Path, mode: str) -> None:
     ]
     if mode == "desktop":
         cmd.append("--preset=desktop")
+    else:
+        # Preserve Chrome trace and DevTools logs for mobile run-context analysis.
+        cmd.append("--save-assets")
     subprocess.run(cmd, check=True)
 
 def main() -> int:
