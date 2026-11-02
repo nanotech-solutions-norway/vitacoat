@@ -89,7 +89,7 @@ def main() -> int:
                         "largest-contentful-paint-element",
                         "lcp-discovery-insight",
                         "lcp-phases-insight",
-                    "lcp-breakdown-insight",
+                        "lcp-breakdown-insight",
                         "image-delivery-insight",
                     )
                     for insight_id in insight_ids:
@@ -108,6 +108,23 @@ def main() -> int:
                     print(
                         "LCP-related audit ids: "
                         + ", ".join(k for k in audits if "lcp" in k.lower() or "largest-contentful" in k.lower())
+                    )
+                    long_tasks = audits.get("long-tasks", {}).get("details", {}).get("items", [])
+                    durations = [task.get("duration") for task in long_tasks if isinstance(task.get("duration"), (int, float))]
+                    print(
+                        "LCP run context: "
+                        + json.dumps(
+                            {
+                                "sample": sample,
+                                "samples": repeats,
+                                "benchmarkIndex": data.get("environment", {}).get("benchmarkIndex"),
+                                "firstContentfulPaintMs": audits.get("first-contentful-paint", {}).get("numericValue"),
+                                "mainThreadWorkMs": audits.get("mainthread-work-breakdown", {}).get("numericValue"),
+                                "longTaskCount": len(long_tasks),
+                                "longestTaskMs": max(durations, default=None),
+                            },
+                            ensure_ascii=False,
+                        )
                     )
                 row = {"page": label, "path": path, "mode": mode, "sample": sample, "samples": repeats, "categories": {}, "metrics": {}}
 
