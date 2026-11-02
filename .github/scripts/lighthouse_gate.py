@@ -10,10 +10,10 @@ import subprocess
 
 LIGHTHOUSE_VERSION = "13.5.0"
 PAGES = [
-    ("home-no", "/"),
     ("home-en", "/en/"),
     ("contact-no", "/contact/"),
     ("downloads-en", "/en/technical-support/downloads/"),
+    ("home-no", "/"),
 ]
 MODES = ("mobile", "desktop")
 CATEGORY_MINIMUMS = {
