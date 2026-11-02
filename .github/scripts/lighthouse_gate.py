@@ -48,7 +48,15 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-url", default="http://127.0.0.1:8000")
     parser.add_argument("--output-dir", default="qa/lighthouse")
+    parser.add_argument(
+        "--home-no-mobile-repeats",
+        type=int,
+        default=3,
+        help="Sequential same-job samples for the variable Norwegian mobile homepage LCP gate.",
+    )
     args = parser.parse_args()
+    if args.home_no_mobile_repeats < 1:
+        parser.error("--home-no-mobile-repeats must be at least 1")
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -57,66 +65,72 @@ def main() -> int:
 
     for mode in MODES:
         for label, path in PAGES:
-            url = urljoin(args.base_url.rstrip("/") + "/", path.lstrip("/"))
-            report_path = output_dir / f"{safe_name(label)}-{mode}.json"
-            try:
-                run_lighthouse(url, report_path, mode)
-            except subprocess.CalledProcessError as exc:
-                failures.append(f"{label}/{mode}: Lighthouse command failed with exit code {exc.returncode}")
-                continue
-
-            data = json.loads(report_path.read_text(encoding="utf-8"))
-            categories = data.get("categories", {})
-            audits = data.get("audits", {})
-            if label == "home-no" and mode == "mobile":
-                # Report the measured LCP element and its load phases without
-                # relaxing any budget or exposing personal data.
-                insight_ids = (
-                    "largest-contentful-paint-element",
-                    "lcp-discovery-insight",
-                    "lcp-phases-insight",
-                    "image-delivery-insight",
-                )
-                for insight_id in insight_ids:
-                    insight = audits.get(insight_id)
-                    if not insight:
-                        continue
-                    excerpt = {
-                        "title": insight.get("title"),
-                        "displayValue": insight.get("displayValue"),
-                        "details": insight.get("details"),
-                    }
-                    print(
-                        f"LCP diagnostic {insight_id}: "
-                        + json.dumps(excerpt, ensure_ascii=False)[:2400]
+            repeats = args.home_no_mobile_repeats if label == "home-no" and mode == "mobile" else 1
+            for sample in range(1, repeats + 1):
+                url = urljoin(args.base_url.rstrip("/") + "/", path.lstrip("/"))
+                repeat_suffix = "" if sample == 1 else f"-repeat-{sample}"
+                report_path = output_dir / f"{safe_name(label)}-{mode}{repeat_suffix}.json"
+                try:
+                    run_lighthouse(url, report_path, mode)
+                except subprocess.CalledProcessError as exc:
+                    failures.append(
+                        f"{label}/{mode} sample {sample}/{repeats}: Lighthouse command failed "
+                        f"with exit code {exc.returncode}"
                     )
+                    continue
+
+                data = json.loads(report_path.read_text(encoding="utf-8"))
+                categories = data.get("categories", {})
+                audits = data.get("audits", {})
+                if label == "home-no" and mode == "mobile":
+                    # Report the measured LCP element and its load phases without
+                    # relaxing any budget or exposing personal data.
+                    insight_ids = (
+                        "largest-contentful-paint-element",
+                        "lcp-discovery-insight",
+                        "lcp-phases-insight",
+                        "image-delivery-insight",
+                    )
+                    for insight_id in insight_ids:
+                        insight = audits.get(insight_id)
+                        if not insight:
+                            continue
+                        excerpt = {
+                            "title": insight.get("title"),
+                            "displayValue": insight.get("displayValue"),
+                            "details": insight.get("details"),
+                        }
+                        print(
+                            f"LCP diagnostic {insight_id}: "
+                            + json.dumps(excerpt, ensure_ascii=False)[:2400]
+                        )
+                    print(
+                        "LCP-related audit ids: "
+                        + ", ".join(k for k in audits if "lcp" in k.lower() or "largest-contentful" in k.lower())
+                    )
+                row = {"page": label, "path": path, "mode": mode, "sample": sample, "samples": repeats, "categories": {}, "metrics": {}}
+
+                for category, minimum in CATEGORY_MINIMUMS.items():
+                    score = categories.get(category, {}).get("score")
+                    row["categories"][category] = score
+                    if score is None or score < minimum:
+                        failures.append(f"{label}/{mode}: {category} score {score!r} below {minimum:.2f}")
+
+                for audit_id, maximum in METRIC_MAXIMUMS.items():
+                    value = audits.get(audit_id, {}).get("numericValue")
+                    row["metrics"][audit_id] = value
+                    if value is None or value > maximum:
+                        failures.append(f"{label}/{mode}: {audit_id} {value!r} exceeds {maximum}")
+
+                summary.append(row)
+                scores = ", ".join(f"{k}={v:.0%}" for k, v in row["categories"].items() if isinstance(v, (int, float)))
+                metrics = row["metrics"]
                 print(
-                    "LCP-related audit ids: "
-                    + ", ".join(k for k in audits if "lcp" in k.lower() or "largest-contentful" in k.lower())
+                    f"{label}/{mode}: {scores}; "
+                    f"LCP={metrics.get('largest-contentful-paint')} ms, "
+                    f"CLS={metrics.get('cumulative-layout-shift')}, "
+                    f"TBT={metrics.get('total-blocking-time')} ms"
                 )
-            row = {"page": label, "path": path, "mode": mode, "categories": {}, "metrics": {}}
-
-            for category, minimum in CATEGORY_MINIMUMS.items():
-                score = categories.get(category, {}).get("score")
-                row["categories"][category] = score
-                if score is None or score < minimum:
-                    failures.append(f"{label}/{mode}: {category} score {score!r} below {minimum:.2f}")
-
-            for audit_id, maximum in METRIC_MAXIMUMS.items():
-                value = audits.get(audit_id, {}).get("numericValue")
-                row["metrics"][audit_id] = value
-                if value is None or value > maximum:
-                    failures.append(f"{label}/{mode}: {audit_id} {value!r} exceeds {maximum}")
-
-            summary.append(row)
-            scores = ", ".join(f"{k}={v:.0%}" for k, v in row["categories"].items() if isinstance(v, (int, float)))
-            metrics = row["metrics"]
-            print(
-                f"{label}/{mode}: {scores}; "
-                f"LCP={metrics.get('largest-contentful-paint')} ms, "
-                f"CLS={metrics.get('cumulative-layout-shift')}, "
-                f"TBT={metrics.get('total-blocking-time')} ms"
-            )
 
     (output_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
