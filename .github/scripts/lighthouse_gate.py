@@ -89,6 +89,7 @@ def main() -> int:
                         "largest-contentful-paint-element",
                         "lcp-discovery-insight",
                         "lcp-phases-insight",
+                    "lcp-breakdown-insight",
                         "image-delivery-insight",
                     )
                     for insight_id in insight_ids:
