@@ -57,7 +57,7 @@ def main():
         p=CanonicalParser(); p.feed(body)
         if p.canonical != [url]: errors.append(f"{url}: live canonical mismatch {p.canonical}")
     checks={
-        BASE_URL+"/":["NanoTech Solutions Norway AS","/assets/img/frontpage-hero.webp"],
+        BASE_URL+"/":["NanoTech Solutions Norway AS","/assets/img/vitacoat-hero-surface-treatment"],
         BASE_URL+"/about/":["925 367 869","Hofslundveien 6"],
         BASE_URL+"/technical-evaluation/":["Seks spørsmål som bør være avklart før innkjøp"],
         BASE_URL+"/en/technical-evaluation/":["Six questions to resolve before procurement"],
