@@ -59,7 +59,7 @@ def jsonld_types(value):
     return out
 
 root=ET.parse(ROOT/"sitemap.xml").getroot()
-ns={"s":"https://www.sitemaps.org/schemas/sitemap/0.9"}
+ns={"s":"http://www.sitemaps.org/schemas/sitemap/0.9"}
 locs=[e.text.strip() for e in root.findall("s:url/s:loc",ns) if e.text]
 if len(locs)!=len(set(locs)): fail("sitemap.xml contains duplicate URLs")
 canonical_paths={urlparse(x).path or "/" for x in locs}
