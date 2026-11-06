@@ -124,12 +124,9 @@ if total_saving < MIN_TOTAL_SAVING:
     print(f"Performance build failed: aggregate image saving {total_saving:.1%} is below {MIN_TOTAL_SAVING:.0%}.")
     sys.exit(1)
 
-FONT_CSS_URL = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-BLOCKING_FONT_LINK = f'<link href="{FONT_CSS_URL}" rel="stylesheet">'
-ASYNC_FONT_LINK = (
-    f'<link href="{FONT_CSS_URL}" rel="stylesheet" media="print" '
-    f'onload="this.media=\'all\'">'
-    f'<noscript><link href="{FONT_CSS_URL}" rel="stylesheet"></noscript>'
+GOOGLE_FONT_LINK_RE = re.compile(
+    r'<link\\b(?=[^>]*\\bhref=["\\']https://fonts\\.(?:googleapis|gstatic)\\.com(?:/|["\\']))[^>]*>',
+    re.I,
 )
 
 text_suffixes = {".html", ".css", ".js", ".xml", ".txt", ".json"}
@@ -140,8 +137,8 @@ for path in OUT.rglob("*"):
     original = text
     for old_url, new_url in mapping.items():
         text = text.replace(old_url, new_url)
-    if path.suffix.lower() == ".html" and BLOCKING_FONT_LINK in text:
-        text = text.replace(BLOCKING_FONT_LINK, ASYNC_FONT_LINK)
+    if path.suffix.lower() == ".html":
+        text = GOOGLE_FONT_LINK_RE.sub("", text)
     if text != original:
         path.write_text(text, encoding="utf-8")
 
