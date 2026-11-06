@@ -19,6 +19,7 @@ PAGES = [
 ]
 VIEWPORTS = {
     "mobile-360": {"width": 360, "height": 800},
+    "tablet-768": {"width": 768, "height": 900},
     "desktop-1440": {"width": 1440, "height": 900},
 }
 
