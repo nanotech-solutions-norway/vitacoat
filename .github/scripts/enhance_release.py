@@ -180,7 +180,7 @@ def main() -> int:
     if not sitemap.exists():
         print(f"Enhancement failed: {sitemap} not found")
         return 1
-    ns = {"s": "https://www.sitemaps.org/schemas/sitemap/0.9"}
+    ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     tree = ET.parse(sitemap).getroot()
     paths = [urlparse(e.text.strip()).path or "/" for e in tree.findall("s:url/s:loc", ns) if e.text]
     enhanced = 0
