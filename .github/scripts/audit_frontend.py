@@ -66,9 +66,29 @@ if manifest_path.exists():
     if saving < 25:
         fail(f"Performance build image saving is only {saving:.1f}%; expected at least 25%.")
     variants = manifest.get("responsive_variants", [])
-    hero_variants = [v for v in variants if v.get("output") == "/assets/img/frontpage-hero-mobile.webp"]
+    homepage_paths = (ROOT / "index.html", ROOT / "en" / "index.html")
+    desktop_hero_pattern = re.compile(
+        r'<link\b(?=[^>]*\brel=["\']preload["\'])(?=[^>]*\bas=["\']image["\'])'
+        r'(?=[^>]*\bmedia=["\']\(min-width:\s*861px\)["\'])'
+        r'[^>]*\bhref=["\'](/assets/img/[^"\']+\.webp)["\'][^>]*>',
+        re.I,
+    )
+    homepage_html = {}
+    desktop_hero_urls = set()
+    for homepage in homepage_paths:
+        html = homepage.read_text(encoding="utf-8", errors="ignore")
+        homepage_html[homepage] = html
+        match = desktop_hero_pattern.search(html)
+        if match:
+            desktop_hero_urls.add(match.group(1))
+    if len(desktop_hero_urls) != 1:
+        fail(f"Expected one shared optimized desktop hero preload; found {sorted(desktop_hero_urls)}.")
+    desktop_hero_url = next(iter(desktop_hero_urls), "")
+    desktop_hero_path = Path(desktop_hero_url)
+    mobile_hero_url = str(desktop_hero_path.with_name(f"{desktop_hero_path.stem}-mobile.webp")) if desktop_hero_url else ""
+    hero_variants = [v for v in variants if v.get("output") == mobile_hero_url]
     if len(hero_variants) != 1:
-        fail("Performance build must generate exactly one responsive mobile homepage hero variant.")
+        fail("Performance build must generate exactly one responsive mobile homepage hero variant matching the homepage preload.")
     else:
         hero_variant = hero_variants[0]
         hero_asset = ROOT / hero_variant["output"].lstrip("/")
@@ -78,13 +98,18 @@ if manifest_path.exists():
             fail("Responsive mobile homepage hero exceeds the 900px delivery budget.")
         if int(hero_variant.get("output_bytes", 9999999)) > 180_000:
             fail("Responsive mobile homepage hero exceeds the 180 KiB byte budget.")
-    for homepage in (ROOT / "index.html", ROOT / "en" / "index.html"):
-        html = homepage.read_text(encoding="utf-8", errors="ignore")
-        if '<source media="(max-width: 860px)" srcset="/assets/img/frontpage-hero-mobile.webp" type="image/webp">' not in html:
+    for homepage, html in homepage_html.items():
+        expected_source = f'<source media="(max-width: 860px)" srcset="{mobile_hero_url}" type="image/webp">'
+        if expected_source not in html:
             fail(f"Responsive mobile hero source missing: {homepage.relative_to(ROOT)}")
-        if 'href="/assets/img/frontpage-hero.webp" media="(min-width: 861px)" fetchpriority="high"' not in html:
+        expected_desktop_preload = f'href="{desktop_hero_url}" media="(min-width: 861px)" fetchpriority="high"'
+        if expected_desktop_preload not in html:
             fail(f"Desktop-only hero preload missing: {homepage.relative_to(ROOT)}")
-        if '<link rel="preload" as="image" href="/assets/img/frontpage-hero-mobile.webp" media="(max-width: 860px)" type="image/webp" fetchpriority="high">' not in html:
+        expected_mobile_preload = (
+            f'<link rel="preload" as="image" href="{mobile_hero_url}" '
+            'media="(max-width: 860px)" type="image/webp" fetchpriority="high">'
+        )
+        if expected_mobile_preload not in html:
             fail(f"Mobile-first hero preload missing: {homepage.relative_to(ROOT)}")
     for file_path in seen:
         html = file_path.read_text(encoding="utf-8", errors="ignore")
