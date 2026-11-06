@@ -83,7 +83,7 @@ if manifest_path.exists():
                 and attributes.get("as", "").lower() == "image"
                 and attributes.get("media", "").strip() == "(min-width: 861px)"
                 and href.startswith("/assets/img/")
-                and href.lower().endswith(".webp")
+                and href.lower().endswith((".webp", ".jpg", ".jpeg"))
             ):
                 self.urls.add(href)
 
@@ -96,7 +96,7 @@ if manifest_path.exists():
         collector.feed(html)
         desktop_hero_urls.update(collector.urls)
     if len(desktop_hero_urls) != 1:
-        fail(f"Expected one shared optimized desktop hero preload; found {sorted(desktop_hero_urls)}.")
+        fail(f"Expected one shared desktop hero preload; found {sorted(desktop_hero_urls)}.")
     desktop_hero_url = next(iter(desktop_hero_urls), "")
     desktop_hero_path = Path(desktop_hero_url)
     mobile_hero_url = str(desktop_hero_path.with_name(f"{desktop_hero_path.stem}-mobile.webp")) if desktop_hero_url else ""
