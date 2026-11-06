@@ -125,7 +125,7 @@ if total_saving < MIN_TOTAL_SAVING:
     sys.exit(1)
 
 GOOGLE_FONT_LINK_RE = re.compile(
-    r"""<link\\b(?=[^>]*\\bhref=["']https://fonts\\.(?:googleapis|gstatic)\\.com(?:/|["']))[^>]*>""",
+    r"""<link(?=[^>]*href=["']https://fonts[.](?:googleapis|gstatic)[.]com(?:/|["']))[^>]*>""",
     re.I,
 )
 
