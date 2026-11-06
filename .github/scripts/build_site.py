@@ -125,7 +125,7 @@ if total_saving < MIN_TOTAL_SAVING:
     sys.exit(1)
 
 FONT_RESOURCE_PATTERN = re.compile(
-    r"""<link\\b(?=[^>]*(?:fonts\\.googleapis\\.com|fonts\\.gstatic\\.com))[^>]*>""",
+    r"""<link\b(?=[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com))[^>]*>""",
     re.I,
 )
 
