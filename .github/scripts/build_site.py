@@ -31,6 +31,24 @@ for child in ROOT.iterdir():
     elif child.name != "README.md":
         shutil.copy2(child, target)
 
+homepage_paths = (OUT / "index.html", OUT / "en" / "index.html")
+hero_preload_pattern = re.compile(
+    r'<link\b(?=[^>]*\brel=["\']preload["\'])(?=[^>]*\bas=["\']image["\'])'
+    r'(?=[^>]*\bmedia=["\']\(min-width:\s*861px\)["\'])'
+    r'[^>]*\bhref=["\'](/assets/img/[^"\']+\.(?:jpe?g|webp))["\'][^>]*>',
+    re.I,
+)
+hero_source_urls = set()
+for homepage in homepage_paths:
+    homepage_html = homepage.read_text(encoding="utf-8", errors="ignore")
+    match = hero_preload_pattern.search(homepage_html)
+    if match:
+        hero_source_urls.add(match.group(1))
+if len(hero_source_urls) != 1:
+    raise SystemExit(f"Expected one shared desktop hero preload across bilingual homepages; found {sorted(hero_source_urls)}")
+hero_source_url = hero_source_urls.pop()
+hero_source_file = OUT / hero_source_url.lstrip("/")
+
 mapping = {}
 records = []
 responsive_variants = []
@@ -76,19 +94,26 @@ for path in sorted(ASSET_ROOT.rglob("*")):
             "output_dimensions": list(image.size),
         })
 
-        if path.name.lower() == "frontpage-hero.jpg":
-            mobile = image.copy()
-            mobile.thumbnail((HERO_MOBILE_MAX_DIMENSION, HERO_MOBILE_MAX_DIMENSION), Image.Resampling.LANCZOS)
-            mobile_output = path.with_name("frontpage-hero-mobile.webp")
-            mobile.save(mobile_output, "WEBP", quality=HERO_MOBILE_QUALITY, method=6, optimize=True)
-            responsive_variants.append({
-                "source": old_url,
-                "output": "/" + mobile_output.relative_to(OUT).as_posix(),
-                "output_bytes": mobile_output.stat().st_size,
-                "output_dimensions": list(mobile.size),
-                "quality": HERO_MOBILE_QUALITY,
-                "media": "(max-width: 860px)",
-            })
+if not hero_source_file.exists():
+    raise SystemExit(f"Homepage hero source is missing: {hero_source_file}")
+with Image.open(hero_source_file) as opened:
+    hero_image = ImageOps.exif_transpose(opened)
+    if hero_image.mode not in {"RGB", "RGBA"}:
+        hero_image = hero_image.convert("RGB")
+    hero_image.thumbnail((HERO_MOBILE_MAX_DIMENSION, HERO_MOBILE_MAX_DIMENSION), Image.Resampling.LANCZOS)
+    hero_mobile_file = hero_source_file.with_name(f"{hero_source_file.stem}-mobile.webp")
+    hero_image.save(hero_mobile_file, "WEBP", quality=HERO_MOBILE_QUALITY, method=6, optimize=True)
+    responsive_variants.append({
+        "source": hero_source_url,
+        "output": "/" + hero_mobile_file.relative_to(OUT).as_posix(),
+        "output_bytes": hero_mobile_file.stat().st_size,
+        "output_dimensions": list(hero_image.size),
+        "quality": HERO_MOBILE_QUALITY,
+        "media": "(max-width: 860px)",
+    })
+
+hero_desktop_url = mapping.get(hero_source_url, hero_source_url)
+hero_mobile_url = "/" + hero_mobile_file.relative_to(OUT).as_posix()
 
 if not records:
     print("Performance build failed: no raster images qualified for WebP optimization.")
@@ -143,9 +168,6 @@ def add_dimensions(match):
         body += f' height="{height}"'
     return body + closing
 
-hero_mobile_url = "/assets/img/frontpage-hero-mobile.webp"
-hero_desktop_url = "/assets/img/frontpage-hero.webp"
-hero_mobile_file = OUT / hero_mobile_url.lstrip("/")
 hero_pattern = re.compile(
     r'''(<img\b[^>]*?\bsrc=["']''' + re.escape(hero_desktop_url) + r'''["'][^>]*>)''',
     re.I,
@@ -170,14 +192,15 @@ for path in OUT.rglob("*.html"):
 # discovered in <head>, matching the responsive image media query.
 if hero_mobile_file.exists():
     mobile_preload = (
-        '<link rel="preload" as="image" href="/assets/img/frontpage-hero-mobile.webp" '
+        f'<link rel="preload" as="image" href="{hero_mobile_url}" '
         'media="(max-width: 860px)" type="image/webp" fetchpriority="high">'
     )
-    for homepage in (OUT / "index.html", OUT / "en" / "index.html"):
+    for homepage in homepage_paths:
         html = homepage.read_text(encoding="utf-8")
         if html.count("</head>") != 1:
             raise SystemExit(f"Cannot inject mobile preload into {homepage}: invalid head")
-        if '<source media="(max-width: 860px)" srcset="/assets/img/frontpage-hero-mobile.webp"' not in html:
+        expected_source = f'<source media="(max-width: 860px)" srcset="{hero_mobile_url}"'
+        if expected_source not in html:
             raise SystemExit(f"Mobile hero source missing from {homepage}; preload aborted")
         if mobile_preload not in html:
             homepage.write_text(
