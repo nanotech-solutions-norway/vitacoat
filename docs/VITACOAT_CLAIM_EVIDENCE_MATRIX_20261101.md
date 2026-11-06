@@ -89,3 +89,24 @@ For every claim, reconcile exact published wording and location; URL and languag
 - Technical/regulatory approval for any public wording: **BLOCKED** pending qualified owner review.
 
 No public website copy, structured data, historical report bytes, SDS/TDS, Formspree account, DNS, analytics or production deployment was changed by this inventory.
+
+## Evidence-source readback increment — 02.11.2026 (Europe/Madrid)
+
+This increment records report metadata read from connected source documents. It does not change any page-claim classification; no row is elevated to VERIFIED or QUALIFIED by this metadata review. Current-formulation linkage remains PENDING_REVIEW. Historical report originals and issuer metadata remain unchanged.
+
+| Campaign | Report ID | Standard / scope | Source metadata readback | Fields still pending for claim matching |
+|---|---|---|---|---|
+| 2020 | CIB.20D103.MB | EN 13727:2012+A2:2015, bactericidal suspension test | Abbott Analytical Ltd; issued 15 May 2020; report result page indicates a test date of 12 May 2020; 20 ± 1 °C; clean condition, 0.3 g/L bovine albumin; incubation 36 ± 1 °C; bacterial strains are named in the source. | Exact tested sample/product label and contact time were not reliably extracted; visually inspect relevant original report pages. Reconcile result and organism to every linked wording. |
+| 2020 | J002058 | BS EN 14476:2013+A2:2019, virucidal suspension test, Phase 2 Step 1 | Microbiological Solutions Ltd; report date 5 August 2020; Modified vaccinia virus Ankara (MVA), ATCC VR-1508; 20 ± 1 °C; incubation 37 ± 1 °C; 5 min + 10 s. The report states a 4-log result against Vaccinia virus under its specified conditions. | Confirm exact sample identity, concentration and condition row from the full report before mapping. Do not transfer the result to a current VitaCoat claim without approved formulation linkage. |
+| 2022 | CIB.22C071.MB | EN 13727:2012+A2:2015 | Abbott Analytical Ltd; client Citrox Biosciences Ltd; sample 22C/071; Citrox Protect Hard Surface Sealant, Ethanol version; delivered 15 March 2022; issued 5 April 2022; neat; 5 min ± 10 s; 20 ± 1 °C; clean condition with 0.3 g/L bovine albumin; incubation 36 ± 1 °C. | Exact organisms/results and applicable claim wording require full report-level reconciliation. |
+| 2022 | CIB.22C071.IB | EN 1276:2019 | Abbott Analytical Ltd; client Citrox Biosciences Ltd; sample 22C/071; Ethanol version; delivered 15 March 2022; issued 5 April 2022; neat; 5 min ± 10 s; 20 ± 1 °C; clean condition with 0.3 g/L bovine albumin. | Exact organisms/results and applicable claim wording require full report-level reconciliation. |
+| 2022 | CIB.22C071.MY | EN 13624:2013 | Abbott Analytical Ltd; client Citrox Biosciences Ltd; sample 22C/071; Ethanol version; delivered 15 March 2022; issued 5 April 2022; neat; 5 min ± 10 s; 20 ± 1 °C; clean condition with 0.3 g/L bovine albumin; incubation 30 ± 1 °C. | Exact organisms/results and applicable claim wording require full report-level reconciliation. |
+| 2022 | CIB.22C071.IY | EN 1650:2019 | Abbott Analytical Ltd; client Citrox Biosciences Ltd; sample 22C/071; Ethanol version; delivered 15 March 2022; issued 5 April 2022; neat; 5 min ± 10 s; 20 ± 1 °C; clean condition with 0.3 g/L bovine albumin; incubation 30 ± 1 °C. | Exact organisms/results and applicable claim wording require full report-level reconciliation. |
+
+### Explicit campaign and rights boundaries
+
+- Keep the 2020 and 2022 campaigns as separate evidence sets. Their overlapping conclusions do not establish sample or formulation equivalence.
+- Use VitaCoat as the current marketed name; Citrox/Citrox Protect is retained only in historical source/provenance descriptions.
+- A historical sample, report label, or result is not a current-formulation bridge. The manufacturer's current-formulation statement and any required laboratory/client authorization have not been verified.
+- Preserve originals and their sponsor/client, report IDs, sample labels, dates, signatories and numerical results. Publication, rebranding, excerpting, or use of report illustrations remains subject to written rights confirmation.
+- Full PDF page-image inspection, exact claim-to-organism/result matching, visual asset inspection, and per-claim technical/regulatory approval remain PENDING_REVIEW.
