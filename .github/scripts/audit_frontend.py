@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import re
 import sys
+from html.parser import HTMLParser
 import xml.etree.ElementTree as ET
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
@@ -67,24 +68,33 @@ if manifest_path.exists():
         fail(f"Performance build image saving is only {saving:.1f}%; expected at least 25%.")
     variants = manifest.get("responsive_variants", [])
     homepage_paths = (ROOT / "index.html", ROOT / "en" / "index.html")
+    class DesktopHeroPreloadCollector(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.urls = set()
+
+        def handle_starttag(self, tag, attrs):
+            if tag.lower() != "link":
+                return
+            attributes = {name.lower(): value or "" for name, value in attrs}
+            href = attributes.get("href", "")
+            if (
+                attributes.get("rel", "").lower() == "preload"
+                and attributes.get("as", "").lower() == "image"
+                and attributes.get("media", "").strip() == "(min-width: 861px)"
+                and href.startswith("/assets/img/")
+                and href.lower().endswith(".webp")
+            ):
+                self.urls.add(href)
+
     homepage_html = {}
     desktop_hero_urls = set()
     for homepage in homepage_paths:
         html = homepage.read_text(encoding="utf-8", errors="ignore")
         homepage_html[homepage] = html
-        for link_tag in re.findall(r"<link\b[^>]*>", html, flags=re.I):
-            rel_match = re.search(r'\brel=["\']([^"\']+)["\']', link_tag, flags=re.I)
-            as_match = re.search(r'\bas=["\']([^"\']+)["\']', link_tag, flags=re.I)
-            media_match = re.search(r'\bmedia=["\']([^"\']+)["\']', link_tag, flags=re.I)
-            href_match = re.search(r'\bhref=["\']([^"\']+)["\']', link_tag, flags=re.I)
-            if (
-                rel_match and rel_match.group(1).lower() == "preload"
-                and as_match and as_match.group(1).lower() == "image"
-                and media_match and media_match.group(1).strip() == "(min-width: 861px)"
-                and href_match and href_match.group(1).startswith("/assets/img/")
-                and href_match.group(1).lower().endswith(".webp")
-            ):
-                desktop_hero_urls.add(href_match.group(1))
+        collector = DesktopHeroPreloadCollector()
+        collector.feed(html)
+        desktop_hero_urls.update(collector.urls)
     if len(desktop_hero_urls) != 1:
         fail(f"Expected one shared optimized desktop hero preload; found {sorted(desktop_hero_urls)}.")
     desktop_hero_url = next(iter(desktop_hero_urls), "")
