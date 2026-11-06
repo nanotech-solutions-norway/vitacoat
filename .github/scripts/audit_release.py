@@ -102,8 +102,8 @@ for path in sorted(canonical_paths):
     if path in {"/technical-support/downloads/","/en/technical-support/downloads/"}:
         if "CollectionPage" not in types or "DigitalDocument" not in types:
             fail(f"{path}: missing download collection/document schema")
-        if content.count('"@type":"DigitalDocument"') != 7:
-            fail(f"{path}: expected seven DigitalDocument items")
+        if content.count('"@type":"DigitalDocument"') != 6:
+            fail(f"{path}: expected six DigitalDocument items")
         if 'data-vc-schema="download-collection"' not in content:
             fail(f"{path}: missing generated download-collection marker")
     for src,alt in p.images:
