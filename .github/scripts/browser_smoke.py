@@ -6,10 +6,11 @@ from urllib.parse import urljoin
 import argparse
 import json
 import re
+import xml.etree.ElementTree as ET
 
 from playwright.sync_api import sync_playwright
 
-PAGES = [
+REPRESENTATIVE_PAGES = [
     ("home-no", "/"),
     ("home-en", "/en/"),
     ("contact-no", "/contact/"),
@@ -19,11 +20,31 @@ PAGES = [
 ]
 VIEWPORTS = {
     "mobile-360": {"width": 360, "height": 800},
+    "tablet-768": {"width": 768, "height": 900},
     "desktop-1440": {"width": 1440, "height": 900},
 }
 
 def safe_name(value: str) -> str:
     return re.sub(r"[^a-z0-9._-]+", "-", value.lower()).strip("-")
+
+def sitemap_pages() -> list[tuple[str, str]]:
+    sitemap = ET.parse(Path("sitemap.xml")).getroot()
+    namespaces = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    pages: list[tuple[str, str]] = []
+    for element in sitemap.findall("sm:url/sm:loc", namespaces):
+        if not element.text:
+            continue
+        url = element.text.strip()
+        prefix = "https://www.vitacoat.no"
+        if not url.startswith(prefix):
+            raise ValueError(f"Unexpected sitemap URL: {url}")
+        path = url.removeprefix(prefix) or "/"
+        label = "home-no" if path == "/" else "page-" + safe_name(path.strip("/").replace("/", "-"))
+        pages.append((label, path))
+    paths = [path for _, path in pages]
+    if not pages or len(paths) != len(set(paths)):
+        raise ValueError("Sitemap must contain unique canonical website routes")
+    return pages
 
 def require(condition: bool, message: str, failures: list[str]) -> None:
     if not condition:
@@ -40,6 +61,7 @@ def main() -> int:
     out.mkdir(parents=True, exist_ok=True)
     failures: list[str] = []
     results: list[dict] = []
+    pages = sitemap_pages() if args.browser == "chromium" else REPRESENTATIVE_PAGES
 
     with sync_playwright() as p:
         browser_type = getattr(p, args.browser)
@@ -51,7 +73,7 @@ def main() -> int:
                 page_errors: list[str] = []
                 page.on("pageerror", lambda exc: page_errors.append(str(exc)))
 
-                for label, path in PAGES:
+                for label, path in pages:
                     url = urljoin(args.base_url.rstrip("/") + "/", path.lstrip("/"))
                     response = page.goto(url, wait_until="networkidle", timeout=30000)
                     prefix = f"{args.browser}/{viewport_name}/{label}"

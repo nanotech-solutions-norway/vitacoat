@@ -33,7 +33,7 @@ def fetch(url,attempts=5,delay=3.0):
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("--sitemap",default="sitemap.xml"); args=ap.parse_args()
-    ns={"s":"https://www.sitemaps.org/schemas/sitemap/0.9"}
+    ns={"s":"http://www.sitemaps.org/schemas/sitemap/0.9"}
     local_root=ET.parse(Path(args.sitemap)).getroot()
     expected=[e.text.strip() for e in local_root.findall("s:url/s:loc",ns) if e.text]
     errors=[]

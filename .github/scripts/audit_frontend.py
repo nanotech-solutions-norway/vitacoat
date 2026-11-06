@@ -24,7 +24,7 @@ for path in ROOT.rglob("*"):
 
 sitemap = ROOT / "sitemap.xml"
 root = ET.parse(sitemap).getroot()
-ns = {"s": "https://www.sitemaps.org/schemas/sitemap/0.9"}
+ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 locs = [e.text.strip() for e in root.findall("s:url/s:loc", ns) if e.text]
 seen = set()
 for loc in locs:

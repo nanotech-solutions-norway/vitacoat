@@ -19,7 +19,7 @@ import apply_static_seo_heads as seo  # noqa: E402
 
 SITEMAP = Path("sitemap.xml")
 REPORT = Path("seo-static-audit.json")
-NS = {"sm": "https://www.sitemaps.org/schemas/sitemap/0.9"}
+NS = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
 
 def loc_to_path(loc: str) -> str:

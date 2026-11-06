@@ -196,7 +196,7 @@ tr:last-child td{border-bottom:0}
   .breadcrumbs{padding-top:14px}
   .breadcrumbs ol{font-size:.74rem}
   .breadcrumbs+.hero{padding-top:18px}
-  h1{font-size:clamp(2.05rem,11vw,3rem)}
+  h1{font-size:clamp(1.8rem,7.5vw,2.4rem)}
   h2{font-size:clamp(1.65rem,8vw,2.35rem)}
   .hero-copy{padding:34px 22px}
   .panel,.cta-band{padding:28px 20px}

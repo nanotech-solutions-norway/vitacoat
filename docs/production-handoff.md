@@ -18,7 +18,7 @@ This document is the final operational handoff for the VitaCoat website reconstr
 - GitHub Actions builds an optimized `_site/` artifact.
 - Qualifying JPEG assets are converted to optimized WebP derivatives during the build.
 - Build-time release enhancement adds visible breadcrumbs and matching `BreadcrumbList` JSON-LD to canonical non-home pages.
-- The download centers expose a `CollectionPage` model with the seven currently published PDF resources represented as `DigitalDocument` items.
+- The download centers expose a `CollectionPage` model with the six currently published PDF resources represented as `DigitalDocument` items.
 - GitHub Pages publishes only after static SEO, frontend, accessibility, release and production-quality gates pass.
 - Post-deploy production acceptance validates the custom domain.
 
