@@ -8,7 +8,7 @@ import json
 import re
 import subprocess
 
-LIGHTHOUSE_VERSION = "13.5.0"
+LIGHTHOUSE_VERSION = "13.6.0"
 PAGES = [
     ("home-no", "/"),
     ("home-en", "/en/"),
