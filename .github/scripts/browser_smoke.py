@@ -143,6 +143,11 @@ def main() -> int:
                         require(menu.is_visible(), f"{prefix}: desktop dropdown not visible on keyboard focus", failures)
                         page.keyboard.press("Escape")
                         require(page.evaluate("document.activeElement === document.querySelector('.nav-dropdown .nav-top-link')"), f"{prefix}: Escape did not restore desktop nav focus", failures)
+                        # Restore a neutral screenshot state without weakening the Escape assertion.
+                        page.locator("main#main-content").focus()
+                        page.mouse.move(100, 240)
+                        page.wait_for_timeout(220)
+                        require(not menu.is_visible(), f"{prefix}: nav dropdown did not close after pointer and focus left", failures)
 
                     if path == "/proof/testing-and-standards/":
                         mobile_labels = page.locator(".bar-mobile-label")

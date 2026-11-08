@@ -326,3 +326,9 @@ tr:last-child td{border-bottom:0}
 
 /* 31.10.2026: branded desktop wordmark; compact widths retain logo icon. */
 @media (min-width:1280px){.brand{width:auto;min-width:190px;flex:0 0 auto;padding-left:70px;background-size:58px 58px;background-position:left center;display:inline-flex;align-items:center;justify-content:flex-start;white-space:nowrap}.brand::after{content:"VitaCoat";font-size:1.24rem;line-height:1;font-weight:800;letter-spacing:-.035em;color:var(--vc-primary-dark)}}
+
+/* Allow Safari/WebKit to reveal native lazy-loaded application photographs in the
+   homepage application section; other lower-priority sections remain optimized. */
+#applications.section{content-visibility:visible;contain-intrinsic-size:auto}
+/* Avoid splitting the Norwegian homepage's compound term in the desktop hero. */
+@media(min-width:861px){html[lang="nb-NO"] #overview .hero-copy h1{font-size:clamp(2rem,3.35vw,3.15rem)}}
