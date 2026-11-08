@@ -90,14 +90,16 @@ def main() -> int:
                         image = images.nth(image_index)
                         image.scroll_into_view_if_needed()
                         try:
-                            image.evaluate("""img => {
-                              if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-                              const decode = img.decode ? img.decode().catch(() => undefined) : Promise.resolve();
-                              const timeout = new Promise(resolve => setTimeout(resolve, 750));
-                              return Promise.race([decode, timeout]);
-                            }""")
+                            page.wait_for_function(
+                                """index => {
+                                  const img = document.images[index];
+                                  return Boolean(img && img.complete && img.naturalWidth > 0);
+                                }""",
+                                arg=image_index,
+                                timeout=8000,
+                            )
                         except Exception:
-                            pass
+                            failures.append(f"{prefix}: image {image_index} did not load after scroll")
                     page.evaluate("window.scrollTo(0, 0)")
                     page.wait_for_timeout(150)
                     broken_images = page.evaluate(
