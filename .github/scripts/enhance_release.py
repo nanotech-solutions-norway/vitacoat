@@ -69,7 +69,6 @@ EN_LABELS = {
 }
 
 DOWNLOADS = [
-    ("VitaCoat 3D Antimicrobial Surface Coating", "Product and technology presentation.", "/assets/downloads/VitaCoat-3D-Antimicrobial-Surface-Coating.pdf"),
     ("Accelerated Wear Testing of VitaCoat", "Wear and durability testing by Prof. J. Ramsden.", "/assets/downloads/Accelerated%20Wear%20Testing%20of%20VitaCoat%20-%20by%20Prof.%20J.Ramsden.pdf"),
     ("VitaCoat — EN 14476", "Virucidal standard test documentation.", "/assets/downloads/VitaCoat%20-%20EN%2014476.pdf"),
     ("VitaCoat — EN 13727", "Bactericidal standard test documentation.", "/assets/downloads/VitaCoat%20-%20EN%2013727.pdf"),
@@ -79,13 +78,12 @@ DOWNLOADS = [
 ]
 
 DOWNLOADS_NO = [
-    ("VitaCoat 3D Antimicrobial Surface Coating", "Produkt- og teknologipresentasjon.", DOWNLOADS[0][2]),
-    ("Accelerated Wear Testing of VitaCoat", "Slitasje- og holdbarhetstest av Prof. J. Ramsden.", DOWNLOADS[1][2]),
-    ("VitaCoat — EN 14476", "Virusdrepende standardtest og dokumentasjon.", DOWNLOADS[2][2]),
-    ("VitaCoat — EN 13727", "Bakteriedrepende standardtest og dokumentasjon.", DOWNLOADS[3][2]),
-    ("VitaCoat — EN 13624", "Gjær- og soppdrepende standardtest og dokumentasjon.", DOWNLOADS[4][2]),
-    ("SARS-CoV-2 test — 1 minutt", "Utah State University-rapport for SARS-CoV-2.", DOWNLOADS[5][2]),
-    ("Respiratorisk viruspanel", "Utah-rapport mot panel av respiratoriske virus.", DOWNLOADS[6][2]),
+    ("Accelerated Wear Testing of VitaCoat", "Slitasje- og holdbarhetstest av Prof. J. Ramsden.", DOWNLOADS[0][2]),
+    ("VitaCoat — EN 14476", "Virusdrepende standardtest og dokumentasjon.", DOWNLOADS[1][2]),
+    ("VitaCoat — EN 13727", "Bakteriedrepende standardtest og dokumentasjon.", DOWNLOADS[2][2]),
+    ("VitaCoat — EN 13624", "Gjær- og soppdrepende standardtest og dokumentasjon.", DOWNLOADS[3][2]),
+    ("SARS-CoV-2 test — 1 minutt", "Utah State University-rapport for SARS-CoV-2.", DOWNLOADS[4][2]),
+    ("Respiratorisk viruspanel", "Utah-rapport mot panel av respiratoriske virus.", DOWNLOADS[5][2]),
 ]
 
 def path_to_file(path: str) -> Path:
@@ -180,7 +178,7 @@ def main() -> int:
     if not sitemap.exists():
         print(f"Enhancement failed: {sitemap} not found")
         return 1
-    ns = {"s": "https://www.sitemaps.org/schemas/sitemap/0.9"}
+    ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     tree = ET.parse(sitemap).getroot()
     paths = [urlparse(e.text.strip()).path or "/" for e in tree.findall("s:url/s:loc", ns) if e.text]
     enhanced = 0

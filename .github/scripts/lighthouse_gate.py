@@ -8,7 +8,7 @@ import json
 import re
 import subprocess
 
-LIGHTHOUSE_VERSION = "13.5.0"
+LIGHTHOUSE_VERSION = "13.6.0"
 PAGES = [
     ("home-no", "/"),
     ("home-en", "/en/"),
@@ -82,7 +82,7 @@ def main() -> int:
                 data = json.loads(report_path.read_text(encoding="utf-8"))
                 categories = data.get("categories", {})
                 audits = data.get("audits", {})
-                if label == "home-no" and mode == "mobile":
+                if label in {"home-no", "home-en"} and mode == "mobile":
                     # Report the measured LCP element and its load phases without
                     # relaxing any budget or exposing personal data.
                     insight_ids = (
@@ -111,6 +111,13 @@ def main() -> int:
                     )
                     long_tasks = audits.get("long-tasks", {}).get("details", {}).get("items", [])
                     durations = [task.get("duration") for task in long_tasks if isinstance(task.get("duration"), (int, float))]
+                    fcp_value = audits.get("first-contentful-paint", {}).get("numericValue")
+                    lcp_value = audits.get("largest-contentful-paint", {}).get("numericValue")
+                    lcp_fcp_gap = (
+                        round(lcp_value - fcp_value, 2)
+                        if isinstance(lcp_value, (int, float)) and isinstance(fcp_value, (int, float))
+                        else None
+                    )
                     print(
                         "LCP run context: "
                         + json.dumps(
@@ -118,7 +125,9 @@ def main() -> int:
                                 "sample": sample,
                                 "samples": repeats,
                                 "benchmarkIndex": data.get("environment", {}).get("benchmarkIndex"),
-                                "firstContentfulPaintMs": audits.get("first-contentful-paint", {}).get("numericValue"),
+                                "firstContentfulPaintMs": fcp_value,
+                                "largestContentfulPaintMs": lcp_value,
+                                "lcpMinusFcpMs": lcp_fcp_gap,
                                 "mainThreadWorkMs": audits.get("mainthread-work-breakdown", {}).get("numericValue"),
                                 "longTaskCount": len(long_tasks),
                                 "longestTaskMs": max(durations, default=None),

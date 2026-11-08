@@ -59,7 +59,7 @@ def jsonld_types(value):
     return out
 
 root=ET.parse(ROOT/"sitemap.xml").getroot()
-ns={"s":"https://www.sitemaps.org/schemas/sitemap/0.9"}
+ns={"s":"http://www.sitemaps.org/schemas/sitemap/0.9"}
 locs=[e.text.strip() for e in root.findall("s:url/s:loc",ns) if e.text]
 if len(locs)!=len(set(locs)): fail("sitemap.xml contains duplicate URLs")
 canonical_paths={urlparse(x).path or "/" for x in locs}
@@ -102,8 +102,8 @@ for path in sorted(canonical_paths):
     if path in {"/technical-support/downloads/","/en/technical-support/downloads/"}:
         if "CollectionPage" not in types or "DigitalDocument" not in types:
             fail(f"{path}: missing download collection/document schema")
-        if content.count('"@type":"DigitalDocument"') != 7:
-            fail(f"{path}: expected seven DigitalDocument items")
+        if content.count('"@type":"DigitalDocument"') != 6:
+            fail(f"{path}: expected six DigitalDocument items")
         if 'data-vc-schema="download-collection"' not in content:
             fail(f"{path}: missing generated download-collection marker")
     for src,alt in p.images:

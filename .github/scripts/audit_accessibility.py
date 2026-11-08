@@ -79,7 +79,7 @@ class AccessibilityParser(HTMLParser):
             attrs, chunks = self.button_stack.pop()
             self.buttons.append((attrs, "".join(chunks).strip()))
 
-ns = {"s": "https://www.sitemaps.org/schemas/sitemap/0.9"}
+ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 sitemap_root = ET.parse(ROOT / "sitemap.xml").getroot()
 locs = [e.text.strip() for e in sitemap_root.findall("s:url/s:loc", ns) if e.text]
 paths = [urlparse(loc).path or "/" for loc in locs]
