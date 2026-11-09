@@ -110,3 +110,14 @@ This increment records report metadata read from connected source documents. It 
 - A historical sample, report label, or result is not a current-formulation bridge. The manufacturer's current-formulation statement and any required laboratory/client authorization have not been verified.
 - Preserve originals and their sponsor/client, report IDs, sample labels, dates, signatories and numerical results. Publication, rebranding, excerpting, or use of report illustrations remains subject to written rights confirmation.
 - Full PDF page-image inspection, exact claim-to-organism/result matching, visual asset inspection, and per-claim technical/regulatory approval remain PENDING_REVIEW.
+
+
+## 09.11.2026 supplemental embedded-visual claim review
+
+**Status:** PENDING_REVIEW — this supplement records a current-source embedded graphic claim; it is not a change to the approved claim scope. **Source:** `main@de4bba618f421cca7023ceb2aa9b60e854960228`, checked 09.11.2026; companion `docs/reviews/VITACOAT_NON_LIGHTHOUSE_CONTENT_QA_20261109.md`. The matrix above remains a 01.11.2026 snapshot and is **not** silently represented as fully refreshed after PR #39/#35.
+
+| New ID | Exact source and published location | Rendered statement in artwork | Evidence state and review gate |
+| --- | --- | --- | --- |
+| VC-VIS-01 | `assets/img/vitacoat-home-panel.svg` (blob `83adcc47e2e9cafd5afa57652300d6766011735e`), shared by `/about/` and `/en/about/` as hero image | `Validated technical themes` and `EN-backed proof • up to six months • hard, non-porous surfaces` | **PENDING_REVIEW**: historical EN method/report data and original test samples are not independently linked here to the current marketed finished VitaCoat formulation, duration under realistic surface cleaning/aging, authorized public language and rights. No evidence-equivalence or six-month guarantee inferred. Content in artwork is English on Norwegian page. Technical/regulatory owner must approve removal/neutral alternative or exact source-qualified wording before replacement/public release. |
+
+**Procedure:** Inspect the rendered text of SVGs and raster images (not only HTML paragraphs, alt attributes and JSON-LD), reconcile with the canonical source/report and current formulation and verify bilingual parity. No artwork, efficacy statement or release gate is changed by this supplemental internal evidence entry. Lighthouse investigations are paused under the 09.11.2026 operator instruction; no PR has been opened or test workflow dispatched.
