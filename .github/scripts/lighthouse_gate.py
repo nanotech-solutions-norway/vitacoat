@@ -10,8 +10,10 @@ import subprocess
 
 LIGHTHOUSE_VERSION = "13.6.0"
 PAGES = [
-    ("home-no", "/"),
+    # ISSUE-40 DIAGNOSTIC ONLY. EN goes first to test cold-start page-order
+    # sensitivity. Never merge this permutation as production acceptance.
     ("home-en", "/en/"),
+    ("home-no", "/"),
     ("contact-no", "/contact/"),
     ("downloads-en", "/en/technical-support/downloads/"),
 ]
