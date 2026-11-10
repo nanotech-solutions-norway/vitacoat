@@ -51,3 +51,17 @@ No efficacy claim, technical value, page link/href, English content, visual asse
 - Rollback is to discard this unmerged branch; source-level production rollback not applicable. Store redacted, approved outcome in canonical GitHub workstream ledger and use Drive only as derivative mirror after folder and write/readback verification.
 
 **Disposition:** Staged language changes: READY_FOR_REVIEW; SVG claim: PENDING_REVIEW (owner action needed); Lighthouse issue #40: PAUSED/OPEN; production deployment: NOT REQUESTED.
+
+
+## 10.11.2026 implementation supplement — neutral About graphics
+
+**Branch draft only, NOT production and NOT approved public science.** Under the owner's "Proceed as recommended" continuation, prepared two **new** locale-specific SVG assets and replaced only the `about/index.html` and `en/about/index.html` hero image references on unmerged branch `vc-nonlighthouse-content-review-20261109`:
+
+- Norwegian: `/assets/img/vitacoat-about-review-no.svg` with a localized technical-review flow, accessible `alt`, `xml:lang="nb-NO"`.
+- English: `/assets/img/vitacoat-about-review-en.svg` with equivalent English process descriptions, accessible `alt`, `xml:lang="en"`.
+- Both images are technical decision-workflow diagrams without duration, laboratory-validation or antimicrobial efficacy statements. They do not replace actual approved test reports or current product documentation.
+- The original `assets/img/vitacoat-home-panel.svg` remains in the repository as historical audit evidence; the two **staged** About pages no longer reference it, but the source remains on current `main` and production pages until separately approved merge.
+- Original source HTML metadata, navigation, contact forms and other URLs are untouched by the image substitution. Static connected GitHub source checks passed for two assets, NO/EN language tags and alt strings. No rendered screenshot, actual-device, independent browser or Lighthouse check was performed. Full visual and regulatory owner sign-off remain **PENDING_REVIEW**.
+- Cross-reference `docs/reviews/VITACOAT_REGULATORY_FORM_HANDOFF_PENDING_REVIEW_20261110.md` for BPR classification, claim evidence, Formspree processor and device acceptance gates. No PR opened or GitHub workflow dispatched while Lighthouse issue #40 remains paused.
+
+This supplement supersedes only the earlier statement above that no alternate artwork was yet staged; it does **not** retroactively approve a public source, efficacy representation or release.
