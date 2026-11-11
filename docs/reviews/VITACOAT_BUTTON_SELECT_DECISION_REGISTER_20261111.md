@@ -63,3 +63,14 @@ All controls should default to the safe preparation/hold option. A selection is 
 Exactly one final `Confirm & Execute Selected Actions` submits a consolidated operator instruction listing chosen A/B/C for P1–P6. Do not treat a UI selection alone as authorization. For each chosen action, re-read provider state and write ledger before side effect, then verify after. If any prerequisite unavailable: mark BLOCKED with manual steps, no retry of ambiguous writes. Do not assume professional/formulation DPA signoff from owner confirmation.
 
 **Verified process completion:** not objectively quantifiable from this preparation register; per-process baseline and total `N/A% — unverified`. Existing branch-only preparation is complete for its review-specific scope, not the full project. **Owner approvals pending.**
+
+
+## Owner decision update — 11.11.2026: #43 approved for owner review; #44 on hold
+
+**Authoritative scope:** Direct owner message: “#43 is reviewed and approved. #44 will remain on hold.” GitHub issue bodies and append-only comment records re-read independently; no changes to main or production.
+
+- **Issue #43 — OWNER_REVIEW_APPROVED, technical release gate NOT_VERIFIED:** Owner explicitly confirms the review has been approved. This supersedes the older *owner decision pending* status for the package and avoids asking the owner to re-approve the same decision. The issue's original closure requirements for qualified signed current finished-formulation-to-report evidence, EU/EEA/Norway BPR classification, exact permitted NO/EN public claims, source publication rights and controlled release acceptance are **not evidenced in the accessible GitHub issue**, therefore issue remains OPEN and scientific/regulatory publication is not independently authorized. [GitHub owner approval and evidence-status record](https://github.com/nanotech-solutions-norway/vitacoat/issues/43#issuecomment-6790919986).
+- **Issue #44 — ON_HOLD_BY_OWNER / OPEN:** No Formspree account/DPA/retention/routing verification or live test, no submission, no provider changes. Existing source audit remains read-only historical evidence; do not advance this stream until fresh explicit user authorization and independent controller/provider rights. [GitHub hold record](https://github.com/nanotech-solutions-norway/vitacoat/issues/44#issuecomment-6790921378).
+- **Issue #40 — Lighthouse remains PAUSED / OPEN.** No PR, CI, release, runner, billing or published-site changes authorized. Normal acceptance budgets stay unchanged.
+
+**Execution verification:** Current `main@de4bba618f421cca7023ceb2aa9b60e854960228` unchanged; this addendum is unmerged branch-only. Approval refers to the owner's review decision, not a self-certified legal/regulatory outcome, and may require private controlled evidence identifiers rather than disclosure of confidential formulation documents in a public repository. Work ID `VITA-IMPROVEMENTS-20261031-01`, canonical GitHub ledger E110–E111.
