@@ -126,3 +126,24 @@ This increment records report metadata read from connected source documents. It 
 ### 10.11.2026 branch-only remediation status for VC-VIS-01
 
 The earlier SVG finding remains true for production `main@de4bba618f421cca7023ceb2aa9b60e854960228`. On unmerged review branch `vc-nonlighthouse-content-review-20261109`, **both About hero references** are staged to new localized, neutral technical-workflow SVG files `vitacoat-about-review-no.svg` and `vitacoat-about-review-en.svg`. Both avoid "Validated technical themes", "EN-backed proof" and "up to six months" current-product promotional assertions. The original source SVG is preserved unchanged. Static provider readback of source paths and content passed, but **no visual/browser CI acceptance, claims approval, formulation bridge, publication-rights signoff, live deployment or release** is inferred. BPR legal classification and current marketing claims remain PENDING_REVIEW. Reference: `docs/reviews/VITACOAT_REGULATORY_FORM_HANDOFF_PENDING_REVIEW_20261110.md` and prior SVG evidence matrix VC-VIS-01. Lighthouse remains paused.
+
+
+---
+
+## Addendum — 13.11.2026: Staged NO/EN About SVG source reconciliation (owner-attested in-person authentication)
+
+**Status:** Branch-stage source-only supplement / PENDING_REVIEW / no new marketing claims; **Work ID:** `VITA-IMPROVEMENTS-20261031-01`. This addendum corrects the interpretation of the *historical snapshot* above; it does not replace historical rows or imply an approved release. The owner has attested in-person authentication of relevant parties/records (13.11.2026) and explicitly directed no repeat contact checks; this does not by itself document an exact 2026 claim-specific signed regulatory decision, licence or physical device acceptance in connected records.
+
+### VC-C02 reconciliation: source snapshot versus staged proposal
+
+| Field | Historical `VC-C02` source snapshot (original inventory above) | Current UNMERGED review branch (source SHA verified 13.11.2026) | Disposition |
+| --- | --- | --- | --- |
+| NO About `/about/` | References `assets/img/vitacoat-home-panel.svg` | `about/index.html` blob `e20308c4412c252a5b06a92f6ce86d29e45add2a` references `assets/img/vitacoat-about-review-no.svg` blob `342dccf66fe5561cbe53b403f65097ccc071b368` | Source difference reconciled, owner visual approval and release pending |
+| EN About `/en/about/` | Original 50-URL snapshot with original graphic context | `en/about/index.html` blob `bca35a9df46bee2a777792f9f22c2d6ce8a41a4c` references `assets/img/vitacoat-about-review-en.svg` blob `22be187806c3d9b16fcb32159ca8bd0e20d3e055` | Source difference reconciled, translation/visual approval pending |
+| Illustrated technical heading | Prior diagram included longer-term claim risk | NO: `Teknisk vurdering før spesifikasjon`; EN: `Technical review before specification` | Source-level neutral draft, **not a regulated claim approval** |
+| Three illustration stages | Not tracked per embedded staged SVG text | NO `Bruksområde / Dokumentasjon / Prosjektavklaring`; EN `Intended use / Documentation / Project review` | Translation pairing verified in source; human visual approval outstanding |
+| Quantified six-month efficacy claim | Historic SVG concern from Issue #43 | No such explicit duration statement in the two new staged SVG source text extracts | Does not clear other webpage/report/SDS claim candidates; no claim-release permission |
+
+**Owner attestation and current applicability:** On 13.11.2026 the owner stated all relevant authentication was already performed in person and requested continuation. Do not repeat issuer/manufacturer contact identity verification. Preserve the report/provenance questions as evidence history; separately link any accepted current formulation, exact claim-permission wording, confidential signed source evidence and human device signoff through restricted identifiers if used for later controlled publication. No public raw original reports or supplier/customer data.
+
+**Pre-release gate:** This addendum, the [BPR assessor intake](reviews/VITACOAT_G43_BPR_ASSESSOR_INTAKE_20261113.md), [visual signoff register](reviews/VITACOAT_G43_VISUAL_DEVICE_SIGNOFF_REGISTER_20261113.md), and [owner attestation](reviews/VITACOAT_G43_OWNER_ATTESTATION_RELEASE_HANDOFF_20261113.md) remain review material only. In particular, no automated Lighthouse or production workflow may be activated while Issue #40 hold remains, and #44 Formspree account verification remains on owner hold. Claim inventory rows outside these staged About assets remain unchanged and PENDING_REVIEW absent separate source-specific reviewer acceptance.
