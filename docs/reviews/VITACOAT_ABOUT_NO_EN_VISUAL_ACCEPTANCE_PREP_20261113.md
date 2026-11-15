@@ -84,3 +84,26 @@ Each line must be evaluated separately in **both Norwegian and English**, agains
 **Next human evidence request:** Capture the complete staged **About page** with the NO/EN SVG embedded at desktop and real mobile widths, including first and third diagram cards and footer at each breakpoint; record browser, device, CSS viewport, exact review revision, and keyboard/zoom/AT outcomes. A standalone image screenshot is useful initial artwork evidence but cannot replace this.
 
 **Protected scope:** Existing owner in-person authentication accepted; do not repeat identity verification. No CSS, SVG, HTML, JavaScript, PR, CI, Lighthouse, merge, deployment, issue-state or DNS changes. Issue #40 Lighthouse PAUSED; #44 Formspree owner HOLD; Issue #43 OPEN.
+
+
+## Evidence update — 16:29, 15.11.2026: English standalone graphic
+
+**Evidence and scope:** The owner reattached the English illustration and requested validation/continuation. The uploaded `1600×1000` RGBA PNG is **byte-for-byte the same previously generated English PNG** (SHA-256 `c5ced456b7ac04e61e4ff0398bdf587c3247c8e7c95dd244f29c808af33e4af4`, 122,094 bytes); it corresponds to the exact GitHub English source SVG blob `22be187806c3d9b16fcb32159ca8bd0e20d3e055`. Therefore this is a **verifiable standalone asset**, not a new independent browser/device screenshot and not an in-context responsive screenshot. The private in-chat image was not copied to a public repository.
+
+### Visual observation at full 1600×1000 asset size
+
+| Criterion | English source image observation | Review status |
+| --- | --- | --- |
+| Project heading and purpose | `PROJECT CONTEXT`, `VitaCoat`, `Technical review before specification`, full subordinate sentence visible | **VISUAL_PASS (standalone)** |
+| Illustration at right | Three-layer turquoise surface representation and `DOCUMENTATION` label visible inside the drawing box | **VISUAL_PASS (standalone)** |
+| Steps 01–03 | `Intended use`, `Documentation`, `Project review` all visible; supporting lines `Substrate and environment`, `Sources and limitations`, `Requirements for specification` intact | **VISUAL_PASS (standalone)** |
+| Footer | `Application-specific review` caption and horizontal baseline visible | **VISUAL_PASS (standalone)** |
+| Typography and geometry | No visible overlapping card headings, truncated label, missing line, clipping at edges or abnormal alignment at this source resolution | **VISUAL_PASS (standalone)** |
+| Translation pairing | English step structure matches earlier Norwegian screenshot (01 bruksområde, 02 dokumentasjon, 03 prosjektavklaring), with expected language differences | **SOURCE/IMAGE CORRESPONDENCE PASS** |
+| Independent device/owner signoff | This uploaded PNG exactly matches our previously generated local render and contains no browser UI, CSS viewport evidence, physical device model or assistive-tech results | **NOT_TESTED / NOT SIGNED** |
+
+**Combined standalone image result:** Norwegian and English SVG designs **VISUALLY COMPLETE at their full image scale**. This validates visual *assets* only, **not embedded About-page layout**. No changes or corrections to these source graphics are warranted from the currently submitted standalone images. It does **not** clear source risks R01/R02: the `object-fit:cover` hero can still crop the SVG at actual 1440px desktop and 360/390px mobile layouts, and embedded diagram microtext can become unreadable.
+
+**Remaining H01–H10 status: all NOT_TESTED for both language pages.** To complete human visual/device acceptance, view the **staged pages** from the exact review-branch revision in desktop Chromium/Firefox/WebKit, Android Chrome, iOS Safari and tablet, plus 200% zoom/keyboard/screen-reader tests; supply actual device+browser+CSS viewport and NO/EN rendered-page captures. **Do not use the live production domain as branch-preview evidence.** Because no private staged preview is deployed, reviewer access requires a locally opened branch checkout or a separately authorized preview method. Record named reviewer, decision, time, source SHA and evidence pointers before marking actual H01–H10 PASS.
+
+**Protected release state:** Owner in-person source authentication accepted; no repeat. Issue #43 OPEN (owner reviewed), #40 Lighthouse PAUSED, #44 Formspree ON HOLD. No CSS/HTML/SVG/JS modification, outbound requests, CI, PR, merge, deployment, DNS or release authorization. Canonical workstream E127–E128 records provenance and readback.
