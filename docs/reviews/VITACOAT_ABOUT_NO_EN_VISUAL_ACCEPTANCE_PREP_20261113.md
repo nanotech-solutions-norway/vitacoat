@@ -68,3 +68,19 @@ Each line must be evaluated separately in **both Norwegian and English**, agains
 **Source checks: 8/8 inspected**, of which S01–S04 and S06–S08 source structural findings are positive, S05 limited to SVG text. **Potential visual concerns R01/R02 high; R03/R04 medium; R05 documentary. Human tests H01–H10 = 0/10 executed**, for NO and EN separately. These source findings are not browser/device PASS decisions. User owner-authenticated relevant identities **in person**; this is not to be repeated.
 
 **No action against** Issue #40 Lighthouse PAUSED, Issue #44 Formspree ON HOLD, Issue #43 OPEN / owner review approved; no PR, CI, Lighthouse, GitHub branch merge, deployment, DNS, regulated claim, product efficacy certification or external correspondence. `main@de4bba618f421cca7023ceb2aa9b60e854960228` remains target for future gated release only. Full release completion **N/A%**; human acceptance **NOT_TESTED**.
+
+
+## Evidence update — 01:18, 15.11.2026: Norwegian standalone graphic screenshot
+
+**Classification:** USER-SUPPLIED IMAGE / VISUAL OBSERVATION ONLY / NOT OVERALL APPROVAL. The owner submitted one screenshot of the **Norwegian standalone source SVG**, not of the staged About webpage inside its responsive layout. User separately reported that the English SVG viewing link opens the same site; that navigation issue was not reproduced through public browsing, and neither source asset was modified.
+
+| Evidence item | Verified observation | Signoff limitation |
+| --- | --- | --- |
+| Norwegian screenshot | Attached image 1536×975 px; in-chat source SHA256 `c91b5345996c7c6ead21924e1073c76bad91f43241858958d9a164179c3002d9` | File remains in conversation and is **not uploaded to public GitHub**; no named device/browser/viewport metadata from user |
+| NO standalone visual | Main heading and subheading, right-hand graphic, three stage cards 01/02/03 and lower `Prosjektspesifikk gjennomgang` are visible; no obvious cropping or text overlap at screenshot scale | **STANDALONE_ASSET_VISUAL_COMPLETE** (observer finding). NOT a page-level H01–H10 PASS, not human signed ACCEPT. Footer close to bottom edge is a low-priority readability/watch item |
+| EN source and local viewing aid | English source `assets/img/vitacoat-about-review-en.svg` Git blob SHA `22be187806c3d9b16fcb32159ca8bd0e20d3e055` independently fetched; English text differs appropriately from Norwegian; PNG render built locally from bytes matching Git blob SHA exactly at 1600×1000, local PNG SHA256 `c5ced456b7ac04e61e4ff0398bdf587c3247c8e7c95dd244f29c808af33e4af4` | PNG provided to owner in chat only. **No English owner screenshot received and no English visual owner acceptance recorded**. Public GitHub/raw URL behavior not independently proven because webpage fetching returned cache miss |
+| Responsive layout and accessible interactions | No staged webpage screenshot, desktop/mobile viewport/device identification, 200% zoom, menu, keyboard or screen reader evidence supplied in this message | **H01–H10 for NO/EN remain NOT_TESTED**; source risks R01/R02 for `object-fit: cover` continue until page-in-context review |
+
+**Next human evidence request:** Capture the complete staged **About page** with the NO/EN SVG embedded at desktop and real mobile widths, including first and third diagram cards and footer at each breakpoint; record browser, device, CSS viewport, exact review revision, and keyboard/zoom/AT outcomes. A standalone image screenshot is useful initial artwork evidence but cannot replace this.
+
+**Protected scope:** Existing owner in-person authentication accepted; do not repeat identity verification. No CSS, SVG, HTML, JavaScript, PR, CI, Lighthouse, merge, deployment, issue-state or DNS changes. Issue #40 Lighthouse PAUSED; #44 Formspree owner HOLD; Issue #43 OPEN.
