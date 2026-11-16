@@ -107,3 +107,38 @@ Each line must be evaluated separately in **both Norwegian and English**, agains
 **Remaining H01–H10 status: all NOT_TESTED for both language pages.** To complete human visual/device acceptance, view the **staged pages** from the exact review-branch revision in desktop Chromium/Firefox/WebKit, Android Chrome, iOS Safari and tablet, plus 200% zoom/keyboard/screen-reader tests; supply actual device+browser+CSS viewport and NO/EN rendered-page captures. **Do not use the live production domain as branch-preview evidence.** Because no private staged preview is deployed, reviewer access requires a locally opened branch checkout or a separately authorized preview method. Record named reviewer, decision, time, source SHA and evidence pointers before marking actual H01–H10 PASS.
 
 **Protected release state:** Owner in-person source authentication accepted; no repeat. Issue #43 OPEN (owner reviewed), #40 Lighthouse PAUSED, #44 Formspree ON HOLD. No CSS/HTML/SVG/JS modification, outbound requests, CI, PR, merge, deployment, DNS or release authorization. Canonical workstream E127–E128 records provenance and readback.
+
+
+## Screenshot evidence — 09:54, 16.11.2026: live NO/EN About pages, NOT staged
+
+**Evidence class:** USER-SUPPLIED SCREENSHOTS OF PUBLISHED SITE / HUMAN-VIEWABLE VISUAL OBSERVATION / STAGED REVIEW STILL NOT TESTED. Owner attached four JPG screenshots without a new acceptance declaration; images remain in the private chat, **not copied to GitHub**. Observations apply to the live website addresses visible in the captures, not the staged `vc-nonlighthouse-content-review-20261109` branch. Current main `de4bba618f421cca7023ceb2aa9b60e854960228` contains old `assets/img/vitacoat-home-panel.svg` (blob `83adcc47e2e9cafd5afa57652300d6766011735e`) for both live About heroes. Review branch uses different staged neutral `vitacoat-about-review-no.svg`/`vitacoat-about-review-en.svg` artwork, **not present in the screenshots**.
+
+### Evidence map (private in-chat references only)
+
+| Attachment file | Source image pixels | Observable screenshot content | Provenance / interpretation |
+| --- | --- | --- | --- |
+| `1000026450.jpg` | 107×1536 | English full-page scroll composition; largely single-column content, header/sections/footer apparent | SHA256 `e01bba7d2ed7ad5b7c5479257db1a8c0d0d99bfaba9a686b3425194aa2a0182c`; extremely reduced width **prevents confident font-size, text contrast or fine detail inspection** |
+| `1000026448.jpg` | 404×1536 | English live `vitacoat.no/en/about/` visible with old hero containing fragmented `Persistent Hygienic Protection` / `VitaCoat` artwork; desktop-style two-column layout scaled to phone capture | SHA256 `0cc994a59a4f5d6cd0e1b45798df70839ac0a974e320f6f3cea94bb30476f41b`; screenshot is not a staged-asset preview; actual CSS viewport/desktop-site setting unreported |
+| `1000026446.jpg` | 413×1536 | Norwegian live `vitacoat.no/about/` (URL includes query parameter in captured address bar); old hero text visibly cropped at image edges; same desktop-style scaled layout | SHA256 `37085f058c82ee95d5aa10deaa161c3b2e1e9e491c7c5e4ddf5073f9c581bbfa`; physical CSS viewport and browser mode not known |
+| `1000026429.jpg` | 110×1536 | Norwegian full-page scroll composition with major page sections/footer apparent | SHA256 `97b1d640eeb803a66626358ecbbadeda5ff9860c7f84872232a2dcab5d2688cb`; reduced size cannot establish mobile legibility/accessibility |
+
+### Findings / action categories
+
+| Ref | Observation, with scope | Classification | Follow-up |
+| --- | --- | --- | --- |
+| L01 | Two full-length compositions show both language page structures, including company information, role separation, documentation guidance, call to action, footer | **LIVE STRUCTURAL PRESENCE OBSERVED**, not a functional/navigation PASS | Test actual responsive browser layout and interaction at reported viewport |
+| L02 | Wide-image screenshots of published NO/EN pages show old diagram chopped/truncated inside right hero media | **LIVE WIDE-LAYOUT VISUAL DEFECT OBSERVED** (high priority to remedy before claiming current production hero visual acceptance). The CSS `.hero-media img[src$=".svg"]{object-fit:cover}` supports plausible cropping mechanism, but source plus screenshots alone do not isolate all runtime causes | Verify in desktop-mode and mobile-mode with actual CSS viewport; separately propose fit/container/mobile-responsive adjustments under authorized engineering scope, do not change in this session |
+| L03 | 404/413px image files display two-column desktop-like page rather than one-column source CSS ≤860px | **POSSIBLE BROWSER DESKTOP-SITE MODE OR SCALED CSS VIEWPORT**, not proof of broken mobile breakpoint. The screenshot physical pixel width is not necessarily CSS viewport width | Record Chrome/Android version/device, desktop site toggle, display zoom, JS `innerWidth`/CSS viewport if available; capture both normal mobile and desktop-site mode |
+| L04 | Both live About pages still reference original production SVG, not neutral 2026 staged graphics. Old SVG contains historical `Persistent Hygienic Protection` and `EN-backed proof • up to six months` phrases in GitHub source | **STAGING/PRODUCTION MISMATCH CONFIRMED**; regulated efficacy/duration claim review remains under Issue #43. Cannot sign off staged pages using these screenshots. | Arrange separately authorized branch-preview/local checkout (without deploy/PR/CI under existing hold); review staged NO/EN graphics in-page at standard mobile+desktop sizes |
+| L05 | Only screenshots, no video/click path, input focus, accessibility tree, zoom before/after, specific device model, or reviewer signoff | **INTERACTION AND A11Y NOT_TESTED** | Execute existing H01–H10 checks and attach outcomes/qualified reviewer confirmation; avoid extrapolation |
+
+### Approval matrix update — cumulative evidence
+
+- **Standalone artwork:** NO and EN previously visually assessed as complete in full-scale source previews; unchanged. This **does not** approve responsive display.
+- **Live-production visual finding:** old About hero clipped in two user screenshots of desktop-like scaled display: **FAIL/DEFECT OBSERVED IN THAT VIEW**, browser/viewport mechanism unconfirmed. Two long screenshots document structural presence but insufficient detail for legibility acceptance.
+- **Staged About webpage:** **H01–H10 NOT_TESTED** for both languages; **NOT APPROVED**. The latest screenshot batch contains no staged technical-review SVG in an actual About webpage.
+- **No implied user approval:** screenshot submission is evidence, not an `ACCEPT` decision, and prior owner attestation applies to in-person identity authentication, not browser/device testing.
+- **Risk retention:** R01 `object-fit:cover` text/image cropping and R02 mobile microscopic SVG text remain open; source-only visual assessment from earlier sessions stays documented.
+- **Safe priority:** obtain exact testable staged preview at the review commit with explicit preview authorization, *then* validate actual NO/EN pages across Chromium/Firefox/WebKit, Android/iPhone/mobile widths, tablet, zoom/keyboard/AT. Separately propose a small code remediation if crop is reproduced in staged context; do not bypass the current Lighthouse/CI gate.
+
+**Governance:** Issue #40 Lighthouse PAUSED; Issue #44 Formspree owner HOLD; Issue #43 owner-review approved but professional content gates and release acceptance remain open. No CI, PR, merge, deploy, DNS, Formspree calls, public claim edits or repeat authentication performed during this assessment. `main` unchanged. The canonical per-workstream GitHub event ledger is the only operational source of truth; this file is an evidence worksheet.
