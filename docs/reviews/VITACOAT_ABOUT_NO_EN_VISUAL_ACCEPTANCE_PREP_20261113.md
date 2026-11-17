@@ -166,3 +166,22 @@ Each line must be evaluated separately in **both Norwegian and English**, agains
 **Scope guard:** Original `main@de4bba618f421cca7023ceb2aa9b60e854960228` unchanged, review branch contains approved source only. The user's visual approval does not itself lift Issues #40 Lighthouse or #44 Formspree holds, authorize PR or release, waive production CI performance tests, or approve external marketing/product claims. Maintain `H01–H10` of the **actual site** as uncompleted until integrated tests, not 10/10 complete merely because the isolated Chromium cases passed.
 
 **Canonical evidence log:** E133 WAL and E134 closeout in `docs/workstreams/VITA_IMPROVEMENTS_20261031_01.md`.
+
+
+## Owner private integrated-page review — approval attested 17.11.2026
+
+**Approval source:** Current user/owner expressly confirmed “Private review complete. All approved. Implement and proceed accordingly.” This **supersedes the open *owner decision* item for the existing NO and EN native About-page composition**. Status per language: `OWNER_ATTESTED_PRIVATE_REVIEW_APPROVED`. The previously completed standalone and isolated Chrome visual reviews are not being requested again.
+
+| Evidence or gate | NO / Norwegian | EN / English |
+| --- | --- | --- |
+| Owner aesthetic, translation and integrated visual/device acceptance | **OWNER_ATTESTED_APPROVED** | **OWNER_ATTESTED_APPROVED** |
+| Individual browser/physical device/200% zoom/keyboard and screen-reader test transcripts made available to this assistant | **NOT_PROVIDED / INDEPENDENTLY_UNVERIFIED** | **NOT_PROVIDED / INDEPENDENTLY_UNVERIFIED** |
+| Existing isolated headless Chromium 320/360/390/768/1440 screenshots and document-overflow checks | **5/5 previously verified (isolated only)** | **5/5 previously verified (isolated only)** |
+| Separate qualified formulation, BPR, SDS, claim, source rights review under Issue #43 | **REMAINS PENDING** | **REMAINS PENDING** |
+| Issue #40 performance/Lighthouse and Issue #44 Formspree owner holds | **NOT LIFTED** | **NOT LIFTED** |
+
+Do not silently alter the historical H01–H10 `NOT_TESTED` values in earlier source-only entries; this later **owner attestation** is a separate evidence class and is not independently observed device execution. No requirement to repeat the owner's private review absent a future material design change.
+
+**Implementation target for a future approved release:** clean branch `vc-about-owner-approved-release-candidate-20261117`, commit `2abbb456a9fc74bc0eac8410b88836f1a0b9ddb3`, based on existing unchanged production main. Only `about/index.html`, `en/about/index.html`, and `assets/css/styles.css` differ. Source byte/hash matching against the approved existing review branch verified; no new image binaries deployed. No pull request or CI workflow was initiated because opening a PR to main triggers the owner-paused Lighthouse quality job. The explicit #44 Formspree hold and #43 qualified product/claims gates are not overruled by the generalized statement “All approved.”
+
+**Operational audit:** Canonical GitHub workstream E135/E136; owner-attested design review versus independently observed validation separated. Production NOT DEPLOYED.
