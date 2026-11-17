@@ -332,3 +332,54 @@ tr:last-child td{border-bottom:0}
 #applications.section{content-visibility:visible;contain-intrinsic-size:auto}
 /* Avoid splitting the Norwegian homepage's compound term in the desktop hero. */
 @media(min-width:861px){html[lang="nb-NO"] #overview .hero-copy h1{font-size:clamp(2rem,3.35vw,3.15rem)}}
+
+
+/* VitaCoat owner-verified NO/EN About artwork — responsive native adaptation.
+ * Approved design references: owner PNGs 1000026468.png / 1000026467.png, 16.11.2026.
+ * Semantically rendered (not a pixel-identical image embed): text remains readable on mobile.
+ * Scoped only to the staged About pages; preserve global hero image behavior elsewhere. */
+.vc-approved-about-section .hero-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+.vc-approved-about-section .hero-copy{min-height:0;padding:clamp(30px,4vw,54px)}
+.vc-approved-about-art{position:relative;isolation:isolate;overflow:hidden;margin:0;padding:clamp(20px,3vw,48px);background:linear-gradient(145deg,#eefaff 0%,#dcf7ff 53%,#d4f3fa 100%);border:1px solid #d0edf5;border-radius:30px;box-shadow:0 15px 42px rgba(0,98,133,.08)}
+.vc-approved-about-art::before,.vc-approved-about-art::after{position:absolute;z-index:-1;content:"";pointer-events:none;border-radius:50%;border:clamp(50px,9vw,140px) solid rgba(127,211,231,.16)}
+.vc-approved-about-art::before{width:72%;height:75%;right:-30%;top:-34%;transform:rotate(-24deg)}
+.vc-approved-about-art::after{width:105%;height:80%;left:-48%;bottom:-59%;transform:rotate(-15deg)}
+.vc-approved-about-head{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,.9fr);align-items:stretch;gap:24px;padding:clamp(24px,3.2vw,48px);min-width:0;border:1px solid #d5e9ee;border-radius:24px;background:rgba(255,255,255,.86);box-shadow:0 8px 28px rgba(0,77,106,.07)}
+.vc-approved-about-copy{min-width:0;align-self:center}
+.vc-approved-about-eyebrow{display:flex;align-items:center;gap:16px;margin:0 0 16px!important;color:#007b99;font-size:clamp(.82rem,1.3vw,1.18rem);font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.vc-approved-about-eyebrow::before{content:"";display:block;width:7px;height:41px;flex:0 0 7px;border-radius:8px;background:#008aab}
+.vc-approved-about-brand{margin:0 0 18px!important;color:#15313f!important;font-size:clamp(2.7rem,5.4vw,4.9rem);font-weight:800;letter-spacing:-.06em;line-height:1.04}
+.vc-approved-about-copy h2{display:flex;flex-direction:column;gap:3px;margin:0 0 18px;font-size:clamp(1.75rem,3.9vw,3.8rem);font-weight:800;letter-spacing:-.045em;line-height:1.12;text-wrap:balance}
+.vc-approved-about-copy h2 span:first-child{color:#007fa4}
+.vc-approved-about-copy h2 span:last-child{color:#132e3a}
+.vc-approved-about-lead{max-width:62ch;margin:0!important;color:#5c7079!important;font-size:clamp(.98rem,1.48vw,1.25rem);line-height:1.45}
+.vc-approved-about-layers{display:flex;min-width:0;min-height:305px;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:22px;border-radius:26px;background:linear-gradient(165deg,#e5f6fc,#d8f1fa)}
+.vc-approved-about-layers svg{display:block;width:min(100%,350px);height:auto}
+.vc-approved-about-layers>span{align-self:stretch;border-radius:100px;padding:8px 12px;background:rgba(255,255,255,.92);text-align:center;color:#225766;font-size:.9rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.vc-approved-about-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;list-style:none;margin:30px 0;padding:0}
+.vc-approved-about-steps li{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:215px;padding:clamp(20px,2.4vw,30px);border:1px solid #c8e6ef;border-radius:24px;background:rgba(255,255,255,.9);box-shadow:0 9px 20px rgba(0,77,106,.06)}
+.vc-approved-about-index{display:grid;place-items:center;width:64px;height:64px;flex:none;margin-bottom:26px;border-radius:50%;background:#e0f6fa;color:#007e9d;font-weight:800;font-size:1.45rem;font-variant-numeric:tabular-nums}
+.vc-approved-about-steps h3{margin:0 0 8px;color:#173943;font-size:clamp(1.18rem,2.05vw,1.8rem);letter-spacing:-.035em;line-height:1.17;overflow-wrap:normal;text-wrap:pretty}
+.vc-approved-about-steps p{margin:0!important;color:#546974;font-size:clamp(.97rem,1.45vw,1.18rem);line-height:1.45}
+.vc-approved-about-foot{margin:0;padding:12px 0 0;border-top:2px solid #9bdce7;color:#59717b;font-size:clamp(.89rem,1.3vw,1.1rem)}
+@media(max-width:860px){
+  .vc-approved-about-head{grid-template-columns:minmax(0,1fr);gap:20px}
+  .vc-approved-about-layers{min-height:0;max-width:450px;width:100%;justify-self:center}
+  .vc-approved-about-steps{grid-template-columns:1fr;gap:14px;margin:20px 0}
+  .vc-approved-about-steps li{min-height:0;padding:22px}
+  .vc-approved-about-index{width:50px;height:50px;margin-bottom:14px;font-size:1.16rem}
+  .vc-approved-about-steps h3{font-size:1.33rem}
+  .vc-approved-about-steps p{font-size:1.01rem}
+}
+@media(max-width:520px){
+  .vc-approved-about-art{padding:13px;border-radius:22px}
+  .vc-approved-about-head{padding:21px 18px;border-radius:18px}
+  .vc-approved-about-eyebrow{font-size:.73rem;letter-spacing:.11em;gap:11px}
+  .vc-approved-about-eyebrow::before{height:34px}
+  .vc-approved-about-brand{font-size:2.8rem}
+  .vc-approved-about-copy h2{font-size:clamp(1.5rem,7vw,2.1rem)}
+  .vc-approved-about-layers{padding:12px;border-radius:18px}
+  .vc-approved-about-layers svg{max-width:260px}
+  .vc-approved-about-steps li{padding:22px 19px;border-radius:18px}
+  .vc-approved-about-steps h3{font-size:1.25rem}
+}
