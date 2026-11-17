@@ -43,3 +43,37 @@ Changes in this branch:
 **Owner image references:** APPROVED. **Implementation source-only:** requires readback. **Human staged page in-browser test:** PENDING for desktop Chromium/Firefox/WebKit, Android/iOS/tablet, 200% zoom, keyboard and assistive technology. **Regulated claims and rights:** separately governed by open Issue #43. Issue #40 Lighthouse remains PAUSED and Issue #44 Formspree remains on owner HOLD.
 
 [Original QA evidence and test matrix](VITACOAT_ABOUT_NO_EN_VISUAL_ACCEPTANCE_PREP_20261113.md) · [Canonical workstream ledger](../workstreams/VITA_IMPROVEMENTS_20261031_01.md).
+
+## Owner approval — 17.11.2026: isolated responsive composition
+
+**Owner decision:** On 17.11.2026 the owner replied **“Approved. Proceed”** immediately following a presentation of the implemented **Norwegian/English desktop and mobile isolated HTML/CSS previews**, referencing review branch commit `9f1af91015e1f816b5303c836934ccd47987c1e2`. This confirms **OWNER_APPROVED_VISUAL_DESIGN** for the previewed native adaptation and its bilingual text; do not ask again for the same design approval. The owner previously verified the submitted source images on 16.11.2026. Approval is not independently authenticated physical-browser performance, statutory product efficacy/BPR/CLP/SDS release, an original laboratory report reproduction licence, or consent to bypass the explicit CI/Lighthouse/Formspree holds.
+
+**Evidence class:** The reviewed artwork is *native HTML/CSS*, not newly uploaded binary source PNGs, and was shown as isolated reconstructed component screenshots. No active staging site or full connected page was viewed by the owner in the approval message. Current approved branch target `vc-nonlighthouse-content-review-20261109@9f1af91015e1f816b5303c836934ccd47987c1e2` before documentation-only approval recording.
+
+### Offline isolated Chromium review (not CI or production)
+
+Local Playwright headless Chromium examined the exact previously provided standalone HTML previews, with review widths **320, 360, 390, 768 and 1440 CSS px per language** (10 combinations). Results verified in independently generated local JSON output:
+
+| Metric | Result | Acceptance scope |
+| --- | --- | --- |
+| Document-level horizontal overflow (`scrollWidth > clientWidth + 1`) | **0 / 10 scenarios** | Isolated component layout only |
+| Three process cards stack vertically at viewport ≤860px | **8 / 8 narrow scenarios** | Isolated component layout only |
+| Native text instead of legacy cropped `img` | **10 / 10** | Avoids historical `object-fit:cover` in approved local figure |
+| Correct NO/EN stage headings | **10 / 10 source/layout inspections** | Not an independent professional copy/regulatory approval |
+| Measured 3–6px VitaCoat wordmark `scrollHeight > clientHeight` | **Minor font-metric diagnostic**, image visibly intact | Inspect under real fonts/browser/zoom in integrated route |
+| Physical Android/iPhone and other engine, keyboard/AT, 200% zoom | **NOT_TESTED** | Still a separate pre-release human QA gate |
+
+**Environment/recovery:** Initial direct `file://` navigation returned `ERR_BLOCKED_BY_ADMINISTRATOR` in local browser automation. No provider/system settings changed. The same local HTML preview was instead loaded using the Playwright `set_content` method; Chromium tests completed successfully. This recovery does not constitute an app regression.
+
+**Local deliverable:** `VitaCoat_Approved_About_Review_Pack_20261117.zip` SHA256 `574b199dbd282864377e28891ecc1f46f63e67dfaa13361725c61ceec66ee065`, locally verified ZIP with **15 files**, containing isolated HTMLs, earlier owner-reviewed 4 preview screenshots, extra 320/390/1440 Chromium screenshots, JSON measurements and README. Delivered only inside the ChatGPT session; not pushed or made publicly accessible via GitHub.
+
+### Release gates and exact status
+- Design **OWNER APPROVED** for both Norwegian and English native isolated previews.
+- Branch-level source integration **VERIFIED**, with exact owner-approved copy, layout classes and responsive styles in GitHub.
+- Full connected staged About-page human review **PENDING**: desktop cross-browser, actual mobile/tablet, keyboard/screen reader, 200% zoom, navigation, optional production verification under separately authorized deployment.
+- **Issue #43 OPEN** for claim/publication decisions beyond this non-regulated visual approval.
+- **Issue #40 Lighthouse PAUSED**, **Issue #44 Formspree OWNER HOLD**, no permission inferred from the approval to lift either.
+- **No PR, CI/Lighthouse workflow, merge, deployment, DNS change, producer/legal signoff or external request** in this update.
+- Before any actual release, explicitly reconcile the project production-handoff requirements and the holds; only then run original gates and accept production.
+
+**Tracking:** Canonical append-only ledger E133–E134 (`docs/workstreams/VITA_IMPROVEMENTS_20261031_01.md`); this approval record is derived documentation, not a competing ledger.
