@@ -142,3 +142,27 @@ Each line must be evaluated separately in **both Norwegian and English**, agains
 - **Safe priority:** obtain exact testable staged preview at the review commit with explicit preview authorization, *then* validate actual NO/EN pages across Chromium/Firefox/WebKit, Android/iPhone/mobile widths, tablet, zoom/keyboard/AT. Separately propose a small code remediation if crop is reproduced in staged context; do not bypass the current Lighthouse/CI gate.
 
 **Governance:** Issue #40 Lighthouse PAUSED; Issue #44 Formspree owner HOLD; Issue #43 owner-review approved but professional content gates and release acceptance remain open. No CI, PR, merge, deploy, DNS, Formspree calls, public claim edits or repeat authentication performed during this assessment. `main` unchanged. The canonical per-workstream GitHub event ledger is the only operational source of truth; this file is an evidence worksheet.
+
+
+## Owner approval and bounded Chromium checks — 17.11.2026
+
+**Authority:** Owner directly approved the previously rendered native NO/EN About composition screenshots in the chat (`Approved. Proceed`). **VISUAL_DESIGN_OWNER_APPROVED** for the **isolated preview layout**, with no qualification needed to reapprove the same design again. This supplements the source-only QA planning and 15–16 November screenshot entries; it does not erase or overwrite the earlier historical version facts.
+
+**Local browser evidence:** A bounded **headless Chromium** inspection was run in-chat against the reconstructed isolated HTML previews (source design revision `9f1af91015e1f816b5303c836934ccd47987c1e2`) for each of `NO/EN × 320, 360, 390, 768, 1440 CSS px`. **10/10** component cases have no document-level horizontal scroll; all **8/8** cases ≤860px have a single-column 3-step card layout and no old `<img>` in the figure. Standalone screenshots at width 320/390/1440 were also rendered locally (not deployed). The metric `fig.scrollWidth > fig.clientWidth` is expected for intentionally clipped pseudo-element ambient backgrounds and is **not itself evidence of lost content**. Minor font-metric wordmark line-height diagnostic up to 6px, visually appears intact in captured screenshots; test fonts and zoom on actual site before full signoff.
+
+**Tool recovery:** Local Chromium `file://` was blocked by the sandbox browser administrator. The same preview HTML bytes were loaded using `page.set_content()`, no runtime/browser policy or website configuration changed. No GitHub CI/Lighthouse, cloud browser or external site call was needed.
+
+| QA acceptance category | NO | EN | What remains |
+| --- | --- | --- | --- |
+| Owner aesthetic approval of native isolated desktop/mobile composition | **OWNER_APPROVED** | **OWNER_APPROVED** | No repeat standalone approval required |
+| Isolated headless Chromium layout at 320/360/390/768/1440 | **PASS (5/5)** | **PASS (5/5)** | Record exact browser environment as local simulation, not physical device |
+| Full staged About-page cross-browser including header/nav/footer | **NOT_TESTED** | **NOT_TESTED** | Must obtain actual staged integration page in review environment |
+| Physical Android and iOS Safari; tablet, keyboard/screen reader, 200% zoom | **NOT_TESTED** | **NOT_TESTED** | Human/device independent evidence required |
+| Issue #43 regulated technical claims, publication rights or qualified BPR/SDS signoff | **NOT_DECIDED** | **NOT_DECIDED** | Separate legal/product release gate, not delegated by image approval |
+| Issue #40 and #44 owner holds | **PAUSED / ON_HOLD** | **PAUSED / ON_HOLD** | Not lifted by visual approval |
+
+**Artifact:** In-chat review ZIP `VitaCoat_Approved_About_Review_Pack_20261117.zip` SHA256 `574b199dbd282864377e28891ecc1f46f63e67dfaa13361725c61ceec66ee065`, 15 entries with HTML component files, PNG snapshots, JSON measurements and caveats; deliberately not copied to public GitHub. No personal/private customer data or user screenshot bytes embedded in this public register.
+
+**Scope guard:** Original `main@de4bba618f421cca7023ceb2aa9b60e854960228` unchanged, review branch contains approved source only. The user's visual approval does not itself lift Issues #40 Lighthouse or #44 Formspree holds, authorize PR or release, waive production CI performance tests, or approve external marketing/product claims. Maintain `H01–H10` of the **actual site** as uncompleted until integrated tests, not 10/10 complete merely because the isolated Chromium cases passed.
+
+**Canonical evidence log:** E133 WAL and E134 closeout in `docs/workstreams/VITA_IMPROVEMENTS_20261031_01.md`.
