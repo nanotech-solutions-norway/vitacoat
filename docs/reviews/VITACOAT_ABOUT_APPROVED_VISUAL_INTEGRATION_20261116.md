@@ -77,3 +77,24 @@ Local Playwright headless Chromium examined the exact previously provided standa
 - Before any actual release, explicitly reconcile the project production-handoff requirements and the holds; only then run original gates and accept production.
 
 **Tracking:** Canonical append-only ledger E133–E134 (`docs/workstreams/VITA_IMPROVEMENTS_20261031_01.md`); this approval record is derived documentation, not a competing ledger.
+
+
+## Owner private integrated review acceptance — 17.11.2026
+
+**Decision:** `OWNER_ATTESTED_PRIVATE_REVIEW_APPROVED`. The project owner expressly states on 17.11.2026: “Private review complete. All approved. Implement and proceed accordingly.” Covers the owner-controlled **Norwegian and English About design, localization, page visual/device review and native responsive composition** previously implemented and previewed. Accept this completed private review without requesting repeat design authentication or personal signoff. This is not a signed issuer report/licence, new formulation, qualified BPR/SDS/CLP determination or manufacturer authorisation.
+
+**Evidence integrity:** This approval is **owner attestation**; the private device/browser review matrix, individual screenshots, detailed operating system/browser versions, accessibility tree and test recordings were not separately provided to ChatGPT and have **NOT been independently validated here**. Do not relabel old historical `NOT_TESTED` rows as automatically executed independent tests. The new decision is owner-approved at the integrated page level, while third-party independent testing remains `EVIDENCE_NOT_AVAILABLE_IN_CHAT`.
+
+**Release packaging implemented:** On 17.11.2026, created clean, intentionally **unmerged** source candidate `vc-about-owner-approved-release-candidate-20261117@2abbb456a9fc74bc0eac8410b88836f1a0b9ddb3` based directly on verified unchanged `main@de4bba618f421cca7023ceb2aa9b60e854960228`. GitHub comparison readback shows **exactly 3 changed files**, with matching Git blob hashes to approved working branch source:
+
+| Release candidate path | Approved Git blob SHA |
+| --- | --- |
+| `about/index.html` | `024953aff75abf1822631d5ab393e13336790f48` |
+| `en/about/index.html` | `7a8d08f77c1427071d8fec124a7bbb63c92510f1` |
+| `assets/css/styles.css` | `137b8a2075018c614a294f738aa10996a7ec82f6` |
+
+**Why isolated:** The original `vc-nonlighthouse-content-review-20261109` was 62 commits ahead of main and included 25 changed paths, mostly regulatory evidence and other held review documentation. Clean candidate has **one commit on main, exactly the intended three source paths**, and leaves existing claim/BPR/Formspree documentation out of any later release diff. Original neutral SVG files remain source-reference history and are not part of this native HTML/CSS release candidate.
+
+**Do not infer release authorization:** Current source-specific issue gates are independent of private visual signoff. #40 quality cold-run/Lighthouse pause remains explicit until separately lifted with original thresholds intact; #43 claim/regulatory/publication-rights issue remains OPEN, with qualified signoffs unverified; #44 account-side Formspree stays ON HOLD. A GitHub PR to `main` would immediately trigger production-quality Lighthouse workflows despite the current pause. Therefore **no PR, CI, Lighthouse, merge, deploy, DNS or published claim changes were performed**. Future release requires a separate recorded resolution of blocking gates and full repository production handoff checks. GitHub source and any open production site remain unchanged.
+
+**Canonical ledger:** `docs/workstreams/VITA_IMPROVEMENTS_20261031_01.md` E135 onward; this appendix is a derived owner decision and candidate source manifest.
