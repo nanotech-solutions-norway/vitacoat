@@ -31,6 +31,31 @@ for child in ROOT.iterdir():
     elif child.name != "README.md":
         shutil.copy2(child, target)
 
+# Issue #43: retain source provenance in Git, but exclude the legacy SVG with
+# unapproved six-month efficacy wording from the published Pages artifact.
+# Fail closed if an active public page, script or visual still references it.
+HISTORICAL_CLAIM_ASSETS = ("assets/img/vitacoat-home-panel.svg",)
+for relative_asset in HISTORICAL_CLAIM_ASSETS:
+    site_asset = OUT / relative_asset
+    if not site_asset.is_file():
+        raise SystemExit(f"Expected historical asset missing during review build: {relative_asset}")
+    active_references = []
+    for candidate in OUT.rglob("*"):
+        if (
+            not candidate.is_file()
+            or candidate == site_asset
+            or candidate.suffix.lower() not in {".html", ".css", ".js", ".json", ".xml", ".svg"}
+        ):
+            continue
+        if site_asset.name in candidate.read_text(encoding="utf-8", errors="ignore"):
+            active_references.append(candidate.relative_to(OUT).as_posix())
+    if active_references:
+        raise SystemExit(
+            f"Historical unapproved SVG still referenced by published content: "
+            f"{relative_asset} -> {', '.join(sorted(active_references))}"
+        )
+    site_asset.unlink()
+
 homepage_paths = (OUT / "index.html", OUT / "en" / "index.html")
 hero_preload_pattern = re.compile(
     r'<link\b(?=[^>]*\brel=["\']preload["\'])(?=[^>]*\bas=["\']image["\'])'
