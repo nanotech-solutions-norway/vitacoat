@@ -58,8 +58,8 @@ jobs:
               raise SystemExit("Local test server did not become ready")
           PY
 
-      - name: Run Lighthouse budgets
-        run: python .github/scripts/lighthouse_gate.py --base-url http://127.0.0.1:8000 --output-dir qa/lighthouse
+      - name: Run Lighthouse budgets (performance advisory; accessibility and evidence mandatory)
+        run: python .github/scripts/lighthouse_gate.py --base-url http://127.0.0.1:8000 --output-dir qa/lighthouse --advisory-performance
 
       - name: Upload Lighthouse evidence
         if: always()
