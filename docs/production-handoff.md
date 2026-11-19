@@ -19,7 +19,7 @@ This document is the final operational handoff for the VitaCoat website reconstr
 - Qualifying JPEG assets are converted to optimized WebP derivatives during the build.
 - Build-time release enhancement adds visible breadcrumbs and matching `BreadcrumbList` JSON-LD to canonical non-home pages.
 - The download centers expose a `CollectionPage` model with the six currently published PDF resources represented as `DigitalDocument` items.
-- GitHub Pages publishes only after static SEO, frontend, accessibility, release and production-quality gates pass.
+- GitHub Pages publishes only after static SEO, frontend, accessibility, release and mandatory production-quality gates pass. Owner-approved Lighthouse performance metrics are monitored as advisories under the 19.11.2026 policy rather than being an automatic merge blocker; missing evidence or below-minimum accessibility, best-practices and SEO scores remain job failures.
 - Post-deploy production acceptance validates the custom domain.
 
 ## Automated release gates
@@ -32,7 +32,7 @@ This document is the final operational handoff for the VitaCoat website reconstr
 4. Accessibility and agent-readiness audit across all canonical pages.
 5. Release audit covering sitemap, canonical URLs, hreflang, JSON-LD, links, images, robots and discovery files.
 6. Breadcrumb and downloadable-document schema generation.
-7. Lighthouse lab budgets.
+7. Lighthouse lab monitoring (original performance/LCP/CLS/TBT values as advisories; original accessibility, best-practices and SEO minimums and complete evidence stay blocking).
 8. Cross-browser responsive smoke tests in Chromium, Firefox and WebKit.
 9. Responsive screenshot capture at 360 px mobile and 1440 px desktop.
 10. Security baseline, dependency review and CodeQL.
@@ -40,6 +40,10 @@ This document is the final operational handoff for the VitaCoat website reconstr
 12. Live production acceptance against `www.vitacoat.no`.
 
 ## Lighthouse acceptance budgets
+
+**Owner-approved policy update — 19.11.2026 (staged; effective only upon approved merge):** Keep the same pinned Lighthouse, categories, representative NO/EN routes, first-cold Norwegian mobile samples and every numeric limit below. For the GitHub Actions release quality job, performance score, lab LCP/CLS and TBT are **monitoring advisories**, not automatic job failures; all violations remain warnings in the run summary and original raw JSON plus `monitoring_status.json` are uploaded. The scores remain diagnostic targets, **not waived or replaced by warm-run medians**. Lighthouse accessibility, best-practices and SEO minimums, invalid/missing reports, build integrity, static accessibility/SEO audits, browser smoke and security stay mandatory. The CLI without `--advisory-performance` retains strict default behavior. A green advisory Lighthouse job does **not** mean all performance budgets passed; explicitly inspect warnings and first-cold measurements before release approval.
+
+This owner-approved scoped update supersedes only the former Lighthouse **performance-blocking** policy of Issue #40 after release. Issue #40 remains OPEN until monitoring is validated and the cold-start impact responsibly tracked; no closure follows from advisory CI success. Issue #43 qualified product/regulatory/publication rights release criteria and Issue #44 Formspree owner HOLD remain independent. A separate final release decision remains necessary before merging PR #45, and the current production site still uses the old gates until an approved merge.
 
 Representative Norwegian and English pages are tested in mobile and desktop modes.
 
@@ -127,7 +131,7 @@ For future website changes:
 3. Keep claims inside the approved evidence and limitation framework.
 4. Run the existing PR checks.
 5. Review Lighthouse/browser artifacts when layout, navigation or media changes.
-6. Merge only with required checks green.
+6. Merge only with mandatory checks green and a documented owner evaluation of Lighthouse performance advisories, with separate product/regulatory release approvals as applicable; a green advisory Lighthouse job alone is not proof the budgets passed.
 7. Confirm the main deployment and post-deploy production acceptance are green.
 8. For material content or URL changes, update Search Console/Bing account-side records as applicable.
 
